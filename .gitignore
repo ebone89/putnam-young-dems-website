@@ -10,3 +10,10 @@ desktop.ini
 
 # Preview/scratch files
 pcyd-website-preview.html
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
