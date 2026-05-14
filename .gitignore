@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor temp files
+*.swp
+*.swo
+*~
+
+# Preview/scratch files
+pcyd-website-preview.html

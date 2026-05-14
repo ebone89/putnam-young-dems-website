@@ -1,0 +1,534 @@
+/* ============================================================
+   PCYD Website Stylesheet
+   Putnam County Young Democrats - putnamyoungdems.org
+   Brand palette established April 2026
+   ============================================================ */
+
+/* --- Google Fonts Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+/* --- CSS Custom Properties (Brand Palette) --- */
+:root {
+  /* Core colors */
+  --river-blue: #1B5E9E;
+  --azalea-pink: #D6448E;
+  --clean-white: #FFFFFF;
+
+  /* Extended palette */
+  --dark-river: #0F3D6B;
+  --light-azalea: #F2D0E2;
+  --slate-text: #2D3748;
+  --mist-gray: #E8ECF1;
+
+  /* Typography */
+  --font-headline: 'Montserrat', Arial, sans-serif;
+  --font-body: 'Open Sans', Helvetica, sans-serif;
+  --font-accent: 'Playfair Display', Georgia, serif;
+
+  /* Spacing */
+  --section-padding: 4rem 2rem;
+  --container-max: 1100px;
+  --nav-height: 70px;
+}
+
+/* --- Reset and Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--slate-text);
+  background: var(--clean-white);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--river-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--azalea-pink);
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  color: var(--dark-river);
+  line-height: 1.3;
+}
+
+h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 1rem; }
+h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.75rem; }
+h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+p {
+  margin-bottom: 1rem;
+}
+
+.accent-text {
+  font-family: var(--font-accent);
+  font-weight: 600;
+}
+
+/* --- Layout --- */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  padding: var(--section-padding);
+}
+
+/* --- Navigation --- */
+.site-nav {
+  background: var(--dark-river);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+}
+
+.site-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-brand {
+  color: var(--clean-white);
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.nav-logo {
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.nav-brand span {
+  color: var(--azalea-pink);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.75rem;
+}
+
+.nav-links a {
+  color: var(--clean-white);
+  font-family: var(--font-headline);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--azalea-pink);
+  border-bottom-color: var(--azalea-pink);
+}
+
+/* Hamburger menu toggle (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--clean-white);
+  margin: 5px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: linear-gradient(135deg, var(--river-blue) 0%, var(--dark-river) 100%);
+  color: var(--clean-white);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  color: var(--clean-white);
+  font-size: 2.8rem;
+  margin-bottom: 1.25rem;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  opacity: 0.92;
+  line-height: 1.8;
+}
+
+.hero .tag {
+  display: inline-block;
+  background: var(--azalea-pink);
+  color: var(--clean-white);
+  font-family: var(--font-headline);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 1rem;
+  border-radius: 3px;
+  margin-bottom: 1.5rem;
+}
+
+
+/* --- Hero Banner Image --- */
+.hero-banner {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto 1.75rem;
+  display: block;
+}
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--azalea-pink);
+  color: var(--clean-white);
+}
+
+.btn-primary:hover {
+  background: #c13a7d;
+  color: var(--clean-white);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--clean-white);
+  border: 2px solid var(--clean-white);
+}
+
+.btn-outline:hover {
+  background: var(--clean-white);
+  color: var(--dark-river);
+}
+
+.btn-secondary {
+  background: var(--river-blue);
+  color: var(--clean-white);
+}
+
+.btn-secondary:hover {
+  background: var(--dark-river);
+  color: var(--clean-white);
+}
+
+/* --- Content Sections --- */
+.section-light {
+  background: var(--clean-white);
+}
+
+.section-gray {
+  background: var(--mist-gray);
+}
+
+.section-blue {
+  background: var(--river-blue);
+  color: var(--clean-white);
+}
+
+.section-blue h2,
+.section-blue h3 {
+  color: var(--clean-white);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header p {
+  max-width: 600px;
+  margin: 0.5rem auto 0;
+  color: #5a6a7a;
+}
+
+/* --- Card Grid --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--clean-white);
+  border: 1px solid var(--mist-gray);
+  border-radius: 6px;
+  padding: 2rem 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  color: var(--river-blue);
+  margin-bottom: 0.75rem;
+}
+
+/* --- Event Card --- */
+.event-card {
+  background: var(--clean-white);
+  border-left: 4px solid var(--azalea-pink);
+  border-radius: 6px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.event-card .event-date {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: var(--azalea-pink);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.event-card h3 {
+  color: var(--dark-river);
+  margin-bottom: 0.5rem;
+}
+
+.event-card .event-details {
+  font-size: 0.95rem;
+  color: #5a6a7a;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Contact Info Block --- */
+.contact-block {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.contact-item h3 {
+  color: var(--river-blue);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.contact-item p {
+  margin-bottom: 0.25rem;
+}
+
+/* --- Contact Form --- */
+.contact-form {
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+  color: var(--dark-river);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: 1px solid var(--mist-gray);
+  border-radius: 4px;
+  background: var(--clean-white);
+  color: var(--slate-text);
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--river-blue);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--dark-river);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.site-footer a {
+  color: var(--azalea-pink);
+}
+
+.site-footer a:hover {
+  color: var(--light-azalea);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+}
+
+.footer-links a:hover {
+  color: var(--azalea-pink);
+}
+
+/* --- Utility --- */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 3rem 1.25rem;
+  }
+
+  /* Show hamburger, hide nav links by default */
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--dark-river);
+    flex-direction: column;
+    padding: 1rem 2rem 1.5rem;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .site-nav .container {
+    position: relative;
+  }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+
+  .hero {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-block {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.7rem; }
+
+  .hero {
+    padding: 2.5rem 1rem;
+  }
+
+  .btn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
