@@ -70,21 +70,27 @@
     </div>
   </section>
 
-  <!-- Featured Event -->
+  <!-- Featured Event — populated by assets/js/next-meeting.js -->
   <section class="section-gray">
     <div class="container">
       <div class="section-header">
         <h2>Next Event</h2>
       </div>
-      <div class="event-card" style="max-width: 700px; margin: 0 auto;">
-        <div class="event-date">Thursday, June 4, 2026 &middot; 6:30 p.m.</div>
-        <h3>Monthly Meeting</h3>
-        <p class="event-details">Putnam County Democratic Center, 914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>
-        <p>PCYD's first monthly member meeting. All members and prospective members are welcome. Agenda items, officer updates, and planning for upcoming outreach and events.</p>
-        <a href="events.html" class="btn btn-secondary mt-2">Event Details</a>
-      </div>
+      <div class="event-card" id="next-meeting-card" style="max-width: 700px; margin: 0 auto;"></div>
     </div>
   </section>
+
+  <script src="assets/js/next-meeting.js"></script>
+  <script>
+    // Render the next meeting card from the shared config file
+    const card = document.getElementById("next-meeting-card");
+    card.innerHTML =
+      '<div class="event-date">' + NEXT_MEETING.dateLabel + '</div>' +
+      '<h3>' + NEXT_MEETING.title + '</h3>' +
+      '<p class="event-details">' + NEXT_MEETING.location + ', ' + NEXT_MEETING.address + ', ' + NEXT_MEETING.cityState + '</p>' +
+      '<p>' + NEXT_MEETING.description + '</p>' +
+      '<a href="events.html" class="btn btn-secondary mt-2">Event Details</a>';
+  </script>
 
   <!-- Community Context (brief) -->
   <section class="section-blue">

@@ -34,30 +34,15 @@
     </div>
   </section>
 
-  <!-- Upcoming Events -->
+  <!-- Upcoming Events — next monthly meeting populated by assets/js/next-meeting.js -->
   <section class="section-light">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
         <h2>Upcoming Events</h2>
       </div>
 
-      <!-- ICE OUT Cream Social -->
-      <div class="event-card">
-        <div class="event-date">Saturday, May 2, 2026 &middot; 12:00 p.m. to 2:00 p.m.</div>
-        <h3>ICE OUT Cream Social</h3>
-        <p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>
-        <p>The public launch event for PCYD. Come meet your neighbors, learn about what we are building, and sign up to be part of the founding chapter. This event is open to anyone interested in civic engagement and local Democratic organizing.</p>
-        <p><strong>What to expect:</strong> introductions, a brief overview of PCYD's goals, a chance to sign up as a founding member, and conversation with local Democrats of all ages. Refreshments provided.</p>
-      </div>
-
-
-      <!-- June Monthly Meeting -->
-      <div class="event-card">
-        <div class="event-date">Thursday, June 4, 2026 &middot; 6:30 p.m.</div>
-        <h3>Monthly Meeting</h3>
-        <p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>
-        <p>PCYD's first monthly member meeting. All members and prospective members are welcome. Expect officer updates, agenda items, and planning for upcoming outreach and events ahead of the 2026 qualifying window.</p>
-      </div>
+      <!-- Next Monthly Meeting (rendered from config) -->
+      <div class="event-card" id="next-meeting-card"></div>
 
       <!-- Precinct Qualifying Window (informational) -->
       <div class="event-card">
@@ -66,6 +51,34 @@
         <p class="event-details">Putnam County Supervisor of Elections</p>
         <p>The qualifying window for Democratic Precinct Committeeman and Committeewoman seats opens at noon on Monday, June 8 and closes at noon on Friday, June 12, 2026. If you are interested in running for a precinct seat, PCYD can help you understand the process and eligibility requirements.</p>
         <p><strong>Basic eligibility:</strong> You must reside in the precinct and must have been a registered Democrat for at least one year before qualifying begins. Confirm current form versions and filing instructions with the Putnam County Supervisor of Elections before filing.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/js/next-meeting.js"></script>
+  <script>
+    // Render the next meeting card from the shared config file
+    const card = document.getElementById("next-meeting-card");
+    card.innerHTML =
+      '<div class="event-date">' + NEXT_MEETING.dateLabel + '</div>' +
+      '<h3>' + NEXT_MEETING.title + '</h3>' +
+      '<p class="event-details">' + NEXT_MEETING.location + '<br>' + NEXT_MEETING.address + ', ' + NEXT_MEETING.cityState + '</p>' +
+      '<p>' + NEXT_MEETING.description + '</p>';
+  </script>
+
+  <!-- Past Events -->
+  <section class="section-light" style="padding-top: 0;">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>Past Events</h2>
+      </div>
+
+      <!-- ICE OUT Cream Social -->
+      <div class="event-card" style="opacity: 0.7;">
+        <div class="event-date">Saturday, May 2, 2026 &middot; 12:00 p.m. to 2:00 p.m.</div>
+        <h3>ICE OUT Cream Social</h3>
+        <p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>
+        <p>The public launch event for PCYD. Members and neighbors came together to learn about what we are building and sign up as founding chapter members.</p>
       </div>
     </div>
   </section>
