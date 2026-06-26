@@ -1,3 +1,13 @@
 {
-  "events": []
+  "events": [
+    {
+      "published": true,
+      "title": "Crescent City Voter Registration Drive and Community BBQ",
+      "dateLabel": "Saturday July 11th, 2026 - 10AM - 2PM",
+      "location": "Crescent City Women's Civic Assoc",
+      "address": "704 Huntington Rd",
+      "cityState": " Crescent City, FL 32112",
+      "description": "Voter Registration Drive and community BBQ at the Crescent City Women's Civic Association."
+    }
+  ]
 }
