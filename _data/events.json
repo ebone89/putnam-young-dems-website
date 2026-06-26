@@ -1,3 +1,13 @@
 {
-  "events": []
+  "events": [
+    {
+      "published": true,
+      "title": "Crescent City Voter Registration Drive and Community BBQ",
+      "dateLabel": "Saturday July 11th, 2026 - 10AM - 2PM",
+      "location": "Crescent City Women's Civic Assoc",
+      "address": "704 Huntington Rd",
+      "cityState": " Crescent City, FL 32112",
+      "description": "Voter Registration Drive and free BBQ at the Crescent City Women's Civic Association. Local Putnam County Commissioner Candidate Joshua Florence will be in attendance along with several of our US Congressional candidates running to represent CD-6. \n\nVoting Matters! You can be the difference in bringing better representation to your community"
+    }
+  ]
 }
