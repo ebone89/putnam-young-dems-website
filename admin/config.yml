@@ -1,0 +1,68 @@
+# Decap CMS configuration for putnamyoungdemsfl.org
+# Docs: https://decapcms.org/docs/
+
+backend:
+  name: github
+  repo: ebone89/putnam-young-dems-website
+  branch: main
+  # Points to the OAuth handler in worker.js
+  base_url: https://putnamyoungdemsfl.org
+  auth_endpoint: /api/auth
+
+# Where uploaded images are stored in the repo
+media_folder: assets/images
+public_folder: /assets/images
+
+collections:
+
+  # ── Upcoming Events ────────────────────────────────────────────────────────
+  # Manages _data/events.json — the file that index.html and events.html read.
+  # Add, edit, or hide events here without touching any HTML.
+  - name: events_data
+    label: Events
+    files:
+      - label: Upcoming Events
+        name: upcoming
+        file: _data/events.json
+        format: json
+        fields:
+          - label: Events
+            name: events
+            widget: list
+            label_singular: Event
+            fields:
+              - label: Title
+                name: title
+                widget: string
+                hint: "e.g. Monthly Meeting, Voter Registration Drive"
+
+              - label: Date and Time
+                name: dateLabel
+                widget: string
+                hint: "e.g. Thursday, July 2, 2026 · 6:30 p.m."
+
+              - label: Location Name
+                name: location
+                widget: string
+                hint: "e.g. Putnam County Democratic Center"
+
+              - label: Street Address
+                name: address
+                widget: string
+                hint: "e.g. 914 St. Johns Ave., Suite 2"
+
+              - label: City / State / ZIP
+                name: cityState
+                widget: string
+                hint: "e.g. Palatka, FL 32177"
+
+              - label: Description
+                name: description
+                widget: text
+                hint: "One or two sentences shown on the site."
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this event without deleting it."

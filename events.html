@@ -34,17 +34,17 @@
     </div>
   </section>
 
-  <!-- Upcoming Events — next monthly meeting populated by assets/js/next-meeting.js -->
+  <!-- Upcoming Events — loaded from _data/events.json (managed via Decap CMS admin) -->
   <section class="section-light">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
         <h2>Upcoming Events</h2>
       </div>
 
-      <!-- Next Monthly Meeting (rendered from config) -->
-      <div class="event-card" id="next-meeting-card"></div>
+      <!-- Events are injected here by the script below -->
+      <div id="upcoming-events-container"></div>
 
-      <!-- Precinct Qualifying Window (informational) -->
+      <!-- Precinct Qualifying Window (informational, hardcoded) -->
       <div class="event-card">
         <div class="event-date">June 8 through June 12, 2026</div>
         <h3>2026 Precinct Qualifying Window</h3>
@@ -55,15 +55,68 @@
     </div>
   </section>
 
-  <script src="assets/js/next-meeting.js"></script>
   <script>
-    // Render the next meeting card from the shared config file
-    const card = document.getElementById("next-meeting-card");
-    card.innerHTML =
-      '<div class="event-date">' + NEXT_MEETING.dateLabel + '</div>' +
-      '<h3>' + NEXT_MEETING.title + '</h3>' +
-      '<p class="event-details">' + NEXT_MEETING.location + '<br>' + NEXT_MEETING.address + ', ' + NEXT_MEETING.cityState + '</p>' +
-      '<p>' + NEXT_MEETING.description + '</p>';
+    // Automatically calculates the next first-Thursday monthly meeting.
+    // No manual updates needed — the date rolls over on its own each month.
+
+    function getNextFirstThursday() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth(); // 0-indexed
+
+      // Find the first Thursday of the current month
+      var d = new Date(year, month, 1);
+      while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
+
+      // If the meeting has already ended (we use 7 PM as cutoff), roll to next month
+      if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), 19, 0) < now) {
+        if (++month > 11) { month = 0; year++; }
+        d = new Date(year, month, 1);
+        while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
+      }
+      return d;
+    }
+
+    function formatThursday(d) {
+      var months = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+      return 'Thursday, ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' +
+             d.getFullYear() + ' · 6:30 p.m.';
+    }
+
+    // Always render the monthly meeting card first
+    var container = document.getElementById('upcoming-events-container');
+    var mtg = getNextFirstThursday();
+    var mtgCard = document.createElement('div');
+    mtgCard.className = 'event-card';
+    mtgCard.innerHTML =
+      '<div class="event-date">' + formatThursday(mtg) + '</div>' +
+      '<h3>Monthly Meeting</h3>' +
+      '<p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>' +
+      '<p>PCYD monthly member meeting. All members and prospective members are welcome.</p>';
+    container.appendChild(mtgCard);
+
+    // Then load any additional events managed through the /admin CMS panel
+    fetch('/_data/events.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var events = (data.events || []).filter(function(e) {
+          return e.published !== false;
+        });
+        events.forEach(function(ev) {
+          var card = document.createElement('div');
+          card.className = 'event-card';
+          card.innerHTML =
+            '<div class="event-date">' + ev.dateLabel + '</div>' +
+            '<h3>' + ev.title + '</h3>' +
+            '<p class="event-details">' + ev.location + '<br>' + ev.address + ', ' + ev.cityState + '</p>' +
+            '<p>' + ev.description + '</p>';
+          container.appendChild(card);
+        });
+      })
+      .catch(function() {
+        // Silently fail — the monthly meeting card above still shows regardless
+      });
   </script>
 
   <!-- Past Events -->

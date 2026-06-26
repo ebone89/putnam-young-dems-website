@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "putnam-young-dems-website",
+  "main": "worker.js",
   "compatibility_date": "2026-05-14",
   "observability": {
     "enabled": true
