@@ -152,7 +152,7 @@ async function handleGitHubOAuth(request, env, url) {
     const payload = JSON.stringify({ token, provider: 'github' });
     const html = `<!DOCTYPE html><html><body><script>
   var msg = 'authorization:github:success:' + ${JSON.stringify(payload)};
-  window.opener.postMessage(msg, document.referrer || '*');
+  window.opener.postMessage(msg, '*');
   window.close();
 <\/script></body></html>`;
 
