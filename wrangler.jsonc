@@ -16,7 +16,7 @@
     {
       "binding": "DB",
       "database_name": "pcyd-signups",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "9e13b82d-a00f-425b-a3f7-a5351ffb89c6"
     }
   ]
 }
