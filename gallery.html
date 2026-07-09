@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photos - Putnam County Young Democrats</title>
+  <meta name="description" content="Photos from Putnam County Young Democrats events, meetings, and outreach in Palatka, Florida.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container">
+      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo">Putnam County <span>Young Democrats</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li><a href="gallery.html" class="active">Photos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content">
+  <!-- Page Header -->
+  <section class="hero" style="padding: 3.5rem 2rem;">
+    <div class="container">
+      <h1>Photos</h1>
+      <p>Moments from PCYD events, meetings, and outreach across Putnam County.</p>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <script>
+    var grid = document.getElementById('gallery-grid');
+
+    function showEmptyState() {
+      grid.innerHTML = '<div class="card"><p>No photos posted yet. Check back after our next event.</p></div>';
+    }
+
+    fetch('_data/gallery.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var photos = (data.photos || []).filter(function (p) { return p.published !== false; });
+
+        if (!photos.length) { return showEmptyState(); }
+
+        photos.forEach(function (photo) {
+          var figure = document.createElement('figure');
+          figure.className = 'gallery-item';
+
+          var img = document.createElement('img');
+          img.src = photo.photo;
+          img.alt = photo.caption || '';
+          img.loading = 'lazy';
+          figure.appendChild(img);
+
+          if (photo.caption) {
+            var caption = document.createElement('figcaption');
+            caption.textContent = photo.caption;
+            figure.appendChild(caption);
+          }
+
+          grid.appendChild(figure);
+        });
+      })
+      .catch(showEmptyState);
+  </script>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
+  </footer>
+
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

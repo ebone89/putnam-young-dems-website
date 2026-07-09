@@ -9,28 +9,95 @@
 </head>
 <body>
 
+  <a href="#content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
       <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo">Putnam County <span>Young Democrats</span></a>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="events.html" class="active">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li><a href="gallery.html">Photos</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
+  <main id="content">
   <!-- Page Header -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
       <h1>Events</h1>
       <p>Community gatherings, member meetings, and public events in Putnam County.</p>
+      <p style="opacity: 0.85; font-size: 0.95rem;">Mark your calendar: the 2026 Florida primary is August 18, and the general election is November 3.</p>
+    </div>
+  </section>
+
+  <!-- Calendar — same data as the list below, just laid out by day -->
+  <section class="section-light" style="padding-bottom: 0;">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>Calendar</h2>
+      </div>
+      <div class="calendar" id="event-calendar">
+        <div class="calendar-nav">
+          <button type="button" id="cal-prev" aria-label="Previous month">&larr;</button>
+          <h3 id="cal-month-label" aria-live="polite"></h3>
+          <button type="button" id="cal-next" aria-label="Next month">&rarr;</button>
+        </div>
+        <table class="calendar-table">
+          <caption class="sr-only">Events by day, with today and event days marked</caption>
+          <thead>
+            <tr>
+              <th scope="col">Sun</th>
+              <th scope="col">Mon</th>
+              <th scope="col">Tue</th>
+              <th scope="col">Wed</th>
+              <th scope="col">Thu</th>
+              <th scope="col">Fri</th>
+              <th scope="col">Sat</th>
+            </tr>
+          </thead>
+          <tbody id="cal-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="section-gray">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>RSVP</h2>
+        <p>Let us know you're coming so we can plan for you.</p>
+      </div>
+      <form class="contact-form" id="rsvp-form">
+        <input type="text" name="_hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="form-group">
+          <label for="r-event">Which event?</label>
+          <select id="r-event" name="event" required>
+            <option value="">Loading events…</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="r-name">Name</label>
+          <input type="text" id="r-name" name="name" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label for="r-email">Email</label>
+          <input type="email" id="r-email" name="email" required placeholder="you@example.com">
+        </div>
+        <button type="submit" class="btn btn-primary">RSVP</button>
+        <p class="form-status" id="rsvp-form-status" role="status"></p>
+      </form>
     </div>
   </section>
 
@@ -43,127 +110,110 @@
 
       <!-- Events are injected here by the script below -->
       <div id="upcoming-events-container"></div>
-
-      <!-- Precinct Qualifying Window (informational, hardcoded) -->
-      <div class="event-card">
-        <div class="event-date">June 8 through June 12, 2026</div>
-        <h3>2026 Precinct Qualifying Window</h3>
-        <p class="event-details">Putnam County Supervisor of Elections</p>
-        <p>The qualifying window for Democratic Precinct Committeeman and Committeewoman seats opens at noon on Monday, June 8 and closes at noon on Friday, June 12, 2026. If you are interested in running for a precinct seat, PCYD can help you understand the process and eligibility requirements.</p>
-        <p><strong>Basic eligibility:</strong> You must reside in the precinct and must have been a registered Democrat for at least one year before qualifying begins. Confirm current form versions and filing instructions with the Putnam County Supervisor of Elections before filing.</p>
-      </div>
     </div>
   </section>
 
+  <script src="assets/js/events.js"></script>
   <script>
-    // Automatically calculates the next first-Thursday monthly meeting.
-    // No manual updates needed — the date rolls over on its own each month.
+    // Calendar grid — one month at a time, monthly meeting plus CMS events
+    // both flow through PCYDEvents so the grid and the list below always agree.
+    (function () {
+      var cmsEvents = [];
+      var viewDate = new Date();
+      viewDate.setDate(1);
 
-    function getNextFirstThursday() {
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = now.getMonth(); // 0-indexed
+      function renderCalendar() {
+        var year = viewDate.getFullYear();
+        var month = viewDate.getMonth();
+        document.getElementById('cal-month-label').textContent = PCYDEvents.MONTH_NAMES[month] + ' ' + year;
 
-      // Find the first Thursday of the current month
-      var d = new Date(year, month, 1);
-      while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
-
-      // If the meeting has already ended (we use 7 PM as cutoff), roll to next month
-      if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), 19, 0) < now) {
-        if (++month > 11) { month = 0; year++; }
-        d = new Date(year, month, 1);
-        while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
-      }
-      return d;
-    }
-
-    function formatThursday(d) {
-      var months = ['January','February','March','April','May','June',
-                    'July','August','September','October','November','December'];
-      return 'Thursday, ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' +
-             d.getFullYear() + ' · 6:30 p.m.';
-    }
-
-    // Always render the monthly meeting card first
-    var container = document.getElementById('upcoming-events-container');
-    var mtg = getNextFirstThursday();
-    var mtgCard = document.createElement('div');
-    mtgCard.className = 'event-card';
-    mtgCard.innerHTML =
-      '<div class="event-date">' + formatThursday(mtg) + '</div>' +
-      '<h3>Monthly Meeting</h3>' +
-      '<p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>' +
-      '<p>PCYD monthly member meeting. All members and prospective members are welcome.</p>';
-    container.appendChild(mtgCard);
-
-    // Then load any additional events managed through the /admin CMS panel
-    fetch('/_data/events.json')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        var events = (data.events || []).filter(function(e) {
-          return e.published !== false;
+        var all = [PCYDEvents.getMonthlyMeeting()].concat(cmsEvents);
+        var byDay = {};
+        all.forEach(function (ev) {
+          var start = PCYDEvents.parseISODate(ev.startDate);
+          var end = ev.endDate ? PCYDEvents.parseISODate(ev.endDate) : start;
+          for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            if (d.getFullYear() === year && d.getMonth() === month) {
+              (byDay[d.getDate()] = byDay[d.getDate()] || []).push(ev);
+            }
+          }
         });
-        events.forEach(function(ev) {
+
+        var firstWeekday = new Date(year, month, 1).getDay();
+        var daysInMonth = new Date(year, month + 1, 0).getDate();
+        var todayISO = PCYDEvents.toISODate(new Date());
+
+        var rows = [];
+        var cells = [];
+        for (var i = 0; i < firstWeekday; i++) { cells.push('<td class="calendar-empty"></td>'); }
+        for (var day = 1; day <= daysInMonth; day++) {
+          var dayEvents = byDay[day] || [];
+          var isToday = PCYDEvents.toISODate(new Date(year, month, day)) === todayISO;
+          var marker = dayEvents.length
+            ? '<ul class="calendar-events">' + dayEvents.map(function (ev) {
+                return '<li>' + ev.title + '</li>';
+              }).join('') + '</ul>'
+            : '';
+          cells.push('<td class="' + (isToday ? 'calendar-today' : '') + '">' +
+            '<span class="calendar-day-num">' + day + '</span>' + marker + '</td>');
+          if (cells.length === 7) { rows.push('<tr>' + cells.join('') + '</tr>'); cells = []; }
+        }
+        if (cells.length) {
+          while (cells.length < 7) { cells.push('<td class="calendar-empty"></td>'); }
+          rows.push('<tr>' + cells.join('') + '</tr>');
+        }
+        document.getElementById('cal-body').innerHTML = rows.join('');
+      }
+
+      document.getElementById('cal-prev').addEventListener('click', function () {
+        viewDate.setMonth(viewDate.getMonth() - 1);
+        renderCalendar();
+      });
+      document.getElementById('cal-next').addEventListener('click', function () {
+        viewDate.setMonth(viewDate.getMonth() + 1);
+        renderCalendar();
+      });
+
+      // Upcoming events list, sorted by date, monthly meeting included
+      var container = document.getElementById('upcoming-events-container');
+      var rsvpSelect = document.getElementById('r-event');
+
+      PCYDEvents.fetchEvents().then(function (data) {
+        cmsEvents = data;
+        renderCalendar();
+
+        var upcoming = PCYDEvents.getUpcomingEvents(cmsEvents);
+
+        upcoming.forEach(function (ev) {
           var card = document.createElement('div');
           card.className = 'event-card';
-          card.innerHTML =
-            '<div class="event-date">' + ev.dateLabel + '</div>' +
-            '<h3>' + ev.title + '</h3>' +
-            '<p class="event-details">' + ev.location + '<br>' + ev.address + ', ' + ev.cityState + '</p>' +
-            '<p>' + ev.description + '</p>';
+          card.innerHTML = PCYDEvents.eventCardHTML(ev);
           container.appendChild(card);
         });
-      })
-      .catch(function() {
-        // Silently fail — the monthly meeting card above still shows regardless
+
+        rsvpSelect.innerHTML = upcoming.map(function (ev) {
+          return '<option value="' + ev.title + '">' + ev.title + ' — ' + PCYDEvents.formatDateRange(ev.startDate, ev.endDate) + '</option>';
+        }).join('');
       });
+    })();
   </script>
 
-  <!-- Past Events -->
-  <section class="section-light" style="padding-top: 0;">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
-        <h2>Past Events</h2>
-      </div>
+  <script src="assets/js/signup.js"></script>
+  <script>
+    document.getElementById('rsvp-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = e.target;
 
-      <!-- ICE OUT Cream Social -->
-      <div class="event-card" style="opacity: 0.7;">
-        <div class="event-date">Saturday, May 2, 2026 &middot; 12:00 p.m. to 2:00 p.m.</div>
-        <h3>ICE OUT Cream Social</h3>
-        <p class="event-details">Putnam County Democratic Center<br>914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>
-        <p>The public launch event for PCYD. Members and neighbors came together to learn about what we are building and sign up as founding chapter members.</p>
-      </div>
-    </div>
-  </section>
+      submitSignup({
+        type: 'rsvp',
+        name: form.name.value,
+        email: form.email.value,
+        eventTitle: form.event.value,
+        _hp: form._hp.value
+      }, document.getElementById('rsvp-form-status'), form);
+    });
+  </script>
 
-  <!-- Key Dates -->
-  <section class="section-gray">
-    <div class="container" style="max-width: 800px;">
-      <h2>Key Dates for 2026</h2>
-      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-        <div class="card">
-          <h3>May 2</h3>
-          <p>ICE OUT Cream Social. Public launch event for PCYD.</p>
-        </div>
-        <div class="card">
-          <h3>June 4</h3>
-          <p>Monthly Meeting. 6:30 p.m. at the Putnam County Democratic Center.</p>
-        </div>
-        <div class="card">
-          <h3>June 8 through 12</h3>
-          <p>Precinct Committeeman/Committeewoman qualifying window.</p>
-        </div>
-        <div class="card">
-          <h3>August 18</h3>
-          <p>2026 Florida primary election.</p>
-        </div>
-        <div class="card">
-          <h3>November 3</h3>
-          <p>2026 Florida general election.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Stay Updated CTA -->
   <section class="section-blue text-center">
@@ -173,6 +223,7 @@
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -181,11 +232,14 @@
       <li><a href="about.html">About</a></li>
       <li><a href="events.html">Events</a></li>
       <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
     <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
   </footer>
 
+  <script src="assets/js/nav.js"></script>
 </body>
 </html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Resources - Putnam County Young Democrats</title>
+  <meta name="description" content="Register to vote in Putnam County, Florida, and find out who represents you at the federal, state, and county level.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container">
+      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo">Putnam County <span>Young Democrats</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html" class="active">Voter Resources</a></li>
+        <li><a href="gallery.html">Photos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content">
+  <!-- Page Header -->
+  <section class="hero" style="padding: 3.5rem 2rem;">
+    <div class="container">
+      <h1>Voter Resources</h1>
+      <p>Register to vote, and find out who represents Putnam County right now, from Washington to the county courthouse.</p>
+    </div>
+  </section>
+
+  <!-- Section picker — shows one panel below at a time so the whole
+       directory isn't dumped on the page at once -->
+  <section class="section-light" style="padding-bottom: 0;">
+    <div class="container" style="max-width: 500px;">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label for="vr-section-select">Jump to a section</label>
+        <select id="vr-section-select">
+          <option value="panel-register">Register to Vote</option>
+          <option value="panel-federal">Federal Officials</option>
+          <option value="panel-state">State Officials</option>
+          <option value="panel-county">County &amp; Local Officials</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register to Vote — text loaded from _data/voter-registration.json (managed via Decap CMS admin) -->
+  <section class="section-light vr-panel active" id="panel-register">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2 id="vr-heading">Register to Vote</h2>
+        <p id="vr-intro">Florida voter registration and updates (name, address, or party changes) go through your county Supervisor of Elections. You can also check your current registration status at any time.</p>
+      </div>
+      <div class="card">
+        <h3 id="vr-office-name">Putnam County Supervisor of Elections</h3>
+        <p id="vr-office-details">Contact details coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    fetch('_data/voter-registration.json')
+      .then(function (r) { return r.json(); })
+      .then(function (vr) {
+        if (vr.heading) { document.getElementById('vr-heading').textContent = vr.heading; }
+        if (vr.intro) { document.getElementById('vr-intro').textContent = vr.intro; }
+        if (vr.officeName) { document.getElementById('vr-office-name').textContent = vr.officeName; }
+
+        var lines = [];
+        if (vr.officeAddress) { lines.push(vr.officeAddress); }
+        if (vr.officePhone) { lines.push('<a href="tel:' + vr.officePhone.replace(/[^0-9+]/g, '') + '">' + vr.officePhone + '</a>'); }
+        if (vr.officeWebsite) { lines.push('<a href="' + vr.officeWebsite + '" target="_blank" rel="noopener">Office Website</a>'); }
+        if (vr.onlineRegistrationUrl) { lines.push('<a href="' + vr.onlineRegistrationUrl + '" target="_blank" rel="noopener">Register or Update Your Registration Online</a>'); }
+
+        document.getElementById('vr-office-details').innerHTML = lines.length ? lines.join('<br>') : 'Contact details coming soon.';
+      })
+      .catch(function () {
+        // Keep the fallback copy already in the page
+      });
+  </script>
+
+  <!-- Federal / State / County Officials -->
+  <section class="section-gray vr-panel" id="panel-federal">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>Federal Officials</h2>
+        <p>Federal offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-federal"></div>
+    </div>
+  </section>
+
+  <section class="section-light vr-panel" id="panel-state">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>State Officials</h2>
+        <p>State offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-state"></div>
+    </div>
+  </section>
+
+  <section class="section-gray vr-panel" id="panel-county">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left;">
+        <h2>County &amp; Local Officials</h2>
+        <p>County and municipal offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-county"></div>
+    </div>
+  </section>
+
+  <script>
+    // Section picker — only the selected panel is visible at a time
+    var panels = document.querySelectorAll('.vr-panel');
+    var sectionSelect = document.getElementById('vr-section-select');
+
+    function showPanel(id) {
+      panels.forEach(function (panel) {
+        panel.classList.toggle('active', panel.id === id);
+      });
+    }
+
+    sectionSelect.addEventListener('change', function () {
+      showPanel(sectionSelect.value);
+      document.getElementById(sectionSelect.value).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+
+  <script>
+    var LEVELS = [
+      { key: 'Federal', containerId: 'officials-federal' },
+      { key: 'State', containerId: 'officials-state' },
+      { key: 'County', containerId: 'officials-county' }
+    ];
+
+    function officialCardHTML(official) {
+      var lines = [];
+      if (official.district) { lines.push(official.district); }
+      if (official.address) { lines.push(official.address); }
+      if (official.phone) { lines.push('<a href="tel:' + official.phone.replace(/[^0-9+]/g, '') + '">' + official.phone + '</a>'); }
+      if (official.email) { lines.push('<a href="mailto:' + official.email + '">' + official.email + '</a>'); }
+      if (official.website) { lines.push('<a href="' + official.website + '" target="_blank" rel="noopener">Official Website</a>'); }
+
+      var photoHTML = official.photo
+        ? '<img src="' + official.photo + '" alt="' + official.name + '" class="official-photo">'
+        : '';
+
+      var html = photoHTML + '<h3>' + official.name + '</h3>' +
+        '<p class="event-details">' + official.office + (official.party ? ' &middot; ' + official.party : '') + '</p>';
+      if (lines.length) { html += '<p>' + lines.join('<br>') + '</p>'; }
+      if (official.notes) { html += '<p>' + official.notes + '</p>'; }
+      return html;
+    }
+
+    // Groups a level's officials by category, in the order each category
+    // first appears, so related offices (e.g. all of County Commission)
+    // sit together under their own subheading instead of one long grid.
+    function renderLevel(container, officials) {
+      var order = [];
+      var byCategory = {};
+
+      officials.forEach(function (official) {
+        var key = official.category || '';
+        if (!byCategory[key]) {
+          byCategory[key] = [];
+          order.push(key);
+        }
+        byCategory[key].push(official);
+      });
+
+      container.innerHTML = order.map(function (category) {
+        var cards = byCategory[category].map(function (official) {
+          return '<div class="card official-card">' + officialCardHTML(official) + '</div>';
+        }).join('');
+
+        var label = category ? '<div class="category-label">' + category + '</div>' : '';
+        return label + '<div class="card-grid">' + cards + '</div>';
+      }).join('');
+    }
+
+    fetch('_data/officials.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var officials = (data.officials || []).filter(function (o) { return o.published !== false; });
+
+        LEVELS.forEach(function (level) {
+          var container = document.getElementById(level.containerId);
+          var matches = officials.filter(function (o) { return o.level === level.key; });
+
+          if (!matches.length) {
+            container.innerHTML = '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
+            return;
+          }
+
+          renderLevel(container, matches);
+        });
+      })
+      .catch(function () {
+        LEVELS.forEach(function (level) {
+          document.getElementById(level.containerId).innerHTML =
+            '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
+        });
+      });
+  </script>
+
+  <!-- CTA -->
+  <section class="section-blue text-center">
+    <div class="container">
+      <h2>Not Sure Who to Contact?</h2>
+      <p style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Reach out to PCYD and we will help point you to the right office.</p>
+      <a href="contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+  </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
+  </footer>
+
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

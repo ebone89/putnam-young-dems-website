@@ -9,32 +9,39 @@
 </head>
 <body>
 
+  <a href="#content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
       <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo">Putnam County <span>Young Democrats</span></a>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-nav">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li><a href="gallery.html">Photos</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <main id="content">
+  <!-- Hero — text loaded from _data/home.json (managed via Decap CMS admin) -->
   <section class="hero">
     <div class="container">
       <img src="assets/images/pcyd-banner-wide.png" alt="Putnam County Young Democrats" class="hero-banner">
-      <div class="tag">Forming &middot; Pre-Charter 2026</div>
-      <h1>Building Democratic Leadership in Putnam County</h1>
-      <p>PCYD is organizing a new generation of local leaders, volunteers, and precinct-level party members right here in Putnam County, Florida.</p>
-      <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
-      <a href="events.html" class="btn btn-outline" style="margin-left: 0.75rem;">Upcoming Events</a>
+      <div class="tag" id="home-hero-tag">Forming &middot; Pre-Charter 2026</div>
+      <h1 id="home-hero-heading">Building Democratic Leadership in Putnam County</h1>
+      <p id="home-hero-body">PCYD is organizing a new generation of local leaders, volunteers, and precinct-level party members right here in Putnam County, Florida.</p>
+      <nav class="hero-actions" aria-label="Primary actions">
+        <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
+        <a href="events.html" class="btn btn-outline">Upcoming Events</a>
+      </nav>
     </div>
   </section>
 
@@ -42,10 +49,10 @@
   <section class="section-light">
     <div class="container">
       <div class="section-header">
-        <h2>What We Do</h2>
-        <p>PCYD focuses on five core areas to strengthen Democratic organizing at the county level.</p>
+        <h2 id="home-whatwedo-heading">What We Do</h2>
+        <p id="home-whatwedo-intro">PCYD focuses on five core areas to strengthen Democratic organizing at the county level.</p>
       </div>
-      <div class="card-grid">
+      <div class="card-grid" id="home-whatwedo-cards">
         <div class="card">
           <h3>Recruit and Retain Members</h3>
           <p>Build a structured local organization with clear responsibilities, regular meetings, and meaningful follow-up for young Democrats and left-leaning residents.</p>
@@ -70,6 +77,20 @@
     </div>
   </section>
 
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/home.json', function (content) {
+      applyText('home-hero-tag', content.heroTag);
+      applyText('home-hero-heading', content.heroHeading);
+      applyText('home-hero-body', content.heroBody);
+      applyText('home-whatwedo-heading', content.whatWeDoHeading);
+      applyText('home-whatwedo-intro', content.whatWeDoIntro);
+      applyCards('home-whatwedo-cards', content.whatWeDoCards);
+      applyText('home-cta-heading', content.ctaHeading);
+      applyText('home-cta-body', content.ctaBody);
+    });
+  </script>
+
   <!-- Featured Event — loaded from _data/events.json (managed via Decap CMS admin) -->
   <section class="section-gray">
     <div class="container">
@@ -80,63 +101,52 @@
     </div>
   </section>
 
+  <script src="assets/js/events.js"></script>
   <script>
-    // Automatically calculates the next first-Thursday monthly meeting.
-    // No manual updates needed — the date rolls over on its own each month.
-
-    function getNextFirstThursday() {
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = now.getMonth(); // 0-indexed
-
-      // Find the first Thursday of the current month
-      var d = new Date(year, month, 1);
-      while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
-
-      // If the meeting has already ended (we use 7 PM as cutoff), roll to next month
-      if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), 19, 0) < now) {
-        if (++month > 11) { month = 0; year++; }
-        d = new Date(year, month, 1);
-        while (d.getDay() !== 4) { d.setDate(d.getDate() + 1); }
-      }
-      return d;
-    }
-
-    function formatThursday(d) {
-      var months = ['January','February','March','April','May','June',
-                    'July','August','September','October','November','December'];
-      return 'Thursday, ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' +
-             d.getFullYear() + ' · 6:30 p.m.';
-    }
-
-    var mtg = getNextFirstThursday();
     var card = document.getElementById('next-meeting-card');
-    card.innerHTML =
-      '<div class="event-date">' + formatThursday(mtg) + '</div>' +
-      '<h3>Monthly Meeting</h3>' +
-      '<p class="event-details">Putnam County Democratic Center, 914 St. Johns Ave., Suite 2, Palatka, FL 32177</p>' +
-      '<p>PCYD monthly member meeting. All members and prospective members are welcome.</p>' +
-      '<a href="events.html" class="btn btn-secondary mt-2">Event Details</a>';
+
+    PCYDEvents.fetchEvents().then(function (cmsEvents) {
+      var next = PCYDEvents.getUpcomingEvents(cmsEvents)[0];
+      card.innerHTML = PCYDEvents.eventCardHTML(next) +
+        '<a href="events.html" class="btn btn-secondary mt-2">Event Details</a>';
+    });
   </script>
 
-  <!-- Community Context (brief) -->
+  <!-- Community Context (brief) — text loaded from _data/content.json (managed via Decap CMS admin) -->
   <section class="section-blue">
     <div class="container text-center">
-      <h2>Why Putnam County Needs This</h2>
-      <p style="max-width: 700px; margin: 0.75rem auto 0; opacity: 0.92; font-size: 1.05rem;">
-        Putnam County's median household income is $47,934 and over 20% of residents live below the poverty line. PCYD exists to give working families, students, and young adults a practical entry point into civic life and Democratic organizing.
+      <h2 id="home-community-heading">Rooted in Putnam County</h2>
+      <p id="home-community-body" style="max-width: 700px; margin: 0.75rem auto 0; opacity: 0.92; font-size: 1.05rem;">
+        We're proud of this county, and honest about what it needs. PCYD gives working families, students, and young adults a practical way to get involved and help shape what comes next.
       </p>
     </div>
   </section>
 
+  <script>
+    fetch('_data/content.json')
+      .then(function (r) { return r.json(); })
+      .then(function (content) {
+        if (content.homeCommunityHeading) {
+          document.getElementById('home-community-heading').textContent = content.homeCommunityHeading;
+        }
+        if (content.homeCommunityBody) {
+          document.getElementById('home-community-body').textContent = content.homeCommunityBody;
+        }
+      })
+      .catch(function () {
+        // Keep the fallback copy already in the page
+      });
+  </script>
+
   <!-- CTA -->
   <section class="section-light text-center">
     <div class="container">
-      <h2>Ready to Get Started?</h2>
-      <p style="max-width: 550px; margin: 0.5rem auto 1.5rem;">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
+      <h2 id="home-cta-heading">Ready to Get Started?</h2>
+      <p id="home-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem;">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
       <a href="get-involved.html" class="btn btn-primary">Join PCYD</a>
     </div>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -145,11 +155,14 @@
       <li><a href="about.html">About</a></li>
       <li><a href="events.html">Events</a></li>
       <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
     <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
   </footer>
 
+  <script src="assets/js/nav.js"></script>
 </body>
 </html>

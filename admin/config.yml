@@ -36,10 +36,23 @@ collections:
                 widget: string
                 hint: "e.g. Monthly Meeting, Voter Registration Drive"
 
-              - label: Date and Time
-                name: dateLabel
+              - label: Start Date
+                name: startDate
+                widget: date
+                format: "YYYY-MM-DD"
+                hint: "The day this event starts. Shows on the calendar and event list."
+
+              - label: End Date
+                name: endDate
+                widget: date
+                format: "YYYY-MM-DD"
+                required: false
+                hint: "Only set this for multi-day events. Leave blank otherwise."
+
+              - label: Time
+                name: timeLabel
                 widget: string
-                hint: "e.g. Thursday, July 2, 2026 · 6:30 p.m."
+                hint: "e.g. 10:00 a.m. – 2:00 p.m."
 
               - label: Location Name
                 name: location
@@ -66,3 +79,308 @@ collections:
                 widget: boolean
                 default: true
                 hint: "Uncheck to hide this event without deleting it."
+
+  # ── Voter Registration ─────────────────────────────────────────────────────
+  # Manages _data/voter-registration.json — the "Register to Vote" section
+  # at the top of voter-resources.html, including Supervisor of Elections
+  # contact info. Fill in the office phone/address/website/registration link
+  # once confirmed; the page shows "coming soon" until they're set.
+  - name: voter_registration
+    label: Voter Registration
+    files:
+      - label: Register to Vote
+        name: registration
+        file: _data/voter-registration.json
+        format: json
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - { label: Intro Text, name: intro, widget: text }
+          - { label: Office Name, name: officeName, widget: string }
+          - { label: Office Address, name: officeAddress, widget: string, required: false }
+          - { label: Office Phone, name: officePhone, widget: string, required: false }
+          - { label: Office Website, name: officeWebsite, widget: string, required: false }
+          - label: Online Registration Link
+            name: onlineRegistrationUrl
+            widget: string
+            required: false
+            hint: "Link to the Florida voter registration portal or the county's own registration page."
+
+  # ── Elected Officials ──────────────────────────────────────────────────────
+  # Manages _data/officials.json — the directory shown on voter-resources.html.
+  # Covers federal, state, and county offices representing Putnam County.
+  - name: officials_data
+    label: Elected Officials
+    files:
+      - label: Officials Directory
+        name: directory
+        file: _data/officials.json
+        format: json
+        fields:
+          - label: Officials
+            name: officials
+            widget: list
+            label_singular: Official
+            fields:
+              - label: Name
+                name: name
+                widget: string
+
+              - label: Office
+                name: office
+                widget: string
+                hint: "e.g. U.S. House of Representatives, Governor, State Senate"
+
+              - label: Level
+                name: level
+                widget: select
+                options: ["Federal", "State", "County"]
+                hint: "Which page section this appears under."
+
+              - label: Category
+                name: category
+                widget: string
+                required: false
+                hint: "Subheading to group cards within the level, e.g. \"County Commission\", \"Constitutional Officers\", \"Town of Interlachen\"."
+
+              - label: Party
+                name: party
+                widget: select
+                options: ["Democrat", "Republican", "Independent", "Nonpartisan"]
+
+              - label: District
+                name: district
+                widget: string
+                required: false
+                hint: "e.g. District 5. Leave blank for offices without a district."
+
+              - label: Address
+                name: address
+                widget: string
+                required: false
+
+              - label: Phone
+                name: phone
+                widget: string
+                required: false
+
+              - label: Email
+                name: email
+                widget: string
+                required: false
+
+              - label: Website
+                name: website
+                widget: string
+                required: false
+
+              - label: Photo
+                name: photo
+                widget: image
+                required: false
+
+              - label: Notes
+                name: notes
+                widget: text
+                required: false
+                hint: "Anything worth flagging, e.g. term end date or committee role."
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this entry without deleting it."
+
+  # ── Photo Gallery ──────────────────────────────────────────────────────────
+  # Manages _data/gallery.json — the photo grid shown on gallery.html.
+  - name: gallery_data
+    label: Photo Gallery
+    files:
+      - label: Gallery Photos
+        name: photos
+        file: _data/gallery.json
+        format: json
+        fields:
+          - label: Photos
+            name: photos
+            widget: list
+            label_singular: Photo
+            fields:
+              - label: Photo
+                name: photo
+                widget: image
+
+              - label: Caption
+                name: caption
+                widget: string
+                hint: "Describe what is in the photo. Shown as alt text and a caption."
+
+              - label: Date
+                name: date
+                widget: date
+                format: "YYYY-MM-DD"
+                required: false
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this photo without deleting it."
+
+  # ── Page Content ───────────────────────────────────────────────────────────
+  # Manages _data/content.json plus one JSON file per page — nearly all of
+  # the written copy on the site. Edit wording, cards, and contact details
+  # here any time without touching HTML.
+  - name: site_content
+    label: Page Content
+    files:
+      - label: Community Context
+        name: community
+        file: _data/content.json
+        format: json
+        fields:
+          - label: Home Page Heading
+            name: homeCommunityHeading
+            widget: string
+
+          - label: Home Page Text
+            name: homeCommunityBody
+            widget: text
+            hint: "Short teaser shown on the home page."
+
+          - label: About Page Heading
+            name: aboutCommunityHeading
+            widget: string
+
+          - label: About Page Text
+            name: aboutCommunityBody
+            widget: text
+            hint: "Longer version shown on the About page. Leave a blank line between paragraphs."
+
+      - label: Home Page
+        name: home
+        file: _data/home.json
+        format: json
+        fields:
+          - label: Banner Tag
+            name: heroTag
+            widget: string
+            hint: "Small pill above the headline, e.g. \"Forming · Pre-Charter 2026\""
+
+          - label: Headline
+            name: heroHeading
+            widget: string
+
+          - label: Intro Text
+            name: heroBody
+            widget: text
+
+          - label: "\"What We Do\" Heading"
+            name: whatWeDoHeading
+            widget: string
+
+          - label: "\"What We Do\" Intro"
+            name: whatWeDoIntro
+            widget: text
+
+          - label: "\"What We Do\" Cards"
+            name: whatWeDoCards
+            widget: list
+            label_singular: Card
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: body, widget: text }
+
+          - label: Closing Heading
+            name: ctaHeading
+            widget: string
+
+          - label: Closing Text
+            name: ctaBody
+            widget: text
+
+      - label: About Page
+        name: about
+        file: _data/about-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - { label: Mission Heading, name: missionHeading, widget: string }
+          - label: Mission Text
+            name: missionBody
+            widget: text
+            hint: "Leave a blank line between paragraphs."
+          - { label: Organizational Relationship Heading, name: orgRelationshipHeading, widget: string }
+          - label: Organizational Relationship Text
+            name: orgRelationshipBody
+            widget: text
+            hint: "Leave a blank line between paragraphs."
+          - { label: Membership Heading, name: membershipHeading, widget: string }
+          - { label: Membership Intro, name: membershipIntro, widget: text }
+          - label: Membership Tiers
+            name: membershipTiers
+            widget: list
+            label_singular: Tier
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: body, widget: text }
+          - { label: Membership Closing Text, name: membershipClosing, widget: text }
+          - { label: Officer Structure Heading, name: officerHeading, widget: string }
+          - label: Officer Structure Text
+            name: officerBody
+            widget: text
+            hint: "Leave a blank line between paragraphs."
+          - { label: Interim Chair Name, name: interimChair, widget: string }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Get Involved Page
+        name: getInvolved
+        file: _data/get-involved-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - { label: "\"Ways to Participate\" Heading", name: waysHeading, widget: string }
+          - label: "\"Ways to Participate\" Cards"
+            name: waysCards
+            widget: list
+            label_singular: Card
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: body, widget: text }
+          - { label: "\"Who Can Join\" Heading", name: whoHeading, widget: string }
+          - label: "\"Who Can Join\" Text"
+            name: whoBody
+            widget: text
+            hint: "Leave a blank line between paragraphs."
+          - { label: "\"What to Expect\" Heading", name: expectHeading, widget: string }
+          - label: "\"What to Expect\" Text"
+            name: expectBody
+            widget: text
+            hint: "Leave a blank line between paragraphs."
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Contact Page
+        name: contact
+        file: _data/contact-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - { label: Email Address, name: email, widget: string }
+          - { label: Phone Number (displayed), name: phone, widget: string }
+          - label: Phone Number (dial link)
+            name: phoneHref
+            widget: string
+            hint: "Digits only with country code, e.g. +13865551234"
+          - { label: Location Name, name: locationName, widget: string }
+          - { label: Street Address, name: address, widget: string }
+          - { label: City / State / ZIP, name: cityState, widget: string }
+          - { label: Facebook URL, name: facebookUrl, widget: string, required: false }
+          - { label: Instagram URL, name: instagramUrl, widget: string, required: false }
+          - { label: Form Section Heading, name: formHeading, widget: string }
+          - { label: Form Section Intro, name: formIntro, widget: text }
+          - { label: "\"Find Us\" Heading", name: findUsHeading, widget: string }
+          - { label: "\"Find Us\" Text", name: findUsBody, widget: text }

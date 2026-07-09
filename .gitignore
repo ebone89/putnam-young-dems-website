@@ -17,3 +17,6 @@ pcyd-website-preview.html
 !.dev.vars.example
 .env*
 !.env.example
+
+# Claude Code local tooling
+.claude/

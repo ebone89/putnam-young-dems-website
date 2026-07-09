@@ -9,28 +9,33 @@
 </head>
 <body>
 
+  <a href="#content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
       <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo">Putnam County <span>Young Democrats</span></a>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html" class="active">Get Involved</a></li>
+        <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li><a href="gallery.html">Photos</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Page Header -->
+  <main id="content">
+  <!-- Page Header — text loaded from _data/get-involved-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1>Get Involved</h1>
-      <p>There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
+      <h1 id="gi-hero-heading">Get Involved</h1>
+      <p id="gi-hero-body">There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
     </div>
   </section>
 
@@ -38,9 +43,9 @@
   <section class="section-light">
     <div class="container" style="max-width: 800px;">
       <div class="section-header">
-        <h2>Ways to Participate</h2>
+        <h2 id="gi-ways-heading">Ways to Participate</h2>
       </div>
-      <div class="card-grid">
+      <div class="card-grid" id="gi-ways-cards">
         <div class="card">
           <h3>Become a Founding Member</h3>
           <p>Sign the charter packet and help establish PCYD as a recognized chapter of the Florida Young Democrats. Founding members shape the organization from the ground up and are recognized in our charter documents.</p>
@@ -64,30 +69,113 @@
   <!-- Who Can Join -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2>Who Can Join?</h2>
-      <p>Florida Young Democrats publicly describes its chapters as serving Democrats and left-leaning residents ages 14 through 39. PCYD uses that public age range for recruitment and outreach. You do not need to be a registered Democrat to attend events or volunteer, but formal membership and officer eligibility will follow charter requirements and adopted bylaws.</p>
-      <p>If you are interested but unsure whether you qualify, reach out. We would rather answer your question than lose a potential member.</p>
+      <h2 id="gi-who-heading">Who Can Join?</h2>
+      <div id="gi-who-body">
+        <p>Florida Young Democrats publicly describes its chapters as serving Democrats and left-leaning residents ages 14 through 39. PCYD uses that public age range for recruitment and outreach. You do not need to be a registered Democrat to attend events or volunteer, but formal membership and officer eligibility will follow charter requirements and adopted bylaws.</p>
+        <p>If you are interested but unsure whether you qualify, reach out. We would rather answer your question than lose a potential member.</p>
+      </div>
     </div>
   </section>
 
   <!-- What to Expect -->
   <section class="section-light">
     <div class="container" style="max-width: 800px;">
-      <h2>What to Expect</h2>
-      <p>PCYD is still in its founding phase. That means the people who get involved now will have a direct hand in shaping the organization's structure, priorities, and culture. Early participants should expect regular meetings, a collaborative atmosphere, and real responsibility.</p>
-      <p>This is not a social club. PCYD is building toward concrete goals: filling precinct seats, running voter engagement operations, and creating a pipeline of trained local Democratic leaders. If that appeals to you, you are in the right place.</p>
+      <h2 id="gi-expect-heading">What to Expect</h2>
+      <div id="gi-expect-body">
+        <p>PCYD is still in its founding phase. That means the people who get involved now will have a direct hand in shaping the organization's structure, priorities, and culture. Early participants should expect regular meetings, a collaborative atmosphere, and real responsibility.</p>
+        <p>This is not a social club. PCYD is building toward concrete goals: filling precinct seats, running voter engagement operations, and creating a pipeline of trained local Democratic leaders. If that appeals to you, you are in the right place.</p>
+      </div>
     </div>
   </section>
+
+  <!-- Volunteer Interest Form -->
+  <section class="section-gray">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2>Sign Up to Volunteer</h2>
+        <p>Tell us what you're interested in and we'll follow up with next steps.</p>
+      </div>
+      <form class="contact-form" id="volunteer-form">
+        <input type="text" name="_hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="form-group">
+          <label for="v-name">Name</label>
+          <input type="text" id="v-name" name="name" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label for="v-email">Email</label>
+          <input type="email" id="v-email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="v-phone">Phone (optional)</label>
+          <input type="tel" id="v-phone" name="phone" placeholder="(386) 555-0100">
+        </div>
+        <div class="form-group">
+          <label id="v-interest-label">What are you interested in?</label>
+          <div role="group" aria-labelledby="v-interest-label" class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" name="interest" value="Event logistics"> Event logistics</label>
+            <label class="checkbox-label"><input type="checkbox" name="interest" value="Voter registration and outreach"> Voter registration and outreach</label>
+            <label class="checkbox-label"><input type="checkbox" name="interest" value="Communications and social media"> Communications and social media</label>
+            <label class="checkbox-label"><input type="checkbox" name="interest" value="Precinct or leadership track"> Precinct or leadership track</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="v-notes">Availability or notes (optional)</label>
+          <textarea id="v-notes" name="notes" placeholder="Anything that helps us match you to the right role"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <p class="form-status" id="volunteer-form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <script src="assets/js/signup.js"></script>
+  <script>
+    document.getElementById('volunteer-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = e.target;
+      var interests = Array.prototype.slice.call(form.querySelectorAll('input[name="interest"]:checked'))
+        .map(function (cb) { return cb.value; })
+        .join(', ');
+
+      submitSignup({
+        type: 'volunteer',
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        interestAreas: interests,
+        notes: form.notes.value,
+        _hp: form._hp.value
+      }, document.getElementById('volunteer-form-status'), form);
+    });
+  </script>
 
   <!-- CTA -->
   <section class="section-blue text-center">
     <div class="container">
-      <h2>Ready to Join?</h2>
-      <p style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">The best first step is to come to our next monthly meeting or reach out directly.</p>
+      <h2 id="gi-cta-heading">Ready to Join?</h2>
+      <p id="gi-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">The best first step is to come to our next monthly meeting or reach out directly.</p>
       <a href="events.html" class="btn btn-primary">See Events</a>
       <a href="contact.html" class="btn btn-outline" style="margin-left: 0.75rem;">Contact Us</a>
     </div>
   </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/get-involved-page.json', function (content) {
+      applyText('gi-hero-heading', content.heroHeading);
+      applyText('gi-hero-body', content.heroBody);
+      applyText('gi-ways-heading', content.waysHeading);
+      applyCards('gi-ways-cards', content.waysCards);
+      applyText('gi-who-heading', content.whoHeading);
+      applyParagraphs('gi-who-body', content.whoBody);
+      applyText('gi-expect-heading', content.expectHeading);
+      applyParagraphs('gi-expect-body', content.expectBody);
+      applyText('gi-cta-heading', content.ctaHeading);
+      applyText('gi-cta-body', content.ctaBody);
+    });
+  </script>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -96,11 +184,14 @@
       <li><a href="about.html">About</a></li>
       <li><a href="events.html">Events</a></li>
       <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
     <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
   </footer>
 
+  <script src="assets/js/nav.js"></script>
 </body>
 </html>

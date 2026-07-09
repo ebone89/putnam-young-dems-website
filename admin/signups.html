@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-Ups - PCYD Admin</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { padding: 2rem; max-width: 1000px; margin: 0 auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--mist-gray); font-size: 0.9rem; }
+    th { font-family: var(--font-headline); color: var(--dark-river); }
+    .toolbar { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .toolbar select, .toolbar input { padding: 0.5rem 0.75rem; border: 1px solid var(--mist-gray); border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>PCYD Sign-Ups</h1>
+  <p>Volunteer interest and event RSVPs, pulled directly from the site's D1 database.</p>
+
+  <div id="gate">
+    <div class="form-group">
+      <label for="token">Admin Token</label>
+      <input type="password" id="token" placeholder="Paste the admin token">
+    </div>
+    <button type="button" class="btn btn-primary" id="unlock-btn">View Sign-Ups</button>
+    <p class="form-status form-status-error" id="gate-error" role="status"></p>
+  </div>
+
+  <div id="panel" style="display:none;">
+    <div class="toolbar">
+      <label for="type-filter">Filter</label>
+      <select id="type-filter">
+        <option value="">All sign-ups</option>
+        <option value="volunteer">Volunteer interest</option>
+        <option value="rsvp">Event RSVPs</option>
+      </select>
+      <button type="button" class="btn btn-secondary" id="export-btn">Export CSV</button>
+    </div>
+    <table id="signups-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Event</th>
+          <th>Interest Areas</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="signups-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    var tokenInput = document.getElementById('token');
+    var gateError = document.getElementById('gate-error');
+    var typeFilter = document.getElementById('type-filter');
+    var currentRows = [];
+
+    function adminToken() {
+      return sessionStorage.getItem('pcyd_admin_token') || '';
+    }
+
+    function loadSignups() {
+      var url = '/api/signups' + (typeFilter.value ? '?type=' + typeFilter.value : '');
+      return fetch(url, { headers: { 'X-Admin-Token': adminToken() } })
+        .then(function (r) {
+          if (r.status === 401) { throw new Error('That token was not accepted.'); }
+          return r.json();
+        })
+        .then(function (data) {
+          currentRows = data.signups || [];
+          renderTable(currentRows);
+          document.getElementById('gate').style.display = 'none';
+          document.getElementById('panel').style.display = 'block';
+        });
+    }
+
+    function renderTable(rows) {
+      var body = document.getElementById('signups-body');
+      body.innerHTML = rows.map(function (row) {
+        return '<tr>' +
+          '<td>' + row.created_at + '</td>' +
+          '<td>' + row.type + '</td>' +
+          '<td>' + row.name + '</td>' +
+          '<td>' + row.email + '</td>' +
+          '<td>' + (row.phone || '') + '</td>' +
+          '<td>' + (row.event_title || '') + '</td>' +
+          '<td>' + (row.interest_areas || '') + '</td>' +
+          '<td>' + (row.notes || '') + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    document.getElementById('unlock-btn').addEventListener('click', function () {
+      sessionStorage.setItem('pcyd_admin_token', tokenInput.value.trim());
+      gateError.textContent = '';
+      loadSignups().catch(function (err) {
+        gateError.textContent = err.message;
+      });
+    });
+
+    typeFilter.addEventListener('change', function () {
+      loadSignups().catch(function (err) { gateError.textContent = err.message; });
+    });
+
+    document.getElementById('export-btn').addEventListener('click', function () {
+      var header = ['created_at', 'type', 'name', 'email', 'phone', 'event_title', 'interest_areas', 'notes'];
+      var lines = [header.join(',')];
+      currentRows.forEach(function (row) {
+        lines.push(header.map(function (key) {
+          var value = (row[key] || '').toString().replace(/"/g, '""');
+          return '"' + value + '"';
+        }).join(','));
+      });
+
+      var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'pcyd-signups.csv';
+      link.click();
+    });
+  </script>
+</body>
+</html>
