@@ -149,12 +149,27 @@ async function handleGitHubOAuth(request, env, url) {
     // ── Step 3: Post the token back to the Decap CMS window and close ───────
     // Decap listens for a message in this exact format:
     //   authorization:github:success:{"token":"...","provider":"github"}
+    // Shows status on screen and pauses before closing instead of an
+    // instant silent close, so a broken handoff is visible instead of
+    // just disappearing before anyone can see what happened.
     const payload = JSON.stringify({ token, provider: 'github' });
-    const html = `<!DOCTYPE html><html><body><script>
-  var msg = 'authorization:github:success:' + ${JSON.stringify(payload)};
-  window.opener.postMessage(msg, '*');
-  window.close();
-<\/script></body></html>`;
+    const html = `<!DOCTYPE html><html><body style="font-family: sans-serif; padding: 2rem; text-align: center;">
+  <p id="status">Finishing sign-in…</p>
+  <script>
+    var statusEl = document.getElementById('status');
+    try {
+      if (!window.opener) {
+        throw new Error('window.opener is not available in this window.');
+      }
+      var msg = 'authorization:github:success:' + ${JSON.stringify(payload)};
+      window.opener.postMessage(msg, '*');
+      statusEl.textContent = 'Signed in. Closing this window...';
+      setTimeout(function () { window.close(); }, 1500);
+    } catch (err) {
+      statusEl.textContent = 'Sign-in failed: ' + err.message;
+    }
+  <\/script>
+</body></html>`;
 
     return new Response(html, {
       headers: { 'Content-Type': 'text/html' },
