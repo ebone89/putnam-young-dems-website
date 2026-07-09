@@ -783,6 +783,14 @@ section {
   }
 }
 
+/* Below this width, the full org name doesn't fit next to the hamburger
+   button without pushing it off-screen, so just show the logo mark. */
+@media (max-width: 560px) {
+  .nav-brand-text {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   h1 { font-size: 1.7rem; }
 
