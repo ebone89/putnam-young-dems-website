@@ -146,25 +146,36 @@ async function handleGitHubOAuth(request, env, url) {
       );
     }
 
-    // ── Step 3: Post the token back to the Decap CMS window and close ───────
-    // Decap listens for a message in this exact format:
-    //   authorization:github:success:{"token":"...","provider":"github"}
-    // Shows status on screen and pauses before closing instead of an
-    // instant silent close, so a broken handoff is visible instead of
-    // just disappearing before anyone can see what happened.
+    // ── Step 3: Hand the token back to the Decap CMS window and close ───────
+    // Decap's side of this isn't a single fire-and-forget message. The popup
+    // pings the opener with "authorizing:github" first; Decap's listener
+    // echoes it back so the popup knows the opener's real origin, and only
+    // then does the popup send the actual success payload using that origin.
+    // Skipping the handshake (sending the success message straight away)
+    // means Decap's listener never picks it up, even though the postMessage
+    // call itself "succeeds" with no error.
     const payload = JSON.stringify({ token, provider: 'github' });
     const html = `<!DOCTYPE html><html><body style="font-family: sans-serif; padding: 2rem; text-align: center;">
   <p id="status">Finishing sign-in…</p>
   <script>
     var statusEl = document.getElementById('status');
+
+    function receiveMessage(e) {
+      window.opener.postMessage(
+        'authorization:github:success:' + ${JSON.stringify(payload)},
+        e.origin
+      );
+      window.removeEventListener('message', receiveMessage, false);
+      statusEl.textContent = 'Signed in. Closing this window...';
+      setTimeout(function () { window.close(); }, 1500);
+    }
+
     try {
       if (!window.opener) {
         throw new Error('window.opener is not available in this window.');
       }
-      var msg = 'authorization:github:success:' + ${JSON.stringify(payload)};
-      window.opener.postMessage(msg, '*');
-      statusEl.textContent = 'Signed in. Closing this window...';
-      setTimeout(function () { window.close(); }, 1500);
+      window.addEventListener('message', receiveMessage, false);
+      window.opener.postMessage('authorizing:github', '*');
     } catch (err) {
       statusEl.textContent = 'Sign-in failed: ' + err.message;
     }
