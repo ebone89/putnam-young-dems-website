@@ -1,17 +1,29 @@
 {
+  "whoBody": "To join as an official member of the PCYD you must be a Putnam County Resident between 18  and 40 years old or a student between 14 and 18 with a parent or guardians permission. \n\nIf you are interested but unsure whether you qualify, reach out. We would rather answer your question than lose a potential member.",
+  "whoHeading": "Who Can Join?",
   "heroHeading": "Get Involved",
+  "expectHeading": "What to Expect",
+  "ctaHeading": "Ready to Join?",
+  "ctaBody": "The best first step is to come to our next monthly meeting or reach out directly.",
+  "expectBody": "PCYD is still in its founding phase. That means the people who get involved now will have a direct hand in shaping the organization's structure, priorities, and culture. Early participants should expect regular meetings, a collaborative atmosphere, and real responsibility.\n\nThis is not a social club. PCYD is building toward concrete goals: filling precinct seats, running voter engagement operations, and creating a pipeline of trained local Democratic leaders. If that appeals to you, you are in the right place.",
   "heroBody": "There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.",
   "waysHeading": "Ways to Participate",
   "waysCards": [
-    { "title": "Become a Founding Member", "body": "Sign the charter packet and help establish PCYD as a recognized chapter of the Florida Young Democrats. Founding members shape the organization from the ground up and are recognized in our charter documents." },
-    { "title": "Volunteer", "body": "Help with event logistics, voter registration drives, outreach, and community engagement. No prior political experience required. We will train you." },
-    { "title": "Run for a Precinct Seat", "body": "Democratic Precinct Committeeman and Committeewoman seats carry formal voting authority within the county party structure. PCYD will help eligible members understand the process and prepare to qualify." },
-    { "title": "Support as an Ally", "body": "Not in the 14 to 39 age range? You can still support PCYD as an ally by attending events, sharing our work, and connecting us with resources in the community." }
-  ],
-  "whoHeading": "Who Can Join?",
-  "whoBody": "Florida Young Democrats publicly describes its chapters as serving Democrats and left-leaning residents ages 14 through 39. PCYD uses that public age range for recruitment and outreach. You do not need to be a registered Democrat to attend events or volunteer, but formal membership and officer eligibility will follow charter requirements and adopted bylaws.\n\nIf you are interested but unsure whether you qualify, reach out. We would rather answer your question than lose a potential member.",
-  "expectHeading": "What to Expect",
-  "expectBody": "PCYD is still in its founding phase. That means the people who get involved now will have a direct hand in shaping the organization's structure, priorities, and culture. Early participants should expect regular meetings, a collaborative atmosphere, and real responsibility.\n\nThis is not a social club. PCYD is building toward concrete goals: filling precinct seats, running voter engagement operations, and creating a pipeline of trained local Democratic leaders. If that appeals to you, you are in the right place.",
-  "ctaHeading": "Ready to Join?",
-  "ctaBody": "The best first step is to come to our next monthly meeting or reach out directly."
+    {
+      "title": "Become a Founding Member",
+      "body": "Sign the charter packet and help establish PCYD as a recognized chapter of the Florida Young Democrats. Founding members shape the organization from the ground up and are recognized in our charter documents."
+    },
+    {
+      "title": "Volunteer",
+      "body": "Help with event logistics, voter registration drives, outreach, and community engagement. No prior political experience required. We will train you."
+    },
+    {
+      "title": "Run for a Precinct Seat",
+      "body": "Democratic Precinct Committeeman and Committeewoman seats carry formal voting authority within the county party structure. PCYD will help eligible members understand the process and prepare to qualify."
+    },
+    {
+      "title": "Support as an Ally",
+      "body": "Not in the 14 to 39 age range? You can still support PCYD as an ally by attending events, sharing our work, and connecting us with resources in the community."
+    }
+  ]
 }
