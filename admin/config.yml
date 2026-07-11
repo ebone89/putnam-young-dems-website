@@ -38,14 +38,20 @@ collections:
 
               - label: Start Date
                 name: startDate
-                widget: date
+                widget: datetime
                 format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
                 hint: "The day this event starts. Shows on the calendar and event list."
 
               - label: End Date
                 name: endDate
-                widget: date
+                widget: datetime
                 format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
                 required: false
                 hint: "Only set this for multi-day events. Leave blank otherwise."
 
@@ -216,8 +222,11 @@ collections:
 
               - label: Date
                 name: date
-                widget: date
+                widget: datetime
                 format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
                 required: false
 
               - label: Published
