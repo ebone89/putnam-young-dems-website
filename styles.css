@@ -127,9 +127,18 @@ p {
   margin-bottom: 1rem;
 }
 
-.accent-text {
+/* Small editorial kicker above a section heading. This is the one place the
+   Playfair accent face earns its spot in the font import, giving the tightly
+   set, uppercase Montserrat headings some contrast. */
+.section-eyebrow {
+  display: block;
   font-family: var(--font-accent);
   font-weight: 600;
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--azalea-pink);
+  margin-bottom: 0.35rem;
 }
 
 /* --- Layout --- */
@@ -409,10 +418,10 @@ section {
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.75rem 1.75rem;
-  border-radius: 4px;
+  border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   cursor: pointer;
   border: none;
 }
@@ -424,11 +433,13 @@ section {
 .btn-primary {
   background: var(--azalea-pink);
   color: var(--clean-white);
+  box-shadow: 0 2px 8px rgba(214, 68, 142, 0.3);
 }
 
 .btn-primary:hover {
   background: #c13a7d;
   color: var(--clean-white);
+  box-shadow: 0 4px 14px rgba(214, 68, 142, 0.4);
 }
 
 .btn-outline {
@@ -522,10 +533,20 @@ section {
 }
 
 /* --- Card Grid --- */
+/* Flex rather than grid auto-fit so a row that doesn't fill (like the five
+   "What We Do" cards landing as 3 + 2) centers its leftover cards instead of
+   leaving a lopsided gap. The max-width keeps one or two cards from stretching
+   awkwardly wide on a short row. */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
+}
+
+.card-grid > * {
+  flex: 1 1 280px;
+  max-width: 380px;
 }
 
 .card {
@@ -543,6 +564,26 @@ section {
 .card h3 {
   color: var(--card-heading);
   margin-bottom: 0.75rem;
+}
+
+/* Decorative badge holding each card's line icon. Purely visual, so the
+   markup carries aria-hidden and the icon inherits the azalea accent. */
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: rgba(214, 68, 142, 0.12);
+  color: var(--azalea-pink);
+}
+
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
 }
 
 /* --- Event Card --- */
@@ -891,8 +932,10 @@ section {
     font-size: 1.05rem;
   }
 
-  .card-grid {
-    grid-template-columns: 1fr;
+  /* One card per row on phones; overrides the flex-basis from the base rule. */
+  .card-grid > * {
+    flex-basis: 100%;
+    max-width: none;
   }
 
   .contact-block {
