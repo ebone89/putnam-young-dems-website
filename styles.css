@@ -29,6 +29,50 @@
   --section-padding: 4rem 2rem;
   --container-max: 1100px;
   --nav-height: 70px;
+
+  /* Semantic surface tokens. Components reference these instead of the raw
+     brand colors above, so switching themes is a short list of overrides
+     (see [data-theme="dark"] below) rather than edits spread across every
+     rule. The light values here match what the site has always shipped. */
+  --page-bg: var(--clean-white);
+  --surface: rgba(214, 68, 142, 0.07);   /* raised cards / event cards */
+  --surface-alt: var(--mist-gray);        /* the alternating gray band */
+  --nav-bg: var(--dark-river);
+  --footer-bg: var(--dark-river);
+  --hero-bg: #0778BE;                      /* the logo's own blue; see .hero */
+  --text: var(--slate-text);
+  --text-muted: #5a6a7a;
+  --heading: var(--dark-river);
+  --card-heading: var(--river-blue);
+  --link: var(--river-blue);
+  --link-hover: var(--azalea-pink);
+  --border: var(--mist-gray);
+  --input-bg: var(--clean-white);
+}
+
+/* Dark theme. The page drops to the deep river blue, surfaces lift a step
+   out of it so cards still read as raised, and text/links move to lighter
+   tints that clear WCAG AA contrast on the dark field. The hero keeps its
+   own blue in both themes so the flat logo goes on dissolving into it.
+
+   The inline script in each page <head> stamps data-theme before first
+   paint (saved choice, else the OS setting) so there's no flash of the
+   wrong background. If JS is off the page simply stays in the light theme,
+   which is fully usable. */
+:root[data-theme="dark"] {
+  --page-bg: var(--dark-river);
+  --surface: #17548C;
+  --surface-alt: #0B3057;
+  --nav-bg: #0A2C4E;
+  --footer-bg: #0A2C4E;
+  --text: #E6EEF6;
+  --text-muted: #A9BFD3;
+  --heading: #F1F7FC;
+  --card-heading: #7FBDEB;
+  --link: #7FBDEB;
+  --link-hover: var(--light-azalea);
+  --border: rgba(255, 255, 255, 0.14);
+  --input-bg: #0B3057;
 }
 
 /* --- Reset and Base --- */
@@ -44,10 +88,13 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--slate-text);
-  background: var(--clean-white);
+  color: var(--text);
+  background: var(--page-bg);
   line-height: 1.7;
   font-size: 16px;
+  /* Only fires on a theme toggle; the head script sets the theme before
+     first paint, so the page never animates on load. */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -56,19 +103,19 @@ img {
 }
 
 a {
-  color: var(--river-blue);
+  color: var(--link);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--azalea-pink);
+  color: var(--link-hover);
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
   font-family: var(--font-headline);
-  color: var(--dark-river);
+  color: var(--heading);
   line-height: 1.3;
 }
 
@@ -94,6 +141,7 @@ p {
 
 section {
   padding: var(--section-padding);
+  transition: background-color 0.3s ease;
 }
 
 /* --- Skip Link --- */
@@ -117,7 +165,7 @@ section {
 
 /* --- Navigation --- */
 .site-nav {
-  background: var(--dark-river);
+  background: var(--nav-bg);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -237,12 +285,68 @@ section {
   letter-spacing: 0.03em;
 }
 
+/* Groups the theme toggle and the hamburger together on the right, so the
+   flex row stays brand-on-left / controls-on-right with the nav links in an
+   absolutely-positioned dropdown. */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* --- Theme Toggle --- */
+/* The nav bar is dark in both themes, so a white icon reads on either one.
+   Sun and moon are both in the markup; CSS shows whichever matches the
+   active theme (see the data-theme rules below). */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--clean-white);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--clean-white);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
 /* --- Hero Section --- */
 .hero {
-  /* Flat #0778BE is the logo's own solid background, sampled from
+  /* --hero-bg is flat #0778BE, the logo's own solid background sampled from
      pcyd-logo-square.png. Matching it exactly lets the logo's box dissolve into
-     the hero with no visible seam, instead of stacking two mismatched blues. */
-  background: #0778BE;
+     the hero with no visible seam, instead of stacking two mismatched blues.
+     It stays this blue in both themes so the effect holds in dark mode too. */
+  background: var(--hero-bg);
   color: var(--clean-white);
   padding: 5rem 2rem;
   text-align: center;
@@ -350,11 +454,11 @@ section {
 
 /* --- Content Sections --- */
 .section-light {
-  background: var(--clean-white);
+  background: var(--page-bg);
 }
 
 .section-gray {
-  background: var(--mist-gray);
+  background: var(--surface-alt);
 }
 
 .section-blue {
@@ -375,7 +479,7 @@ section {
 .section-header p {
   max-width: 600px;
   margin: 0.5rem auto 0;
-  color: #5a6a7a;
+  color: var(--text-muted);
 }
 
 /* --- Voter Resources section picker --- */
@@ -409,7 +513,7 @@ section {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #5a6a7a;
+  color: var(--text-muted);
   margin: 1.5rem 0 0.75rem;
 }
 
@@ -425,11 +529,11 @@ section {
 }
 
 .card {
-  background: rgba(214, 68, 142, 0.07);
-  border: 1px solid var(--mist-gray);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 2rem 1.5rem;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .card:hover {
@@ -437,13 +541,13 @@ section {
 }
 
 .card h3 {
-  color: var(--river-blue);
+  color: var(--card-heading);
   margin-bottom: 0.75rem;
 }
 
 /* --- Event Card --- */
 .event-card {
-  background: rgba(214, 68, 142, 0.07);
+  background: var(--surface);
   border-left: 4px solid var(--azalea-pink);
   border-radius: 6px;
   padding: 1.75rem 2rem;
@@ -462,13 +566,13 @@ section {
 }
 
 .event-card h3 {
-  color: var(--dark-river);
+  color: var(--heading);
   margin-bottom: 0.5rem;
 }
 
 .event-card .event-details {
   font-size: 0.95rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -486,7 +590,7 @@ section {
 
 .calendar-nav h3 {
   margin: 0;
-  color: var(--dark-river);
+  color: var(--heading);
 }
 
 .calendar-nav button {
@@ -513,7 +617,7 @@ section {
 .calendar-table th {
   font-family: var(--font-headline);
   font-size: 0.8rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   padding: 0.5rem 0.25rem;
@@ -521,7 +625,7 @@ section {
 }
 
 .calendar-table td {
-  border: 1px solid var(--mist-gray);
+  border: 1px solid var(--border);
   vertical-align: top;
   height: 5rem;
   padding: 0.35rem;
@@ -531,7 +635,7 @@ section {
 .calendar-day-num {
   font-family: var(--font-headline);
   font-weight: 600;
-  color: var(--slate-text);
+  color: var(--text);
 }
 
 .calendar-today {
@@ -548,7 +652,7 @@ section {
 }
 
 .calendar-events li {
-  color: var(--river-blue);
+  color: var(--link);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.3;
@@ -578,8 +682,8 @@ section {
   margin: 0;
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid var(--mist-gray);
-  background: var(--clean-white);
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .gallery-item img {
@@ -592,7 +696,7 @@ section {
 .gallery-item figcaption {
   padding: 0.6rem 0.85rem;
   font-size: 0.85rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
 }
 
 /* --- Screen-reader-only content --- */
@@ -617,7 +721,7 @@ section {
 }
 
 .contact-item h3 {
-  color: var(--river-blue);
+  color: var(--card-heading);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
 }
@@ -642,7 +746,7 @@ section {
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 0.35rem;
-  color: var(--dark-river);
+  color: var(--heading);
 }
 
 .form-group input,
@@ -652,15 +756,11 @@ section {
   padding: 0.7rem 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
-  border: 1px solid var(--mist-gray);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: var(--clean-white);
-  color: var(--slate-text);
+  background: var(--input-bg);
+  color: var(--text);
   transition: border-color 0.2s ease;
-}
-
-.form-group select {
-  background: rgba(214, 68, 142, 0.07);
 }
 
 .form-group input:focus,
@@ -715,7 +815,7 @@ section {
 }
 
 .form-status-success {
-  color: var(--river-blue);
+  color: var(--link);
 }
 
 .form-status-error {
@@ -724,8 +824,11 @@ section {
 
 /* --- Footer --- */
 .site-footer {
-  background: var(--dark-river);
+  background: var(--footer-bg);
   color: rgba(255, 255, 255, 0.7);
+  /* Thin azalea rule sets the footer off from the content above it, which
+     matters most in dark mode where footer and page are both deep blue. */
+  border-top: 3px solid var(--azalea-pink);
   padding: 2.5rem 2rem;
   text-align: center;
   font-size: 0.9rem;
