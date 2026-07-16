@@ -97,30 +97,63 @@ async function handleListSignups(request, env, url) {
   return jsonResponse({ ok: true, signups: results });
 }
 
+const OAUTH_STATE_COOKIE = 'pcyd_oauth_state';
+
+function parseCookie(request, name) {
+  const header = request.headers.get('Cookie') || '';
+  const match = header.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+// `Secure` cookies are silently dropped over plain HTTP, which is how
+// `wrangler dev` serves localhost — omit it there so local OAuth testing
+// still works, but keep it for the real https:// deployment.
+function buildStateCookie(url, value, maxAge) {
+  const attrs = [`${OAUTH_STATE_COOKIE}=${value}`, 'HttpOnly', 'SameSite=Lax', `Max-Age=${maxAge}`, 'Path=/api/auth'];
+  if (url.protocol === 'https:') { attrs.push('Secure'); }
+  return attrs.join('; ');
+}
+
 async function handleGitHubOAuth(request, env, url) {
   // Strip the /api/auth prefix to get the sub-path
   const path = url.pathname.replace('/api/auth', '') || '/';
 
   // ── Step 1: Send the user to GitHub to authorize ──────────────────────────
   if (path === '/') {
+    const state = crypto.randomUUID();
     const params = new URLSearchParams({
       client_id: env.GITHUB_CLIENT_ID,
       scope: 'repo',           // needs repo scope to read/write files
-      state: crypto.randomUUID(),
+      state,
     });
 
-    return Response.redirect(
-      `https://github.com/login/oauth/authorize?${params}`,
-      302
-    );
+    // Stash the state in a short-lived cookie so /callback can confirm the
+    // response actually corresponds to a request we started (CSRF guard).
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: `https://github.com/login/oauth/authorize?${params}`,
+        'Set-Cookie': buildStateCookie(url, state, 600),
+      },
+    });
   }
 
   // ── Step 2: Exchange the one-time code for an access token ────────────────
   if (path === '/callback') {
     const code = url.searchParams.get('code');
+    const state = url.searchParams.get('state');
+    const expectedState = parseCookie(request, OAUTH_STATE_COOKIE);
+    const clearStateCookie = buildStateCookie(url, '', 0);
 
     if (!code) {
       return new Response('Missing OAuth code parameter', { status: 400 });
+    }
+
+    if (!state || !expectedState || state !== expectedState) {
+      return new Response('OAuth state mismatch — please restart sign-in.', {
+        status: 400,
+        headers: { 'Set-Cookie': clearStateCookie },
+      });
     }
 
     const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
@@ -142,7 +175,7 @@ async function handleGitHubOAuth(request, env, url) {
     if (!token) {
       return new Response(
         'GitHub OAuth failed: ' + JSON.stringify(tokenData),
-        { status: 400 }
+        { status: 400, headers: { 'Set-Cookie': clearStateCookie } }
       );
     }
 
@@ -183,7 +216,7 @@ async function handleGitHubOAuth(request, env, url) {
 </body></html>`;
 
     return new Response(html, {
-      headers: { 'Content-Type': 'text/html' },
+      headers: { 'Content-Type': 'text/html', 'Set-Cookie': clearStateCookie },
     });
   }
 
