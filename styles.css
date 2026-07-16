@@ -239,7 +239,10 @@ section {
 
 /* --- Hero Section --- */
 .hero {
-  background: linear-gradient(135deg, var(--river-blue) 0%, var(--dark-river) 100%);
+  /* Flat #0778BE is the logo's own solid background, sampled from
+     pcyd-logo-square.png. Matching it exactly lets the logo's box dissolve into
+     the hero with no visible seam, instead of stacking two mismatched blues. */
+  background: #0778BE;
   color: var(--clean-white);
   padding: 5rem 2rem;
   text-align: center;
@@ -283,8 +286,15 @@ section {
 
 /* --- Hero Banner Image --- */
 .hero-banner {
-  max-width: 700px;
+  /* The source is the square logo, but its content sits in a centered 2.63:1
+     band with equal solid-blue margins top and bottom. object-fit:cover +
+     object-position:center crops away only that uniform blue, showing the full
+     wordmark and subtitle with no clipping. Height sets the visible band. */
+  max-width: 720px;
   width: 100%;
+  height: 270px;
+  object-fit: cover;
+  object-position: center;
   margin: 0 auto 2rem;
   display: block;
 }
