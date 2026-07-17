@@ -51,11 +51,11 @@
   </nav>
 
   <main id="content">
-  <!-- Page Header -->
+  <!-- Page Header — text loaded from _data/voter-resources-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1>Voter Resources</h1>
-      <p>Register to vote, and find out who represents Putnam County right now, from Washington to the county courthouse.</p>
+      <h1 id="vrp-hero-heading">Voter Resources</h1>
+      <p id="vrp-hero-body">Register to vote, and find out who represents Putnam County right now, from Washington to the county courthouse.</p>
     </div>
   </section>
 
@@ -114,8 +114,8 @@
   <section class="section-gray vr-panel" id="panel-federal">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>Federal Officials</h2>
-        <p>Federal offices that represent Putnam County.</p>
+        <h2 id="vrp-federal-heading">Federal Officials</h2>
+        <p id="vrp-federal-intro">Federal offices that represent Putnam County.</p>
       </div>
       <div id="officials-federal"></div>
     </div>
@@ -124,8 +124,8 @@
   <section class="section-gray vr-panel" id="panel-state">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>State Officials</h2>
-        <p>State offices that represent Putnam County.</p>
+        <h2 id="vrp-state-heading">State Officials</h2>
+        <p id="vrp-state-intro">State offices that represent Putnam County.</p>
       </div>
       <div id="officials-state"></div>
     </div>
@@ -134,8 +134,8 @@
   <section class="section-gray vr-panel" id="panel-county">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>County &amp; Local Officials</h2>
-        <p>County and municipal offices that represent Putnam County.</p>
+        <h2 id="vrp-county-heading">County &amp; Local Officials</h2>
+        <p id="vrp-county-intro">County and municipal offices that represent Putnam County.</p>
       </div>
       <div id="officials-county"></div>
     </div>
@@ -238,11 +238,27 @@
   <!-- CTA -->
   <section class="section-light text-center">
     <div class="container">
-      <h2 class="heading-accent">Not Sure Who to Contact?</h2>
-      <p style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Reach out to PCYD and we will help point you to the right office.</p>
+      <h2 id="vrp-cta-heading" class="heading-accent">Not Sure Who to Contact?</h2>
+      <p id="vrp-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Reach out to PCYD and we will help point you to the right office.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
   </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/voter-resources-page.json', function (content) {
+      applyText('vrp-hero-heading', content.heroHeading);
+      applyText('vrp-hero-body', content.heroBody);
+      applyText('vrp-federal-heading', content.federalHeading);
+      applyText('vrp-federal-intro', content.federalIntro);
+      applyText('vrp-state-heading', content.stateHeading);
+      applyText('vrp-state-intro', content.stateIntro);
+      applyText('vrp-county-heading', content.countyHeading);
+      applyText('vrp-county-intro', content.countyIntro);
+      applyText('vrp-cta-heading', content.ctaHeading);
+      applyText('vrp-cta-body', content.ctaBody);
+    });
+  </script>
   </main>
 
   <!-- Footer -->

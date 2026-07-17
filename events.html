@@ -51,12 +51,12 @@
   </nav>
 
   <main id="content">
-  <!-- Page Header -->
+  <!-- Page Header — text loaded from _data/events-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1>Events</h1>
-      <p>Community gatherings, member meetings, and public events in Putnam County.</p>
-      <p style="opacity: 0.85; font-size: 0.95rem;">Mark your calendar: the 2026 Florida primary is August 18, and the general election is November 3.</p>
+      <h1 id="events-hero-heading">Events</h1>
+      <p id="events-hero-body">Community gatherings, member meetings, and public events in Putnam County.</p>
+      <p id="events-election-note" style="opacity: 0.85; font-size: 0.95rem;">Mark your calendar: the 2026 Florida primary is August 18, and the general election is November 3.</p>
     </div>
   </section>
 
@@ -64,7 +64,7 @@
   <section class="section-light" style="padding-bottom: 0;">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>Calendar</h2>
+        <h2 id="events-calendar-heading">Calendar</h2>
       </div>
       <div class="calendar" id="event-calendar">
         <div class="calendar-nav">
@@ -95,8 +95,8 @@
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>RSVP</h2>
-        <p>Let us know you're coming so we can plan for you.</p>
+        <h2 id="events-rsvp-heading">RSVP</h2>
+        <p id="events-rsvp-intro">Let us know you're coming so we can plan for you.</p>
       </div>
       <form class="contact-form" id="rsvp-form">
         <input type="text" name="_hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -125,7 +125,7 @@
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header" style="text-align: left;">
-        <h2>Upcoming Events</h2>
+        <h2 id="events-upcoming-heading">Upcoming Events</h2>
       </div>
 
       <!-- Events are injected here by the script below -->
@@ -238,11 +238,26 @@
   <!-- Stay Updated CTA -->
   <section class="section-light text-center">
     <div class="container">
-      <h2 class="heading-accent">Stay in the Loop</h2>
-      <p style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Follow us on social media or reach out directly to get notified about upcoming events and meetings.</p>
+      <h2 id="events-cta-heading" class="heading-accent">Stay in the Loop</h2>
+      <p id="events-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Follow us on social media or reach out directly to get notified about upcoming events and meetings.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
   </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/events-page.json', function (content) {
+      applyText('events-hero-heading', content.heroHeading);
+      applyText('events-hero-body', content.heroBody);
+      applyText('events-election-note', content.electionNote);
+      applyText('events-calendar-heading', content.calendarHeading);
+      applyText('events-rsvp-heading', content.rsvpHeading);
+      applyText('events-rsvp-intro', content.rsvpIntro);
+      applyText('events-upcoming-heading', content.upcomingHeading);
+      applyText('events-cta-heading', content.ctaHeading);
+      applyText('events-cta-body', content.ctaBody);
+    });
+  </script>
   </main>
 
   <!-- Footer -->

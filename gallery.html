@@ -51,11 +51,11 @@
   </nav>
 
   <main id="content">
-  <!-- Page Header -->
+  <!-- Page Header — text loaded from _data/gallery-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1>Photos</h1>
-      <p>Moments from PCYD events, meetings, and outreach across Putnam County.</p>
+      <h1 id="gallery-hero-heading">Photos</h1>
+      <p id="gallery-hero-body">Moments from PCYD events, meetings, and outreach across Putnam County.</p>
     </div>
   </section>
 
@@ -64,6 +64,14 @@
       <div class="gallery-grid" id="gallery-grid"></div>
     </div>
   </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/gallery-page.json', function (content) {
+      applyText('gallery-hero-heading', content.heroHeading);
+      applyText('gallery-hero-body', content.heroBody);
+    });
+  </script>
 
   <script>
     var grid = document.getElementById('gallery-grid');

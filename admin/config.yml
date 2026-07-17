@@ -363,6 +363,48 @@ collections:
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
 
+      - label: Events Page
+        name: eventsPage
+        file: _data/events-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - label: Election Date Note
+            name: electionNote
+            widget: text
+            hint: "The small line under the page intro, e.g. primary/general election dates. Update each election cycle."
+          - { label: Calendar Heading, name: calendarHeading, widget: string }
+          - { label: RSVP Heading, name: rsvpHeading, widget: string }
+          - { label: RSVP Intro, name: rsvpIntro, widget: text }
+          - { label: "\"Upcoming Events\" Heading", name: upcomingHeading, widget: string }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Voter Resources Page
+        name: voterResourcesPage
+        file: _data/voter-resources-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - { label: Federal Officials Heading, name: federalHeading, widget: string }
+          - { label: Federal Officials Intro, name: federalIntro, widget: text }
+          - { label: State Officials Heading, name: stateHeading, widget: string }
+          - { label: State Officials Intro, name: stateIntro, widget: text }
+          - { label: County Officials Heading, name: countyHeading, widget: string }
+          - { label: County Officials Intro, name: countyIntro, widget: text }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Gallery Page
+        name: galleryPage
+        file: _data/gallery-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+
       - label: Contact Page
         name: contact
         file: _data/contact-page.json
