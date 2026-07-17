@@ -13,7 +13,6 @@
   --river-blue: #1B5E9E;
   --azalea-pink: #D6448E;
   --clean-white: #FFFFFF;
-  --logo-blue: #0778BE;   /* the PCYD logo artwork's own solid background */
 
   /* Extended palette */
   --dark-river: #0F3D6B;
@@ -33,13 +32,12 @@
   /* Semantic surface tokens. Components reference these instead of the raw
      brand colors above, so switching themes is a short list of overrides
      (see [data-theme="dark"] below) rather than edits spread across every
-     rule. In dark mode --page-bg is set to --logo-blue exactly, so the flat
-     PCYD logo dissolves straight into the page with no card or seam around
-     it; in light mode --page-bg is a soft light tint instead, so the logo
-     shows as a small rounded color chip, which reads as a normal logo
-     lockup rather than a mismatched box. --hero-bg (the page-title band on
-     every page, and the homepage's button card) stays the dark frame color
-     in both themes, consistent with the nav and footer. */
+     rule. --page-bg is a soft light-blue tint in light mode and the dark
+     river blue in dark mode. The homepage logo is a transparent PNG, so it
+     sits cleanly on either one with no color-matching needed. --hero-bg
+     (the page-title band on every page, and the homepage's button card)
+     stays the dark frame color in both themes, consistent with the nav and
+     footer. */
   --page-bg: #E7F2FB;
   --surface: rgba(214, 68, 142, 0.07);   /* raised cards / event cards */
   --surface-alt: var(--mist-gray);        /* the alternating gray band */
@@ -56,20 +54,23 @@
   --input-bg: var(--clean-white);
 }
 
-/* Dark theme. The page background becomes --logo-blue (see above), surfaces
-   lift a step out of it so cards still read as raised, and text/links move
-   to lighter tints that clear WCAG AA contrast on the dark field.
+/* Dark theme. The page drops to the deep river blue, surfaces lift a step
+   out of it so cards still read as raised, and text/links move to lighter
+   tints that clear WCAG AA contrast on the dark field.
 
    The inline script in each page <head> stamps data-theme before first
    paint (saved choice, else the OS setting) so there's no flash of the
    wrong background. If JS is off the page simply stays in the light theme,
    which is fully usable. */
 :root[data-theme="dark"] {
-  --page-bg: var(--logo-blue);
+  --page-bg: var(--dark-river);
   --surface: #17548C;
   --surface-alt: #0B3057;
   --nav-bg: #0A2C4E;
   --footer-bg: #0A2C4E;
+  /* --hero-bg needs its own value here: the light theme's dark-river banner
+     would be invisible against a page that's already dark-river. */
+  --hero-bg: var(--river-blue);
   --text: #E6EEF6;
   --text-muted: #A9BFD3;
   --heading: #F1F7FC;
@@ -392,7 +393,7 @@ section {
 /* --- Homepage: compact button card, framed in the page background instead
    of a full-bleed color band --- */
 .home-hero-card-section {
-  padding: 3rem 2rem 0;
+  padding: 1rem 2rem 3rem;
   text-align: center;
 }
 
@@ -408,11 +409,11 @@ section {
 
 /* --- Homepage: logo/tagline/heading intro --- */
 /* Transparent-background artwork, so no page-color matching is needed here
-   at all; it just sits on whatever --page-bg is. Native size is 224x91 —
-   sized to that rather than stretched, since upscaling it further would
-   look soft. */
+   at all; it just sits on whatever --page-bg is. Native resolution is only
+   224x91, so displayed this large it's upscaled and won't be pixel-crisp;
+   swap in a higher-res transparent export if that softness is noticeable. */
 .home-intro-logo {
-  max-width: 224px;
+  max-width: 380px;
   width: 100%;
   margin: 0 auto 1.5rem;
   display: block;
