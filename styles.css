@@ -181,11 +181,15 @@ section {
   align-items: center;
 }
 
+/* Three-column grid so the brand, the hamburger, and the theme toggle land
+   at left, true-center, and right regardless of how wide the brand text or
+   either button is — a flex row with space-between only centers a middle
+   item when the two outer ones happen to be equal width. */
 .site-nav .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 2rem;
+  column-gap: 1rem;
   width: 100%;
   position: relative;
 }
@@ -199,6 +203,7 @@ section {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  justify-self: start;
 }
 
 .nav-logo {
@@ -267,6 +272,7 @@ section {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  justify-self: center;
 }
 
 .nav-toggle-icon {
@@ -292,15 +298,6 @@ section {
   letter-spacing: 0.03em;
 }
 
-/* Groups the theme toggle and the hamburger together on the right, so the
-   flex row stays brand-on-left / controls-on-right with the nav links in an
-   absolutely-positioned dropdown. */
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
 /* --- Theme Toggle --- */
 /* The nav bar is dark in both themes, so a white icon reads on either one.
    Sun and moon are both in the markup; CSS shows whichever matches the
@@ -312,6 +309,7 @@ section {
   width: 40px;
   height: 40px;
   padding: 0;
+  justify-self: end;
   background: none;
   border: none;
   border-radius: 50%;
@@ -408,12 +406,10 @@ section {
 }
 
 /* --- Homepage: logo/tagline/heading intro --- */
-/* Transparent-background artwork, so no page-color matching is needed here
-   at all; it just sits on whatever --page-bg is. Native resolution is only
-   224x91, so displayed this large it's upscaled and won't be pixel-crisp;
-   swap in a higher-res transparent export if that softness is noticeable. */
+/* Transparent-background artwork (597x244 native), so no page-color
+   matching is needed here at all; it just sits on whatever --page-bg is. */
 .home-intro-logo {
-  max-width: 380px;
+  max-width: 440px;
   width: 100%;
   margin: 0 auto 1.5rem;
   display: block;
