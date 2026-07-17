@@ -6,6 +6,20 @@
   <title>About - Putnam County Young Democrats</title>
   <meta name="description" content="Learn about the mission, community context, and organizational structure of the Putnam County Young Democrats (PCYD) in Palatka, Florida.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved or system color theme before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,10 +29,14 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
+      </button>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
       <ul class="nav-links" id="primary-nav">
         <li><a href="index.html">Home</a></li>
@@ -27,6 +45,7 @@
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
         <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -36,7 +55,7 @@
   <!-- Page Header — text loaded from _data/about-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1 id="about-hero-heading">About PCYD</h1>
+      <h1 id="about-hero-heading" class="heading-accent">About PCYD</h1>
       <p id="about-hero-body">Who we are, why we exist, and what we are building in Putnam County.</p>
     </div>
   </section>
@@ -82,22 +101,11 @@
       });
   </script>
 
-  <!-- Organizational Relationship -->
-  <section class="section-light">
-    <div class="container" style="max-width: 800px;">
-      <h2 id="about-org-heading">Organizational Relationship</h2>
-      <div id="about-org-body">
-        <p>PCYD is being formed as a local youth Democratic organization in Putnam County with the intent to charter through the Florida Young Democrats and operate in alignment with the Florida Democratic Party. During the pre-charter period, PCYD is working cooperatively with the Putnam County Democratic Center and local Democratic leadership while developing its own membership, records, and officer structure.</p>
-        <p>PCYD is not yet chartered. All public materials reflect the current status: <strong>Forming; pre-charter as of April 2, 2026.</strong></p>
-      </div>
-    </div>
-  </section>
-
   <!-- Membership -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <h2 id="about-membership-heading">Membership</h2>
-      <p id="about-membership-intro">Florida Young Democrats publicly describes its chapters as serving Democrats and left-leaning residents ages 14 through 39. PCYD uses that public age range for recruitment and outreach unless and until a more specific rule is confirmed through charter paperwork or adopted bylaws.</p>
+      <p id="about-membership-intro">Official members must be Putnam County Residents aged 18 -  40 or students 14 - 18 with parent or guardian permission. Over 40? No problem! We welcome you as a supporting member, event volunteer, or an operational supporter.</p>
 
       <div class="card-grid mt-3" id="about-membership-tiers" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
         <div class="card">
@@ -118,22 +126,10 @@
     </div>
   </section>
 
-  <!-- Officer Structure -->
-  <section class="section-light">
-    <div class="container" style="max-width: 800px;">
-      <h2 id="about-officer-heading">Founding Officer Structure</h2>
-      <div id="about-officer-body">
-        <p>The permanent officer structure will be finalized through the founding process and adopted governing documents. During the pre-charter period, the following founding roles are being filled first: Chair, Vice Chair, Secretary, and Treasurer.</p>
-        <p>Additional operational roles may be appointed after the founding slate is seated, including outreach, operations, communications, and membership support positions.</p>
-      </div>
-      <p style="margin-top: 1.5rem;"><strong>Interim Chair:</strong> <span id="about-interim-chair">Ethan Bradley</span></p>
-    </div>
-  </section>
-
   <!-- CTA -->
-  <section class="section-blue text-center">
+  <section class="section-light text-center">
     <div class="container">
-      <h2 id="about-cta-heading">Want to Help Build PCYD?</h2>
+      <h2 id="about-cta-heading" class="heading-accent">Want to Help Build PCYD?</h2>
       <p id="about-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">We are looking for founding members who want to be part of building something new for Putnam County.</p>
       <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
     </div>
@@ -146,15 +142,10 @@
       applyText('about-hero-body', content.heroBody);
       applyText('about-mission-heading', content.missionHeading);
       applyParagraphs('about-mission-body', content.missionBody);
-      applyText('about-org-heading', content.orgRelationshipHeading);
-      applyParagraphs('about-org-body', content.orgRelationshipBody);
       applyText('about-membership-heading', content.membershipHeading);
       applyText('about-membership-intro', content.membershipIntro);
       applyCards('about-membership-tiers', content.membershipTiers);
       applyText('about-membership-closing', content.membershipClosing);
-      applyText('about-officer-heading', content.officerHeading);
-      applyParagraphs('about-officer-body', content.officerBody);
-      applyText('about-interim-chair', content.interimChair);
       applyText('about-cta-heading', content.ctaHeading);
       applyText('about-cta-body', content.ctaBody);
     });
@@ -170,6 +161,7 @@
       <li><a href="get-involved.html">Get Involved</a></li>
       <li><a href="voter-resources.html">Voter Resources</a></li>
       <li><a href="gallery.html">Photos</a></li>
+      <li><a href="documents.html">Documents</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>

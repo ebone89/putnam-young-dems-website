@@ -5,7 +5,7 @@
    ============================================================ */
 
 /* --- Google Fonts Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
 
 /* --- CSS Custom Properties (Brand Palette) --- */
 :root {
@@ -23,12 +23,59 @@
   /* Typography */
   --font-headline: 'Montserrat', Arial, sans-serif;
   --font-body: 'Open Sans', Helvetica, sans-serif;
-  --font-accent: 'Playfair Display', Georgia, serif;
 
   /* Spacing */
   --section-padding: 4rem 2rem;
   --container-max: 1100px;
   --nav-height: 70px;
+
+  /* Semantic surface tokens. Components reference these instead of the raw
+     brand colors above, so switching themes is a short list of overrides
+     (see [data-theme="dark"] below) rather than edits spread across every
+     rule. --page-bg is a soft light-blue tint in light mode and the dark
+     river blue in dark mode. --hero-bg (the page-title band on every page
+     but the homepage) always matches --page-bg's dark end, so it reads as
+     a continuous surface rather than a mismatched stripe; it isn't
+     overridden per theme. The homepage button card uses --river-blue
+     directly instead, so it stays a deliberately distinct accent. */
+  --page-bg: #E7F2FB;
+  --surface: rgba(214, 68, 142, 0.07);   /* raised cards / event cards */
+  --surface-alt: var(--mist-gray);        /* the alternating gray band */
+  --nav-bg: var(--dark-river);
+  --footer-bg: var(--dark-river);
+  --hero-bg: var(--dark-river);
+  --text: var(--slate-text);
+  --text-muted: #5a6a7a;
+  --heading: var(--dark-river);
+  --card-heading: var(--river-blue);
+  --link: var(--river-blue);
+  --link-hover: var(--azalea-pink);
+  --border: var(--mist-gray);
+  --input-bg: var(--clean-white);
+}
+
+/* Dark theme. The page drops to the deep river blue, surfaces lift a step
+   out of it so cards still read as raised, and text/links move to lighter
+   tints that clear WCAG AA contrast on the dark field.
+
+   The inline script in each page <head> stamps data-theme before first
+   paint (saved choice, else the OS setting) so there's no flash of the
+   wrong background. If JS is off the page simply stays in the light theme,
+   which is fully usable. */
+:root[data-theme="dark"] {
+  --page-bg: var(--dark-river);
+  --surface: #17548C;
+  --surface-alt: #0B3057;
+  --nav-bg: #0A2C4E;
+  --footer-bg: #0A2C4E;
+  --text: #E6EEF6;
+  --text-muted: #A9BFD3;
+  --heading: #F1F7FC;
+  --card-heading: #7FBDEB;
+  --link: #7FBDEB;
+  --link-hover: var(--light-azalea);
+  --border: rgba(255, 255, 255, 0.14);
+  --input-bg: #0B3057;
 }
 
 /* --- Reset and Base --- */
@@ -44,10 +91,13 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--slate-text);
-  background: var(--clean-white);
+  color: var(--text);
+  background: var(--page-bg);
   line-height: 1.7;
   font-size: 16px;
+  /* Only fires on a theme toggle; the head script sets the theme before
+     first paint, so the page never animates on load. */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -56,19 +106,19 @@ img {
 }
 
 a {
-  color: var(--river-blue);
+  color: var(--link);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--azalea-pink);
+  color: var(--link-hover);
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
   font-family: var(--font-headline);
-  color: var(--dark-river);
+  color: var(--heading);
   line-height: 1.3;
 }
 
@@ -80,9 +130,10 @@ p {
   margin-bottom: 1rem;
 }
 
-.accent-text {
-  font-family: var(--font-accent);
-  font-weight: 600;
+/* Recolors a section's own heading instead of adding a separate kicker
+   label above it, so the emphasis doesn't duplicate the heading text. */
+.heading-accent {
+  color: var(--azalea-pink);
 }
 
 /* --- Layout --- */
@@ -94,6 +145,7 @@ p {
 
 section {
   padding: var(--section-padding);
+  transition: background-color 0.3s ease;
 }
 
 /* --- Skip Link --- */
@@ -117,7 +169,7 @@ section {
 
 /* --- Navigation --- */
 .site-nav {
-  background: var(--dark-river);
+  background: var(--nav-bg);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -126,17 +178,27 @@ section {
   align-items: center;
 }
 
+/* Three-column grid so the brand, the hamburger, and the theme toggle land
+   at left, true-center, and right regardless of how wide the brand text or
+   either button is — a flex row with space-between only centers a middle
+   item when the two outer ones happen to be equal width. Overrides
+   .container's max-width/centering so this row runs the full width of the
+   screen instead of sitting inside the same 1100px column as page content
+   — the brand and the theme toggle are meant to sit in the screen's actual
+   corners, not a centered island. */
 .site-nav .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 2rem;
+  column-gap: 1rem;
+  max-width: none;
+  margin: 0;
   width: 100%;
   position: relative;
 }
 
 .nav-brand {
-  color: var(--clean-white);
+  color: var(--azalea-pink);
   font-family: var(--font-headline);
   font-weight: 700;
   font-size: 1.2rem;
@@ -144,22 +206,36 @@ section {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  justify-self: start;
+  /* A grid track sizes to a nowrap child's full text width by default,
+     which would force this 1fr column wider than the centered hamburger
+     and right-aligned theme toggle can spare between ~561-768px (above
+     the breakpoint that drops the brand text, below where there's room
+     to spare). min-width: 0 lets the column actually shrink to 1fr, and
+     .nav-brand-text below truncates instead of overflowing. */
+  min-width: 0;
 }
 
+/* Transparent PCYD mark, no background chip, so it's sized to its own
+   2.75:1 aspect ratio (596x217) rather than forced into a square. */
 .nav-logo {
-  height: 42px;
-  width: 42px;
-  object-fit: contain;
+  height: 32px;
+  width: auto;
   flex-shrink: 0;
 }
 
 .nav-brand span {
-  color: var(--clean-white);
+  color: var(--azalea-pink);
+}
+
+.nav-brand-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-brand:hover,
 .nav-brand:hover span {
-  color: var(--azalea-pink);
+  color: var(--clean-white);
 }
 
 /* Always a dropdown behind the hamburger toggle, at every screen size,
@@ -212,6 +288,7 @@ section {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  justify-self: center;
 }
 
 .nav-toggle-icon {
@@ -237,9 +314,56 @@ section {
   letter-spacing: 0.03em;
 }
 
-/* --- Hero Section --- */
+/* --- Theme Toggle --- */
+/* The nav bar is dark in both themes, so a white icon reads on either one.
+   Sun and moon are both in the markup; CSS shows whichever matches the
+   active theme (see the data-theme rules below). */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-self: end;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--clean-white);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--clean-white);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+/* --- Hero Section (page-title band used by every page but the homepage) --- */
 .hero {
-  background: linear-gradient(135deg, var(--river-blue) 0%, var(--dark-river) 100%);
+  background: var(--hero-bg);
   color: var(--clean-white);
   padding: 5rem 2rem;
   text-align: center;
@@ -251,6 +375,13 @@ section {
   margin-bottom: 1.25rem;
 }
 
+/* Wins over the plain .hero h1 rule above (two classes + a type selector
+   beats one class + a type selector), so the page-title heading can be
+   pink instead of white on pages using the .hero band. */
+.hero h1.heading-accent {
+  color: var(--azalea-pink);
+}
+
 .hero p {
   font-size: 1.15rem;
   max-width: 650px;
@@ -259,7 +390,7 @@ section {
   line-height: 1.8;
 }
 
-.hero .tag {
+.tag {
   display: inline-block;
   background: var(--azalea-pink);
   color: var(--clean-white);
@@ -273,6 +404,18 @@ section {
   margin-bottom: 1.5rem;
 }
 
+/* A .tag pill sized for a full sentence instead of a short uppercase
+   label, e.g. the election-date note on the Events page. */
+.tag-note {
+  display: inline-block;
+  background: var(--azalea-pink);
+  color: var(--clean-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+}
 
 .hero-actions {
   display: flex;
@@ -281,13 +424,60 @@ section {
   gap: 1rem;
 }
 
-/* --- Hero Banner Image --- */
-.hero-banner {
-  max-width: 700px;
+/* --- Homepage: compact button card, framed in the page background instead
+   of a full-bleed color band --- */
+.home-hero-card-section {
+  padding: 1rem 2rem 3rem;
+  text-align: center;
+}
+
+/* Sized to its content (inline-block, centered by the section's
+   text-align) rather than stretched to a fixed max-width, so the card
+   hugs the two buttons instead of leaving them floating in a wide box.
+   Uses --river-blue directly (not --hero-bg) so it stays a consistent,
+   distinct accent against --page-bg in both themes, independent of
+   whatever .hero is doing on the other pages. */
+.home-hero-card {
+  display: inline-block;
+  background: var(--river-blue);
+  padding: 1.75rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 61, 107, 0.25);
+  transition: background-color 0.3s ease;
+}
+
+/* --- Homepage: logo/tagline/heading intro --- */
+/* Transparent-background artwork (597x244 native), so no page-color
+   matching is needed here at all; it just sits on whatever --page-bg is.
+   Two variants swap by theme (see the data-theme rules below): the blue
+   letter-fill version reads better on the light page, the white version on
+   the dark one. */
+.home-intro-logo {
+  max-width: 440px;
   width: 100%;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
   display: block;
 }
+
+.home-intro-logo-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .home-intro-logo-dark {
+  display: block;
+}
+
+:root[data-theme="dark"] .home-intro-logo-light {
+  display: none;
+}
+
+/* Renders the literal line break in the heading text (see home.json's
+   heroHeading) without needing raw HTML in a field that's set via
+   textContent. */
+.home-intro-heading {
+  white-space: pre-line;
+}
+
 /* --- Buttons --- */
 .btn {
   display: inline-block;
@@ -295,10 +485,10 @@ section {
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.75rem 1.75rem;
-  border-radius: 4px;
+  border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   cursor: pointer;
   border: none;
 }
@@ -310,11 +500,13 @@ section {
 .btn-primary {
   background: var(--azalea-pink);
   color: var(--clean-white);
+  box-shadow: 0 2px 8px rgba(214, 68, 142, 0.3);
 }
 
 .btn-primary:hover {
   background: #c13a7d;
   color: var(--clean-white);
+  box-shadow: 0 4px 14px rgba(214, 68, 142, 0.4);
 }
 
 .btn-outline {
@@ -340,21 +532,11 @@ section {
 
 /* --- Content Sections --- */
 .section-light {
-  background: var(--clean-white);
+  background: var(--page-bg);
 }
 
 .section-gray {
-  background: var(--mist-gray);
-}
-
-.section-blue {
-  background: var(--river-blue);
-  color: var(--clean-white);
-}
-
-.section-blue h2,
-.section-blue h3 {
-  color: var(--clean-white);
+  background: var(--surface-alt);
 }
 
 .section-header {
@@ -365,7 +547,7 @@ section {
 .section-header p {
   max-width: 600px;
   margin: 0.5rem auto 0;
-  color: #5a6a7a;
+  color: var(--text-muted);
 }
 
 /* --- Voter Resources section picker --- */
@@ -399,7 +581,7 @@ section {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #5a6a7a;
+  color: var(--text-muted);
   margin: 1.5rem 0 0.75rem;
 }
 
@@ -408,18 +590,28 @@ section {
 }
 
 /* --- Card Grid --- */
+/* Flex rather than grid auto-fit so a row that doesn't fill (like the five
+   "What We Do" cards landing as 3 + 2) centers its leftover cards instead of
+   leaving a lopsided gap. The max-width keeps one or two cards from stretching
+   awkwardly wide on a short row. */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
 }
 
+.card-grid > * {
+  flex: 1 1 280px;
+  max-width: 380px;
+}
+
 .card {
-  background: rgba(214, 68, 142, 0.07);
-  border: 1px solid var(--mist-gray);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 2rem 1.5rem;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .card:hover {
@@ -427,13 +619,33 @@ section {
 }
 
 .card h3 {
-  color: var(--river-blue);
+  color: var(--card-heading);
   margin-bottom: 0.75rem;
+}
+
+/* Decorative badge holding each card's line icon. Purely visual, so the
+   markup carries aria-hidden and the icon inherits the azalea accent. */
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: rgba(214, 68, 142, 0.12);
+  color: var(--azalea-pink);
+}
+
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
 }
 
 /* --- Event Card --- */
 .event-card {
-  background: rgba(214, 68, 142, 0.07);
+  background: var(--surface);
   border-left: 4px solid var(--azalea-pink);
   border-radius: 6px;
   padding: 1.75rem 2rem;
@@ -452,13 +664,13 @@ section {
 }
 
 .event-card h3 {
-  color: var(--dark-river);
+  color: var(--heading);
   margin-bottom: 0.5rem;
 }
 
 .event-card .event-details {
   font-size: 0.95rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -476,7 +688,7 @@ section {
 
 .calendar-nav h3 {
   margin: 0;
-  color: var(--dark-river);
+  color: var(--heading);
 }
 
 .calendar-nav button {
@@ -503,7 +715,7 @@ section {
 .calendar-table th {
   font-family: var(--font-headline);
   font-size: 0.8rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   padding: 0.5rem 0.25rem;
@@ -511,7 +723,7 @@ section {
 }
 
 .calendar-table td {
-  border: 1px solid var(--mist-gray);
+  border: 1px solid var(--border);
   vertical-align: top;
   height: 5rem;
   padding: 0.35rem;
@@ -521,7 +733,7 @@ section {
 .calendar-day-num {
   font-family: var(--font-headline);
   font-weight: 600;
-  color: var(--slate-text);
+  color: var(--text);
 }
 
 .calendar-today {
@@ -538,7 +750,7 @@ section {
 }
 
 .calendar-events li {
-  color: var(--river-blue);
+  color: var(--link);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.3;
@@ -568,8 +780,8 @@ section {
   margin: 0;
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid var(--mist-gray);
-  background: var(--clean-white);
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .gallery-item img {
@@ -582,7 +794,7 @@ section {
 .gallery-item figcaption {
   padding: 0.6rem 0.85rem;
   font-size: 0.85rem;
-  color: #5a6a7a;
+  color: var(--text-muted);
 }
 
 /* --- Screen-reader-only content --- */
@@ -607,7 +819,7 @@ section {
 }
 
 .contact-item h3 {
-  color: var(--river-blue);
+  color: var(--card-heading);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
 }
@@ -632,7 +844,7 @@ section {
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 0.35rem;
-  color: var(--dark-river);
+  color: var(--heading);
 }
 
 .form-group input,
@@ -642,15 +854,11 @@ section {
   padding: 0.7rem 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
-  border: 1px solid var(--mist-gray);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: var(--clean-white);
-  color: var(--slate-text);
+  background: var(--input-bg);
+  color: var(--text);
   transition: border-color 0.2s ease;
-}
-
-.form-group select {
-  background: rgba(214, 68, 142, 0.07);
 }
 
 .form-group input:focus,
@@ -705,7 +913,7 @@ section {
 }
 
 .form-status-success {
-  color: var(--river-blue);
+  color: var(--link);
 }
 
 .form-status-error {
@@ -714,8 +922,11 @@ section {
 
 /* --- Footer --- */
 .site-footer {
-  background: var(--dark-river);
+  background: var(--footer-bg);
   color: rgba(255, 255, 255, 0.7);
+  /* Thin azalea rule sets the footer off from the content above it, which
+     matters most in dark mode where footer and page are both deep blue. */
+  border-top: 3px solid var(--azalea-pink);
   padding: 2.5rem 2rem;
   text-align: center;
   font-size: 0.9rem;
@@ -778,8 +989,15 @@ section {
     font-size: 1.05rem;
   }
 
-  .card-grid {
-    grid-template-columns: 1fr;
+  .home-hero-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  /* One card per row on phones; overrides the flex-basis from the base rule. */
+  .card-grid > * {
+    flex-basis: 100%;
+    max-width: none;
   }
 
   .contact-block {

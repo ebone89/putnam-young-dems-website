@@ -235,6 +235,52 @@ collections:
                 default: true
                 hint: "Uncheck to hide this photo without deleting it."
 
+  # ── Documents ────────────────────────────────────────────────────────────────
+  # Manages _data/documents.json — the file list shown on documents.html.
+  # Bylaws, charter paperwork, and other official PCYD records.
+  - name: documents_data
+    label: Documents
+    files:
+      - label: Official Documents
+        name: documents
+        file: _data/documents.json
+        format: json
+        fields:
+          - label: Documents
+            name: documents
+            widget: list
+            label_singular: Document
+            fields:
+              - label: Title
+                name: title
+                widget: string
+                hint: "e.g. PCYD Bylaws, Founding Charter"
+
+              - label: Description
+                name: description
+                widget: text
+                required: false
+
+              - label: File
+                name: file
+                widget: file
+                hint: "Upload the PDF or other document file."
+
+              - label: Date
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
+                required: false
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this document without deleting it."
+
   # ── Page Content ───────────────────────────────────────────────────────────
   # Manages _data/content.json plus one JSON file per page — nearly all of
   # the written copy on the site. Edit wording, cards, and contact details
@@ -247,15 +293,6 @@ collections:
         file: _data/content.json
         format: json
         fields:
-          - label: Home Page Heading
-            name: homeCommunityHeading
-            widget: string
-
-          - label: Home Page Text
-            name: homeCommunityBody
-            widget: text
-            hint: "Short teaser shown on the home page."
-
           - label: About Page Heading
             name: aboutCommunityHeading
             widget: string
@@ -277,7 +314,8 @@ collections:
 
           - label: Headline
             name: heroHeading
-            widget: string
+            widget: text
+            hint: "Shown as two lines on the home page. Put the break where you want the line to wrap."
 
           - label: Intro Text
             name: heroBody
@@ -319,11 +357,6 @@ collections:
             name: missionBody
             widget: text
             hint: "Leave a blank line between paragraphs."
-          - { label: Organizational Relationship Heading, name: orgRelationshipHeading, widget: string }
-          - label: Organizational Relationship Text
-            name: orgRelationshipBody
-            widget: text
-            hint: "Leave a blank line between paragraphs."
           - { label: Membership Heading, name: membershipHeading, widget: string }
           - { label: Membership Intro, name: membershipIntro, widget: text }
           - label: Membership Tiers
@@ -334,12 +367,6 @@ collections:
               - { label: Title, name: title, widget: string }
               - { label: Text, name: body, widget: text }
           - { label: Membership Closing Text, name: membershipClosing, widget: text }
-          - { label: Officer Structure Heading, name: officerHeading, widget: string }
-          - label: Officer Structure Text
-            name: officerBody
-            widget: text
-            hint: "Leave a blank line between paragraphs."
-          - { label: Interim Chair Name, name: interimChair, widget: string }
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
 
@@ -370,6 +397,56 @@ collections:
             hint: "Leave a blank line between paragraphs."
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Events Page
+        name: eventsPage
+        file: _data/events-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - label: Election Date Note
+            name: electionNote
+            widget: text
+            hint: "The small line under the page intro, e.g. primary/general election dates. Update each election cycle."
+          - { label: Calendar Heading, name: calendarHeading, widget: string }
+          - { label: RSVP Heading, name: rsvpHeading, widget: string }
+          - { label: RSVP Intro, name: rsvpIntro, widget: text }
+          - { label: "\"Upcoming Events\" Heading", name: upcomingHeading, widget: string }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Voter Resources Page
+        name: voterResourcesPage
+        file: _data/voter-resources-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - { label: Federal Officials Heading, name: federalHeading, widget: string }
+          - { label: Federal Officials Intro, name: federalIntro, widget: text }
+          - { label: State Officials Heading, name: stateHeading, widget: string }
+          - { label: State Officials Intro, name: stateIntro, widget: text }
+          - { label: County Officials Heading, name: countyHeading, widget: string }
+          - { label: County Officials Intro, name: countyIntro, widget: text }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Gallery Page
+        name: galleryPage
+        file: _data/gallery-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+
+      - label: Documents Page
+        name: documentsPage
+        file: _data/documents-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
 
       - label: Contact Page
         name: contact

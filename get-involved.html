@@ -6,6 +6,20 @@
   <title>Get Involved - Putnam County Young Democrats</title>
   <meta name="description" content="Join the Putnam County Young Democrats. Learn how to become a founding member, volunteer, or support PCYD's civic mission in Putnam County, Florida.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved or system color theme before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,10 +29,14 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
+      </button>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
       <ul class="nav-links" id="primary-nav">
         <li><a href="index.html">Home</a></li>
@@ -27,6 +45,7 @@
         <li><a href="get-involved.html" class="active">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
         <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -36,7 +55,7 @@
   <!-- Page Header — text loaded from _data/get-involved-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1 id="gi-hero-heading">Get Involved</h1>
+      <h1 id="gi-hero-heading" class="heading-accent">Get Involved</h1>
       <p id="gi-hero-body">There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
     </div>
   </section>
@@ -49,18 +68,22 @@
       </div>
       <div class="card-grid" id="gi-ways-cards">
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
           <h3>Become a Founding Member</h3>
           <p>Sign the charter packet and help establish PCYD as a recognized chapter of the Florida Young Democrats. Founding members shape the organization from the ground up and are recognized in our charter documents.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
           <h3>Volunteer</h3>
           <p>Help with event logistics, voter registration drives, outreach, and community engagement. No prior political experience required. We will train you.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
           <h3>Run for a Precinct Seat</h3>
           <p>Democratic Precinct Committeeman and Committeewoman seats carry formal voting authority within the county party structure. PCYD will help eligible members understand the process and prepare to qualify.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg></div>
           <h3>Support as an Ally</h3>
           <p>Not in the 14 to 39 age range? You can still support PCYD as an ally by attending events, sharing our work, and connecting us with resources in the community.</p>
         </div>
@@ -80,7 +103,7 @@
   </section>
 
   <!-- What to Expect -->
-  <section class="section-light">
+  <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <h2 id="gi-expect-heading">What to Expect</h2>
       <div id="gi-expect-body">
@@ -153,9 +176,9 @@
   </script>
 
   <!-- CTA -->
-  <section class="section-blue text-center">
+  <section class="section-light text-center">
     <div class="container">
-      <h2 id="gi-cta-heading">Ready to Join?</h2>
+      <h2 id="gi-cta-heading" class="heading-accent">Ready to Join?</h2>
       <p id="gi-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">The best first step is to come to our next monthly meeting or reach out directly.</p>
       <a href="events.html" class="btn btn-primary">See Events</a>
       <a href="contact.html" class="btn btn-outline" style="margin-left: 0.75rem;">Contact Us</a>
@@ -188,6 +211,7 @@
       <li><a href="get-involved.html">Get Involved</a></li>
       <li><a href="voter-resources.html">Voter Resources</a></li>
       <li><a href="gallery.html">Photos</a></li>
+      <li><a href="documents.html">Documents</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>

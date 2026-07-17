@@ -6,6 +6,20 @@
   <title>Putnam County Young Democrats</title>
   <meta name="description" content="The Putnam County Young Democrats (PCYD) is building a new generation of Democratic leaders in Putnam County, Florida through civic engagement, voter outreach, and leadership development.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved or system color theme before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,10 +29,14 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-square.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
+      </button>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
       <ul class="nav-links" id="primary-nav">
         <li><a href="index.html" class="active">Home</a></li>
@@ -27,51 +45,67 @@
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
         <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <main id="content">
-  <!-- Hero — text loaded from _data/home.json (managed via Decap CMS admin) -->
-  <section class="hero">
+  <!-- Intro / branding — text loaded from _data/home.json (managed via Decap CMS admin) -->
+  <section class="section-light text-center">
     <div class="container">
-      <img src="assets/images/pcyd-banner-wide.png" alt="Putnam County Young Democrats" class="hero-banner">
+      <img src="assets/images/pcyd-logo-blue.png" alt="Putnam County Young Democrats" class="home-intro-logo home-intro-logo-light">
+      <img src="assets/images/pcyd-logo-transparent.png" alt="Putnam County Young Democrats" class="home-intro-logo home-intro-logo-dark">
       <div class="tag" id="home-hero-tag">Forming &middot; Pre-Charter 2026</div>
-      <h1 id="home-hero-heading">Building Democratic Leadership in Putnam County</h1>
+      <h1 id="home-hero-heading" class="home-intro-heading heading-accent">Building Democratic Leadership
+Rooted in Putnam County</h1>
       <p id="home-hero-body">PCYD is organizing a new generation of local leaders, volunteers, and precinct-level party members right here in Putnam County, Florida.</p>
-      <nav class="hero-actions" aria-label="Primary actions">
-        <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
-        <a href="events.html" class="btn btn-outline">Upcoming Events</a>
-      </nav>
+    </div>
+  </section>
+
+  <!-- Compact CTA card, framed in the page background instead of a full-bleed hero -->
+  <section class="home-hero-card-section">
+    <div class="container">
+      <div class="home-hero-card">
+        <nav class="hero-actions" aria-label="Primary actions">
+          <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
+          <a href="events.html" class="btn btn-outline">Upcoming Events</a>
+        </nav>
+      </div>
     </div>
   </section>
 
   <!-- What We Do (quick overview) -->
-  <section class="section-light">
+  <section class="section-gray">
     <div class="container">
       <div class="section-header">
-        <h2 id="home-whatwedo-heading">What We Do</h2>
+        <h2 id="home-whatwedo-heading" class="heading-accent">What We Do</h2>
         <p id="home-whatwedo-intro">PCYD focuses on five core areas to strengthen Democratic organizing at the county level.</p>
       </div>
       <div class="card-grid" id="home-whatwedo-cards">
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
           <h3>Recruit and Retain Members</h3>
           <p>Build a structured local organization with clear responsibilities, regular meetings, and meaningful follow-up for young Democrats and left-leaning residents.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
           <h3>Develop Leaders</h3>
           <p>Prepare members for precinct seats, committee work, campaign activity, voter registration, and future DEC service.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
           <h3>Engage Voters</h3>
           <p>Support lawful voter registration and education efforts ahead of the 2026 primary and general elections.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
           <h3>Host Public Events</h3>
           <p>Organize gatherings, educational events, and community activities that increase local Democratic visibility and participation.</p>
         </div>
         <div class="card">
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
           <h3>Strengthen Party Infrastructure</h3>
           <p>Build the local Democratic bench by preparing members for county party operations, especially precinct-level service.</p>
         </div>
@@ -93,11 +127,20 @@
     });
   </script>
 
+  <!-- CTA -->
+  <section class="section-gray text-center">
+    <div class="container">
+      <h2 id="home-cta-heading" class="heading-accent">Ready to Get Started?</h2>
+      <p id="home-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem;">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
+      <a href="get-involved.html" class="btn btn-primary">Join PCYD</a>
+    </div>
+  </section>
+
   <!-- Featured Event — loaded from _data/events.json (managed via Decap CMS admin) -->
-  <section class="section-gray">
+  <section class="section-light">
     <div class="container">
       <div class="section-header">
-        <h2>Next Event</h2>
+        <h2 class="heading-accent">Next Event</h2>
       </div>
       <div class="event-card" id="next-meeting-card" style="max-width: 700px; margin: 0 auto;"></div>
     </div>
@@ -113,41 +156,6 @@
         '<a href="events.html" class="btn btn-secondary mt-2">Event Details</a>';
     });
   </script>
-
-  <!-- Community Context (brief) — text loaded from _data/content.json (managed via Decap CMS admin) -->
-  <section class="section-blue">
-    <div class="container text-center">
-      <h2 id="home-community-heading">Rooted in Putnam County</h2>
-      <p id="home-community-body" style="max-width: 700px; margin: 0.75rem auto 0; opacity: 0.92; font-size: 1.05rem;">
-        We're proud of this county, and honest about what it needs. PCYD gives working families, students, and young adults a practical way to get involved and help shape what comes next.
-      </p>
-    </div>
-  </section>
-
-  <script>
-    fetch('_data/content.json')
-      .then(function (r) { return r.json(); })
-      .then(function (content) {
-        if (content.homeCommunityHeading) {
-          document.getElementById('home-community-heading').textContent = content.homeCommunityHeading;
-        }
-        if (content.homeCommunityBody) {
-          document.getElementById('home-community-body').textContent = content.homeCommunityBody;
-        }
-      })
-      .catch(function () {
-        // Keep the fallback copy already in the page
-      });
-  </script>
-
-  <!-- CTA -->
-  <section class="section-light text-center">
-    <div class="container">
-      <h2 id="home-cta-heading">Ready to Get Started?</h2>
-      <p id="home-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem;">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
-      <a href="get-involved.html" class="btn btn-primary">Join PCYD</a>
-    </div>
-  </section>
   </main>
 
   <!-- Footer -->
@@ -159,6 +167,7 @@
       <li><a href="get-involved.html">Get Involved</a></li>
       <li><a href="voter-resources.html">Voter Resources</a></li>
       <li><a href="gallery.html">Photos</a></li>
+      <li><a href="documents.html">Documents</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>

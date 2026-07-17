@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photos - Putnam County Young Democrats</title>
-  <meta name="description" content="Photos from Putnam County Young Democrats events, meetings, and outreach in Palatka, Florida.">
+  <title>Documents - Putnam County Young Democrats</title>
+  <meta name="description" content="Official documents for the Putnam County Young Democrats (PCYD), including bylaws and founding paperwork.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
     // Set the saved or system color theme before first paint so the page
@@ -44,68 +44,63 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
-        <li><a href="gallery.html" class="active">Photos</a></li>
-        <li><a href="documents.html">Documents</a></li>
+        <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html" class="active">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <main id="content">
-  <!-- Page Header — text loaded from _data/gallery-page.json (managed via Decap CMS admin) -->
+  <!-- Page Header — text loaded from _data/documents-page.json (managed via Decap CMS admin) -->
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
-      <h1 id="gallery-hero-heading" class="heading-accent">Photos</h1>
-      <p id="gallery-hero-body">Moments from PCYD events, meetings, and outreach across Putnam County.</p>
+      <h1 id="documents-hero-heading" class="heading-accent">Documents</h1>
+      <p id="documents-hero-body">Bylaws, charter paperwork, and other official records for Putnam County Young Democrats.</p>
     </div>
   </section>
 
+  <!-- Documents — loaded from _data/documents.json (managed via Decap CMS admin) -->
   <section class="section-light">
     <div class="container">
-      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="card-grid" id="documents-grid"></div>
     </div>
   </section>
 
   <script src="assets/js/page-content.js"></script>
   <script>
-    loadPageContent('_data/gallery-page.json', function (content) {
-      applyText('gallery-hero-heading', content.heroHeading);
-      applyText('gallery-hero-body', content.heroBody);
+    loadPageContent('_data/documents-page.json', function (content) {
+      applyText('documents-hero-heading', content.heroHeading);
+      applyText('documents-hero-body', content.heroBody);
     });
   </script>
 
   <script>
-    var grid = document.getElementById('gallery-grid');
+    var grid = document.getElementById('documents-grid');
 
     function showEmptyState() {
-      grid.innerHTML = '<div class="card"><p>No photos posted yet. Check back after our next event.</p></div>';
+      grid.innerHTML = '<div class="card"><p>No documents posted yet. Check back soon.</p></div>';
     }
 
-    fetch('_data/gallery.json')
+    fetch('_data/documents.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        var photos = (data.photos || []).filter(function (p) { return p.published !== false; });
+        var documents = (data.documents || []).filter(function (d) { return d.published !== false; });
 
-        if (!photos.length) { return showEmptyState(); }
+        if (!documents.length) { return showEmptyState(); }
 
-        photos.forEach(function (photo) {
-          var figure = document.createElement('figure');
-          figure.className = 'gallery-item';
-
-          var img = document.createElement('img');
-          img.src = photo.photo;
-          img.alt = photo.caption || '';
-          img.loading = 'lazy';
-          figure.appendChild(img);
-
-          if (photo.caption) {
-            var caption = document.createElement('figcaption');
-            caption.textContent = photo.caption;
-            figure.appendChild(caption);
-          }
-
-          grid.appendChild(figure);
-        });
+        grid.innerHTML = documents.map(function (doc) {
+          var description = doc.description ? '<p>' + doc.description + '</p>' : '';
+          var link = doc.file
+            ? '<a href="' + doc.file + '" target="_blank" rel="noopener" class="btn btn-secondary mt-2">View Document</a>'
+            : '';
+          return '<div class="card">' +
+            '<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg></div>' +
+            '<h3>' + doc.title + '</h3>' +
+            description +
+            link +
+            '</div>';
+        }).join('');
       })
       .catch(showEmptyState);
   </script>
