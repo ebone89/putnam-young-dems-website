@@ -206,10 +206,11 @@ section {
   justify-self: start;
 }
 
+/* Transparent PCYD mark, no background chip, so it's sized to its own
+   2.75:1 aspect ratio (596x217) rather than forced into a square. */
 .nav-logo {
-  height: 42px;
-  width: 42px;
-  object-fit: contain;
+  height: 32px;
+  width: auto;
   flex-shrink: 0;
 }
 
@@ -395,11 +396,13 @@ section {
   text-align: center;
 }
 
+/* Sized to its content (inline-block, centered by the section's
+   text-align) rather than stretched to a fixed max-width, so the card
+   hugs the two buttons instead of leaving them floating in a wide box. */
 .home-hero-card {
+  display: inline-block;
   background: var(--hero-bg);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem;
+  padding: 1.75rem 2rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(15, 61, 107, 0.25);
   transition: background-color 0.3s ease;
@@ -407,12 +410,27 @@ section {
 
 /* --- Homepage: logo/tagline/heading intro --- */
 /* Transparent-background artwork (597x244 native), so no page-color
-   matching is needed here at all; it just sits on whatever --page-bg is. */
+   matching is needed here at all; it just sits on whatever --page-bg is.
+   Two variants swap by theme (see the data-theme rules below): the blue
+   letter-fill version reads better on the light page, the white version on
+   the dark one. */
 .home-intro-logo {
   max-width: 440px;
   width: 100%;
   margin: 0 auto 1.5rem;
   display: block;
+}
+
+.home-intro-logo-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .home-intro-logo-dark {
+  display: block;
+}
+
+:root[data-theme="dark"] .home-intro-logo-light {
+  display: none;
 }
 
 /* Renders the literal line break in the heading text (see home.json's
