@@ -311,11 +311,6 @@ collections:
             name: missionBody
             widget: text
             hint: "Leave a blank line between paragraphs."
-          - { label: Organizational Relationship Heading, name: orgRelationshipHeading, widget: string }
-          - label: Organizational Relationship Text
-            name: orgRelationshipBody
-            widget: text
-            hint: "Leave a blank line between paragraphs."
           - { label: Membership Heading, name: membershipHeading, widget: string }
           - { label: Membership Intro, name: membershipIntro, widget: text }
           - label: Membership Tiers
@@ -326,12 +321,6 @@ collections:
               - { label: Title, name: title, widget: string }
               - { label: Text, name: body, widget: text }
           - { label: Membership Closing Text, name: membershipClosing, widget: text }
-          - { label: Officer Structure Heading, name: officerHeading, widget: string }
-          - label: Officer Structure Text
-            name: officerBody
-            widget: text
-            hint: "Leave a blank line between paragraphs."
-          - { label: Interim Chair Name, name: interimChair, widget: string }
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
 

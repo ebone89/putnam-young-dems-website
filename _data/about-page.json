@@ -1,15 +1,11 @@
 {
-  "interimChair": "Ethan Bradley",
-  "orgRelationshipHeading": "Organizational Relationship",
   "heroHeading": "About PCYD",
   "membershipHeading": "Membership",
-  "officerHeading": "Founding Officer Structure",
   "missionBody": "The mission of the Putnam County Young Democrats is to build durable Democratic leadership in Putnam County through civic engagement, member training, voter outreach, and service within the local party structure.\n\nPCYD exists to identify local talent, prepare members for responsibility, and create an organized pathway from first-time participation to sustained political and civic leadership.",
   "ctaHeading": "Want to Help Build PCYD?",
   "ctaBody": "We are looking for founding members who want to be part of building something new for Putnam County.",
   "membershipIntro": "Official members must be Putnam County Residents aged 18 -  40 or students 14 - 18 with parent or guardian permission. Over 40? No problem! We welcome you as a supporting member, event volunteer, or an operational supporter.",
   "missionHeading": "Our Mission",
-  "officerBody": "The permanent officer structure will be finalized through the founding process and adopted governing documents. During the pre-charter period, the following founding roles are being filled first: Chair, Vice Chair, Secretary, and Treasurer.\n\nAdditional operational roles may be appointed after the founding slate is seated, including outreach, operations, communications, and membership support positions.",
   "membershipTiers": [
     {
       "title": "Founding Member",
@@ -25,6 +21,5 @@
     }
   ],
   "heroBody": "Who we are, why we exist, and what we are building in Putnam County.",
-  "orgRelationshipBody": "PCYD is being formed as a local Democratic organization in Putnam County with the intent to charter through the Florida Young Democrats and operate in alignment with the Florida Democratic Party. During the pre-charter period, PCYD is working cooperatively with the Putnam County Democratic Center and local Democratic leadership while developing its own membership, records, and officer structure.\n\nPCYD is not yet chartered. All public materials reflect the current status: Forming; pre-charter as of April 2, 2026.",
   "membershipClosing": "Formal voting rights, officer eligibility, and any membership classes adopted for charter purposes will be set by the founding meeting, charter requirements, and adopted bylaws."
 }
