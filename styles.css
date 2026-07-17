@@ -507,16 +507,6 @@ section {
   background: var(--surface-alt);
 }
 
-.section-blue {
-  background: var(--river-blue);
-  color: var(--clean-white);
-}
-
-.section-blue h2,
-.section-blue h3 {
-  color: var(--clean-white);
-}
-
 .section-header {
   text-align: center;
   margin-bottom: 2.5rem;
