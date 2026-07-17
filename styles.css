@@ -184,18 +184,24 @@ section {
 /* Three-column grid so the brand, the hamburger, and the theme toggle land
    at left, true-center, and right regardless of how wide the brand text or
    either button is — a flex row with space-between only centers a middle
-   item when the two outer ones happen to be equal width. */
+   item when the two outer ones happen to be equal width. Overrides
+   .container's max-width/centering so this row runs the full width of the
+   screen instead of sitting inside the same 1100px column as page content
+   — the brand and the theme toggle are meant to sit in the screen's actual
+   corners, not a centered island. */
 .site-nav .container {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   column-gap: 1rem;
+  max-width: none;
+  margin: 0;
   width: 100%;
   position: relative;
 }
 
 .nav-brand {
-  color: var(--clean-white);
+  color: var(--azalea-pink);
   font-family: var(--font-headline);
   font-weight: 700;
   font-size: 1.2rem;
@@ -215,12 +221,12 @@ section {
 }
 
 .nav-brand span {
-  color: var(--clean-white);
+  color: var(--azalea-pink);
 }
 
 .nav-brand:hover,
 .nav-brand:hover span {
-  color: var(--azalea-pink);
+  color: var(--clean-white);
 }
 
 /* Always a dropdown behind the hamburger toggle, at every screen size,
