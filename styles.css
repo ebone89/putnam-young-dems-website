@@ -363,6 +363,13 @@ section {
   margin-bottom: 1.25rem;
 }
 
+/* Wins over the plain .hero h1 rule above (two classes + a type selector
+   beats one class + a type selector), so the page-title heading can be
+   pink instead of white on pages using the .hero band. */
+.hero h1.heading-accent {
+  color: var(--azalea-pink);
+}
+
 .hero p {
   font-size: 1.15rem;
   max-width: 650px;
@@ -396,12 +403,6 @@ section {
   font-size: 0.9rem;
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
-}
-
-/* Recolors a page's intro paragraph (under the H1) pink, used consistently
-   across every page's header. */
-.text-pink {
-  color: var(--azalea-pink);
 }
 
 .hero-actions {
