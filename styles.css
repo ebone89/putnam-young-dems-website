@@ -207,6 +207,13 @@ section {
   align-items: center;
   gap: 0.65rem;
   justify-self: start;
+  /* A grid track sizes to a nowrap child's full text width by default,
+     which would force this 1fr column wider than the centered hamburger
+     and right-aligned theme toggle can spare between ~561-768px (above
+     the breakpoint that drops the brand text, below where there's room
+     to spare). min-width: 0 lets the column actually shrink to 1fr, and
+     .nav-brand-text below truncates instead of overflowing. */
+  min-width: 0;
 }
 
 /* Transparent PCYD mark, no background chip, so it's sized to its own
@@ -219,6 +226,11 @@ section {
 
 .nav-brand span {
   color: var(--azalea-pink);
+}
+
+.nav-brand-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-brand:hover,
