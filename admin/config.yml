@@ -235,6 +235,52 @@ collections:
                 default: true
                 hint: "Uncheck to hide this photo without deleting it."
 
+  # ── Documents ────────────────────────────────────────────────────────────────
+  # Manages _data/documents.json — the file list shown on documents.html.
+  # Bylaws, charter paperwork, and other official PCYD records.
+  - name: documents_data
+    label: Documents
+    files:
+      - label: Official Documents
+        name: documents
+        file: _data/documents.json
+        format: json
+        fields:
+          - label: Documents
+            name: documents
+            widget: list
+            label_singular: Document
+            fields:
+              - label: Title
+                name: title
+                widget: string
+                hint: "e.g. PCYD Bylaws, Founding Charter"
+
+              - label: Description
+                name: description
+                widget: text
+                required: false
+
+              - label: File
+                name: file
+                widget: file
+                hint: "Upload the PDF or other document file."
+
+              - label: Date
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
+                required: false
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this document without deleting it."
+
   # ── Page Content ───────────────────────────────────────────────────────────
   # Manages _data/content.json plus one JSON file per page — nearly all of
   # the written copy on the site. Edit wording, cards, and contact details
@@ -389,6 +435,14 @@ collections:
       - label: Gallery Page
         name: galleryPage
         file: _data/gallery-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+
+      - label: Documents Page
+        name: documentsPage
+        file: _data/documents-page.json
         format: json
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
