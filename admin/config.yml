@@ -247,15 +247,6 @@ collections:
         file: _data/content.json
         format: json
         fields:
-          - label: Home Page Heading
-            name: homeCommunityHeading
-            widget: string
-
-          - label: Home Page Text
-            name: homeCommunityBody
-            widget: text
-            hint: "Short teaser shown on the home page."
-
           - label: About Page Heading
             name: aboutCommunityHeading
             widget: string
@@ -277,7 +268,8 @@ collections:
 
           - label: Headline
             name: heroHeading
-            widget: string
+            widget: text
+            hint: "Shown as two lines on the home page. Put the break where you want the line to wrap."
 
           - label: Intro Text
             name: heroBody

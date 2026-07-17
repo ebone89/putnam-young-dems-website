@@ -5,7 +5,7 @@
    ============================================================ */
 
 /* --- Google Fonts Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
 
 /* --- CSS Custom Properties (Brand Palette) --- */
 :root {
@@ -13,6 +13,7 @@
   --river-blue: #1B5E9E;
   --azalea-pink: #D6448E;
   --clean-white: #FFFFFF;
+  --logo-blue: #0778BE;   /* the PCYD logo artwork's own solid background */
 
   /* Extended palette */
   --dark-river: #0F3D6B;
@@ -23,7 +24,6 @@
   /* Typography */
   --font-headline: 'Montserrat', Arial, sans-serif;
   --font-body: 'Open Sans', Helvetica, sans-serif;
-  --font-accent: 'Playfair Display', Georgia, serif;
 
   /* Spacing */
   --section-padding: 4rem 2rem;
@@ -33,13 +33,19 @@
   /* Semantic surface tokens. Components reference these instead of the raw
      brand colors above, so switching themes is a short list of overrides
      (see [data-theme="dark"] below) rather than edits spread across every
-     rule. The light values here match what the site has always shipped. */
-  --page-bg: var(--clean-white);
+     rule. In dark mode --page-bg is set to --logo-blue exactly, so the flat
+     PCYD logo dissolves straight into the page with no card or seam around
+     it; in light mode --page-bg is a soft light tint instead, so the logo
+     shows as a small rounded color chip, which reads as a normal logo
+     lockup rather than a mismatched box. --hero-bg (the page-title band on
+     every page, and the homepage's button card) stays the dark frame color
+     in both themes, consistent with the nav and footer. */
+  --page-bg: #E7F2FB;
   --surface: rgba(214, 68, 142, 0.07);   /* raised cards / event cards */
   --surface-alt: var(--mist-gray);        /* the alternating gray band */
   --nav-bg: var(--dark-river);
   --footer-bg: var(--dark-river);
-  --hero-bg: #0778BE;                      /* the logo's own blue; see .hero */
+  --hero-bg: var(--dark-river);
   --text: var(--slate-text);
   --text-muted: #5a6a7a;
   --heading: var(--dark-river);
@@ -50,17 +56,16 @@
   --input-bg: var(--clean-white);
 }
 
-/* Dark theme. The page drops to the deep river blue, surfaces lift a step
-   out of it so cards still read as raised, and text/links move to lighter
-   tints that clear WCAG AA contrast on the dark field. The hero keeps its
-   own blue in both themes so the flat logo goes on dissolving into it.
+/* Dark theme. The page background becomes --logo-blue (see above), surfaces
+   lift a step out of it so cards still read as raised, and text/links move
+   to lighter tints that clear WCAG AA contrast on the dark field.
 
    The inline script in each page <head> stamps data-theme before first
    paint (saved choice, else the OS setting) so there's no flash of the
    wrong background. If JS is off the page simply stays in the light theme,
    which is fully usable. */
 :root[data-theme="dark"] {
-  --page-bg: var(--dark-river);
+  --page-bg: var(--logo-blue);
   --surface: #17548C;
   --surface-alt: #0B3057;
   --nav-bg: #0A2C4E;
@@ -127,18 +132,10 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Small editorial kicker above a section heading. This is the one place the
-   Playfair accent face earns its spot in the font import, giving the tightly
-   set, uppercase Montserrat headings some contrast. */
-.section-eyebrow {
-  display: block;
-  font-family: var(--font-accent);
-  font-weight: 600;
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
+/* Recolors a section's own heading instead of adding a separate kicker
+   label above it, so the emphasis doesn't duplicate the heading text. */
+.heading-accent {
   color: var(--azalea-pink);
-  margin-bottom: 0.35rem;
 }
 
 /* --- Layout --- */
@@ -349,12 +346,8 @@ section {
   display: none;
 }
 
-/* --- Hero Section --- */
+/* --- Hero Section (page-title band used by every page but the homepage) --- */
 .hero {
-  /* --hero-bg is flat #0778BE, the logo's own solid background sampled from
-     pcyd-logo-square.png. Matching it exactly lets the logo's box dissolve into
-     the hero with no visible seam, instead of stacking two mismatched blues.
-     It stays this blue in both themes so the effect holds in dark mode too. */
   background: var(--hero-bg);
   color: var(--clean-white);
   padding: 5rem 2rem;
@@ -375,7 +368,7 @@ section {
   line-height: 1.8;
 }
 
-.hero .tag {
+.tag {
   display: inline-block;
   background: var(--azalea-pink);
   color: var(--clean-white);
@@ -389,7 +382,6 @@ section {
   margin-bottom: 1.5rem;
 }
 
-
 .hero-actions {
   display: flex;
   justify-content: center;
@@ -397,20 +389,42 @@ section {
   gap: 1rem;
 }
 
-/* --- Hero Banner Image --- */
-.hero-banner {
-  /* The source is the square logo, but its content sits in a centered 2.63:1
-     band with equal solid-blue margins top and bottom. object-fit:cover +
-     object-position:center crops away only that uniform blue, showing the full
-     wordmark and subtitle with no clipping. Height sets the visible band. */
-  max-width: 720px;
+/* --- Homepage: compact button card, framed in the page background instead
+   of a full-bleed color band --- */
+.home-hero-card-section {
+  padding: 3rem 2rem 0;
+  text-align: center;
+}
+
+.home-hero-card {
+  background: var(--hero-bg);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 61, 107, 0.25);
+  transition: background-color 0.3s ease;
+}
+
+/* --- Homepage: logo/tagline/heading intro --- */
+/* Transparent-background artwork, so no page-color matching is needed here
+   at all; it just sits on whatever --page-bg is. Native size is 224x91 —
+   sized to that rather than stretched, since upscaling it further would
+   look soft. */
+.home-intro-logo {
+  max-width: 224px;
   width: 100%;
-  height: 270px;
-  object-fit: cover;
-  object-position: center;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
   display: block;
 }
+
+/* Renders the literal line break in the heading text (see home.json's
+   heroHeading) without needing raw HTML in a field that's set via
+   textContent. */
+.home-intro-heading {
+  white-space: pre-line;
+}
+
 /* --- Buttons --- */
 .btn {
   display: inline-block;
@@ -930,6 +944,11 @@ section {
 
   .hero p {
     font-size: 1.05rem;
+  }
+
+  .home-hero-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 12px;
   }
 
   /* One card per row on phones; overrides the flex-basis from the base rule. */
