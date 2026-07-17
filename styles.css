@@ -33,11 +33,11 @@
      brand colors above, so switching themes is a short list of overrides
      (see [data-theme="dark"] below) rather than edits spread across every
      rule. --page-bg is a soft light-blue tint in light mode and the dark
-     river blue in dark mode. The homepage logo is a transparent PNG, so it
-     sits cleanly on either one with no color-matching needed. --hero-bg
-     (the page-title band on every page, and the homepage's button card)
-     stays the dark frame color in both themes, consistent with the nav and
-     footer. */
+     river blue in dark mode. --hero-bg (the page-title band on every page
+     but the homepage) always matches --page-bg's dark end, so it reads as
+     a continuous surface rather than a mismatched stripe; it isn't
+     overridden per theme. The homepage button card uses --river-blue
+     directly instead, so it stays a deliberately distinct accent. */
   --page-bg: #E7F2FB;
   --surface: rgba(214, 68, 142, 0.07);   /* raised cards / event cards */
   --surface-alt: var(--mist-gray);        /* the alternating gray band */
@@ -68,9 +68,6 @@
   --surface-alt: #0B3057;
   --nav-bg: #0A2C4E;
   --footer-bg: #0A2C4E;
-  /* --hero-bg needs its own value here: the light theme's dark-river banner
-     would be invisible against a page that's already dark-river. */
-  --hero-bg: var(--river-blue);
   --text: #E6EEF6;
   --text-muted: #A9BFD3;
   --heading: #F1F7FC;
@@ -404,10 +401,13 @@ section {
 
 /* Sized to its content (inline-block, centered by the section's
    text-align) rather than stretched to a fixed max-width, so the card
-   hugs the two buttons instead of leaving them floating in a wide box. */
+   hugs the two buttons instead of leaving them floating in a wide box.
+   Uses --river-blue directly (not --hero-bg) so it stays a consistent,
+   distinct accent against --page-bg in both themes, independent of
+   whatever .hero is doing on the other pages. */
 .home-hero-card {
   display: inline-block;
-  background: var(--hero-bg);
+  background: var(--river-blue);
   padding: 1.75rem 2rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(15, 61, 107, 0.25);
