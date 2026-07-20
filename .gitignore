@@ -11,6 +11,9 @@ desktop.ini
 # Preview/scratch files
 pcyd-website-preview.html
 
+# npm
+node_modules/
+
 # wrangler files
 .wrangler
 .dev.vars*
