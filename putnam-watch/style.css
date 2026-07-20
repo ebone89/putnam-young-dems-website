@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Putnam Watch - theme is from my site lucideragroup.com
+   ========================================================================== */
+
+:root {
+  --teal-900:#04342C;--teal-800:#085041;--teal-700:#0F6E56;--teal-600:#1D9E75;
+  --teal-400:#5DCAA5;--teal-200:#9FE1CB;--teal-50:#E1F5EE;
+  --slate-900:#111B17;--slate-800:#1A2920;--slate-700:#243729;
+  --slate-200:#B8CEC0;--slate-100:#D6E5DA;--slate-50:#EDF4EF;
+  /* amber-600 is darkened from the original brand value (#BA7517) - at the
+     10px size the "in progress" tag and election badge actually render at,
+     the original only measured 3.24:1 against amber-50, short of the 4.5:1
+     small text needs. This shade holds the same amber-family look at 4.9:1. */
+  --amber-600:#96590C;--amber-400:#EF9F27;--amber-50:#FAEEDA;--amber-100:#FAC775;
+  --coral-600:#993C1D;--coral-400:#D85A30;--coral-50:#FAECE7;--coral-100:#F5C4B3;
+  --ink:#0A100E;--paper:#FAFCFB;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Visually hidden but still there for screen readers - used for context
+   (like "opens in a new tab") that sighted users get some other way. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Visible focus outline everywhere, keyboard nav should never get lost */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--teal-600);
+  outline-offset: 2px;
+}
+
+/* NAV */
+.site-nav {
+  background: var(--slate-900);
+  border-bottom: 3px solid var(--teal-600);
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.nav-name { color: var(--teal-200); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.nav-name span { color: var(--slate-200); font-weight: 300; }
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-links a { color: var(--slate-200); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; transition: opacity 0.15s; }
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-400); }
+
+/* HERO */
+.hero { background: var(--slate-900); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(29,158,117,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-kicker {
+  display: inline-block; background: rgba(29,158,117,0.12); border: 1px solid var(--teal-700);
+  color: var(--teal-400); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem, 4vw, 2.8rem);
+  color: #fff; line-height: 1.2; max-width: 760px; margin: 0 auto 1.25rem;
+}
+.hero-sub { color: var(--slate-200); font-size: 1.05rem; font-weight: 300; max-width: 580px; margin: 0 auto; opacity: 0.85; }
+
+/* CONTROLS */
+.controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.25rem;
+  padding: 2.5rem 0 1.5rem;
+}
+.control-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.control-group label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal-700);
+}
+.control-group input, .control-group select {
+  font-family: inherit; font-size: 0.95rem; padding: 0.6rem 0.75rem;
+  border: 1px solid var(--teal-100); border-radius: 4px; background: #fff; color: var(--ink);
+}
+.control-group input:focus, .control-group select:focus { border-color: var(--teal-600); }
+
+.result-count { font-size: 0.85rem; color: var(--slate-700); opacity: 0.7; padding-bottom: 0.5rem; }
+
+/* ROSTER CARD GRID */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem 0 4rem;
+}
+.official-card {
+  background: #fff; border: 1px solid var(--teal-100); border-top: 3px solid var(--teal-600);
+  border-radius: 4px; padding: 1.5rem; transition: border-top-color 0.15s;
+}
+.official-card:hover { border-top-color: var(--teal-400); }
+
+/* Holds the level tag and the election badge side by side, so a card
+   without an upcoming election doesn't leave a gap where the badge would be. */
+.card-top-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
+.card-level {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal-700);
+}
+.election-badge {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--amber-600); background: var(--amber-50); border: 1px solid var(--amber-100);
+  padding: 0.15rem 0.5rem; border-radius: 2px; white-space: nowrap;
+}
+.card-name { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--slate-900); line-height: 1.3; }
+.card-office { font-size: 0.85rem; color: #4A5E53; margin-top: 0.15rem; margin-bottom: 1rem; }
+
+.promise-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.promise-item { font-size: 0.875rem; color: #2E3B35; line-height: 1.5; display: flex; gap: 0.5rem; align-items: flex-start; }
+.promise-item--empty { color: var(--slate-700); opacity: 0.7; font-style: italic; }
+
+/* Button on every card that opens the shared detail dialog. Outlined instead
+   of filled so it doesn't visually compete with the status tags above it. */
+.detail-toggle {
+  margin-top: 1rem; font-family: inherit; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal-700);
+  background: none; border: 1px solid var(--teal-600); border-radius: 4px;
+  padding: 0.45rem 0.9rem; cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+.detail-toggle:hover { background: var(--teal-600); color: #fff; }
+
+.status-tag {
+  /* max-width forces the longer labels ("No significant progress made") to
+     wrap onto a couple of lines instead of stretching out as one long pill
+     that shoves the promise text next to it into a narrow, awkward column.
+     Short labels like "Kept" are well under this width, so they're
+     unaffected and stay their normal compact size. */
+  flex-shrink: 0; max-width: 88px; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border-radius: 2px; margin-top: 0.15rem; line-height: 1.3;
+}
+.status-kept        { background: var(--teal-50);  color: var(--teal-700); }
+.status-in-progress { background: var(--amber-50); color: var(--amber-600); }
+.status-broken      { background: var(--coral-50); color: var(--coral-600); }
+/* Same neutral slate treatment for both - neither one is a positive or
+   negative finding, just two different reasons there's nothing more
+   definite to report. */
+.status-unclear,
+.status-no-promise-on-file { background: var(--slate-100); color: var(--slate-700); }
+
+.no-results { text-align: center; color: var(--slate-700); opacity: 0.7; padding: 3rem 0; }
+
+/* OFFICIAL DETAIL DIALOG
+   Native <dialog> instead of a hand-rolled modal - the browser already
+   handles the focus trap, the Escape key, and the backdrop, so there's a
+   lot less custom JS to get wrong. */
+.detail-dialog {
+  /* No `position` override here on purpose - the UA stylesheet already
+     makes an open <dialog> `position: fixed` with its inset at 0, which is
+     what centers it, and is also what lets .detail-close below use
+     position: absolute against it without any help from this rule.
+
+     `margin: auto` DOES need to be restated here, though: the page's own
+     `* { margin: 0 }` reset up top wins over the UA stylesheet's
+     `dialog { margin: auto }` (author styles always beat UA styles, tie in
+     specificity or not), and margin:auto is what actually centers the box
+     within that fixed, inset-0 position. Without restating it, the dialog
+     was rendering pinned to the top-left corner. */
+  margin: auto;
+  border: none; border-top: 3px solid var(--teal-600); border-radius: 4px;
+  padding: 2rem; max-width: 560px; width: calc(100% - 2rem);
+  box-shadow: 0 20px 60px rgba(10, 16, 14, 0.35);
+}
+.detail-dialog::backdrop { background: rgba(10, 16, 14, 0.55); }
+.detail-close {
+  position: absolute; top: 1rem; right: 1rem; width: 2rem; height: 2rem;
+  border: 1px solid var(--teal-100); border-radius: 4px; background: #fff;
+  color: var(--slate-700); font-size: 1.1rem; line-height: 1; cursor: pointer;
+}
+.detail-close:hover { border-color: var(--teal-600); color: var(--teal-700); }
+.detail-level { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-700); margin-top: 0.5rem; }
+.detail-dialog h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--slate-900); margin: 0.35rem 0 0.15rem; }
+.detail-office { font-size: 0.9rem; color: #4A5E53; margin-bottom: 1.5rem; }
+.detail-promise-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+.detail-promise-item { border-top: 1px solid var(--teal-50); padding-top: 1rem; }
+.detail-promise-item:first-child { border-top: none; padding-top: 0; }
+.detail-promise-text { font-size: 0.9rem; color: #2E3B35; line-height: 1.6; margin: 0.4rem 0 0.5rem; }
+.detail-promise-source { font-size: 0.8rem; font-weight: 600; color: var(--teal-700); }
+.detail-promise-source:hover { text-decoration: underline; }
+.detail-promise-source--missing { font-size: 0.8rem; color: var(--slate-700); opacity: 0.7; font-style: italic; }
+
+/* FOOTER */
+.site-footer { background: var(--slate-900); border-top: 3px solid var(--teal-600); padding: 3rem 2rem; text-align: center; margin-top: 3rem; }
+.footer-name { color: var(--teal-400); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.footer-tagline { color: var(--slate-200); font-size: 12px; opacity: 0.65; line-height: 1.8; max-width: 520px; margin: 0 auto; }
+
+/* small screens: stack the controls */
+@media (max-width: 720px) {
+  .controls { grid-template-columns: 1fr; }
+}
