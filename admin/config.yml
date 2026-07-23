@@ -89,8 +89,7 @@ collections:
   # ── Voter Registration ─────────────────────────────────────────────────────
   # Manages _data/voter-registration.json — the "Register to Vote" section
   # at the top of voter-resources.html, including Supervisor of Elections
-  # contact info. Fill in the office phone/address/website/registration link
-  # once confirmed; the page shows "coming soon" until they're set.
+  # contact info.
   - name: voter_registration
     label: Voter Registration
     files:
@@ -111,9 +110,114 @@ collections:
             required: false
             hint: "Link to the Florida voter registration portal or the county's own registration page."
 
+  # ── Election Dates ─────────────────────────────────────────────────────────
+  # Manages _data/election-dates.json — the key-dates chart on voter-resources.html
+  # (registration deadlines, early voting windows, election day). Add a new
+  # row per election cycle; old rows can be unpublished rather than deleted
+  # so past cycles stay in the file for reference.
+  - name: election_dates
+    label: Election Dates
+    files:
+      - label: Key Dates
+        name: dates
+        file: _data/election-dates.json
+        format: json
+        fields:
+          - { label: Section Heading, name: heading, widget: string }
+          - label: Dates
+            name: dates
+            widget: list
+            label_singular: Date
+            fields:
+              - label: Election
+                name: election
+                widget: string
+                hint: "e.g. Primary Election, General Election. Rows are grouped by this on the page."
+
+              - label: What This Date Is
+                name: label
+                widget: string
+                hint: "e.g. Deadline to register to vote or change party affiliation"
+
+              - label: Date
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
+
+              - label: End Date (for a date range)
+                name: dateEnd
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: true
+                time_format: false
+                picker_utc: true
+                required: false
+                hint: "Only set this for a range like early voting. Leave blank for a single day."
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: true
+                hint: "Uncheck to hide this row without deleting it, e.g. once a deadline has passed."
+
+  # ── Ballot Guide ───────────────────────────────────────────────────────────
+  # Manages _data/ballot-guide.json — the plain-language explainer of what's
+  # on the upcoming primary/general ballot, on ballot-guide.html. Covers both
+  # candidate races and ballot measures/amendments under one list; use "Type"
+  # to tell them apart. Entries are placeholders until real ballot content is
+  # confirmed — leave Published unchecked for anything not ready to go live.
+  - name: ballot_guide_data
+    label: Ballot Guide
+    files:
+      - label: Ballot Entries
+        name: entries
+        file: _data/ballot-guide.json
+        format: json
+        fields:
+          - label: Entries
+            name: entries
+            widget: list
+            label_singular: Entry
+            fields:
+              - label: Type
+                name: type
+                widget: select
+                options: ["Candidate Race", "Ballot Measure", "Informational"]
+
+              - label: Title
+                name: title
+                widget: string
+                hint: "e.g. \"U.S. House, District 6\" or \"Amendment 3: Property Insurance Reform\""
+
+              - label: Plain-Language Summary
+                name: summary
+                widget: text
+                hint: "What this race or measure actually is/does, in a sentence or two, no jargon."
+
+              - label: Candidates or Key Provisions
+                name: details
+                widget: text
+                required: false
+                hint: "For a race: who's running and their party. For a measure: what a yes/no vote does."
+
+              - label: Learn More Link
+                name: moreInfoUrl
+                widget: string
+                required: false
+                hint: "Link to the official ballot language, candidate site, or a news explainer."
+
+              - label: Published
+                name: published
+                widget: boolean
+                default: false
+                hint: "Leave unchecked until the entry's content is confirmed and ready to go live."
+
   # ── Elected Officials ──────────────────────────────────────────────────────
-  # Manages _data/officials.json — the directory shown on voter-resources.html.
-  # Covers federal, state, and county offices representing Putnam County.
+  # Manages _data/officials.json, displayed on elected-officials.html grouped
+  # by level (with a section picker) then by category within each level.
   - name: officials_data
     label: Elected Officials
     files:
@@ -139,8 +243,8 @@ collections:
               - label: Level
                 name: level
                 widget: select
-                options: ["Federal", "State", "County"]
-                hint: "Which page section this appears under."
+                options: ["Federal", "State", "County", "City", "Judicial"]
+                hint: "Which page section this appears under. Judicial covers state and county judges/justices; City covers town/municipal offices."
 
               - label: Category
                 name: category
@@ -352,6 +456,11 @@ collections:
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
           - { label: Page Intro, name: heroBody, widget: text }
+          - label: Group Photo
+            name: groupPhoto
+            widget: image
+            required: false
+            hint: "Shown under the page intro. Leave blank to show a placeholder. Best size: about 1200x675px (16:9), landscape, under 1MB."
           - { label: Mission Heading, name: missionHeading, widget: string }
           - label: Mission Text
             name: missionBody
@@ -377,6 +486,11 @@ collections:
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
           - { label: Page Intro, name: heroBody, widget: text }
+          - label: Photo
+            name: photo
+            widget: image
+            required: false
+            hint: "Shown under the page intro. Leave blank to show a placeholder. Best size: about 1200x675px (16:9), landscape, under 1MB."
           - { label: "\"Ways to Participate\" Heading", name: waysHeading, widget: string }
           - label: "\"Ways to Participate\" Cards"
             name: waysCards
@@ -423,12 +537,72 @@ collections:
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
           - { label: Page Intro, name: heroBody, widget: text }
+          - label: "\"Learn More\" Heading"
+            name: linksHeading
+            widget: string
+            hint: "Heading above the links to external voter tools (voteputnamflorida.gov, vote411.org)."
+          - label: "\"Learn More\" Intro"
+            name: linksIntro
+            widget: text
+          - label: Elected Officials Callout Heading
+            name: officialsHeading
+            widget: string
+            hint: "Heading on the card pointing to elected-officials.html."
+          - label: Elected Officials Callout Text
+            name: officialsBody
+            widget: text
+          - label: Putnam Watch Callout Heading
+            name: putnamWatchHeading
+            widget: string
+            hint: "Heading on the card pointing to /putnam-watch/ for the accountability/promise tracker."
+          - label: Putnam Watch Callout Text
+            name: putnamWatchBody
+            widget: text
+          - { label: Ballot Guide Callout Heading, name: ballotGuideHeading, widget: string }
+          - { label: Ballot Guide Callout Text, name: ballotGuideBody, widget: text }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Elected Officials Page
+        name: electedOfficialsPage
+        file: _data/elected-officials-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - label: Top Photo
+            name: heroPhoto
+            widget: image
+            required: false
+            hint: "Shown under the page intro. Defaults to the Florida State Capitol photo if left blank. Best size: about 1200x675px (16:9), landscape, under 1MB."
           - { label: Federal Officials Heading, name: federalHeading, widget: string }
           - { label: Federal Officials Intro, name: federalIntro, widget: text }
           - { label: State Officials Heading, name: stateHeading, widget: string }
           - { label: State Officials Intro, name: stateIntro, widget: text }
           - { label: County Officials Heading, name: countyHeading, widget: string }
           - { label: County Officials Intro, name: countyIntro, widget: text }
+          - { label: City / Municipal Officials Heading, name: cityHeading, widget: string }
+          - { label: City / Municipal Officials Intro, name: cityIntro, widget: text }
+          - { label: Judicial Officials Heading, name: judicialHeading, widget: string }
+          - { label: Judicial Officials Intro, name: judicialIntro, widget: text }
+          - { label: Closing Heading, name: ctaHeading, widget: string }
+          - { label: Closing Text, name: ctaBody, widget: text }
+
+      - label: Ballot Guide Page
+        name: ballotGuidePage
+        file: _data/ballot-guide-page.json
+        format: json
+        fields:
+          - { label: Page Headline, name: heroHeading, widget: string }
+          - { label: Page Intro, name: heroBody, widget: text }
+          - label: Closed Primary Note
+            name: primaryNote
+            widget: text
+            hint: "Highlighted callout explaining Florida's closed primary rule. Update if the rule or exceptions change."
+          - label: Empty State Text
+            name: emptyStateBody
+            widget: text
+            hint: "Shown if no entries are published yet."
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
 

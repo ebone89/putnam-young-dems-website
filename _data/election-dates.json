@@ -1,0 +1,16 @@
+{
+  "heading": "Key Dates for the 2026 Elections",
+  "dates": [
+    { "election": "Primary Election", "label": "Deadline to register to vote or change party affiliation", "date": "2026-07-20" },
+    { "election": "Primary Election", "label": "Early voting", "date": "2026-08-03", "dateEnd": "2026-08-15" },
+    { "election": "Primary Election", "label": "Deadline to request a vote-by-mail ballot (by mail)", "date": "2026-08-08" },
+    { "election": "Primary Election", "label": "Deadline to request a vote-by-mail ballot (in person)", "date": "2026-08-17" },
+    { "election": "Primary Election", "label": "Vote-by-mail ballot must be received by 7:00 p.m.", "date": "2026-08-18" },
+    { "election": "Primary Election", "label": "Election Day, polls open 7:00 a.m. to 7:00 p.m.", "date": "2026-08-18" },
+    { "election": "General Election", "label": "Deadline to register to vote", "date": "2026-10-05" },
+    { "election": "General Election", "label": "Early voting", "date": "2026-10-19", "dateEnd": "2026-10-31" },
+    { "election": "General Election", "label": "Deadline to request a vote-by-mail ballot (in person)", "date": "2026-11-02" },
+    { "election": "General Election", "label": "Vote-by-mail ballot must be received by 7:00 p.m.", "date": "2026-11-03" },
+    { "election": "General Election", "label": "Election Day, polls open 7:00 a.m. to 7:00 p.m.", "date": "2026-11-03" }
+  ]
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ballot Guide - Putnam County Young Democrats</title>
+  <meta name="description" content="A plain-language guide to the candidates and measures on the upcoming Putnam County ballot.">
+  <link rel="canonical" href="https://putnamyoungdemsfl.org/ballot-guide.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ballot Guide - Putnam County Young Democrats">
+  <meta property="og:description" content="A plain-language guide to the candidates and measures on the upcoming Putnam County ballot.">
+  <meta property="og:url" content="https://putnamyoungdemsfl.org/ballot-guide.html">
+  <meta property="og:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ballot Guide - Putnam County Young Democrats">
+  <meta name="twitter:description" content="A plain-language guide to the candidates and measures on the upcoming Putnam County ballot.">
+  <meta name="twitter:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
+  <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved theme (dark by default) before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Scoped to this page, same pattern as voter-resources.html's dates chart. */
+    .ballot-type-label { display: inline-block; font-size: 0.75rem; font-family: var(--font-headline); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--azalea-pink); color: var(--clean-white); margin-bottom: 0.5rem; }
+
+    /* .card-grid is flex, not grid, so the entries container's inline
+       grid-template-columns has no effect; force true single-column here
+       instead, since entries (candidate lists, details, links) run long. */
+    #bg-entries.card-grid > * { flex-basis: 100%; max-width: none; }
+  </style>
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation. Not yet in the main nav list on other pages, this page
+       is reachable via the callout on voter-resources.html; add it there
+       too once there's real, published content. -->
+  <nav class="site-nav">
+    <div class="container">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html" class="active">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html" class="active">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
+        <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html">Documents</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content">
+  <!-- Page Header — text loaded from _data/ballot-guide-page.json (managed via Decap CMS admin) -->
+  <section class="hero" style="padding: 3.5rem 2rem;">
+    <div class="container">
+      <h1 id="bg-hero-heading" class="heading-accent">What's on the Ballot</h1>
+      <p id="bg-hero-body">A plain-language guide to the candidates and measures on the upcoming Putnam County ballot, no jargon, sourced from official candidate and ballot language.</p>
+    </div>
+  </section>
+
+  <section class="section-light" style="padding-bottom: 0;">
+    <div class="container" style="max-width: 800px;">
+      <div class="card" id="bg-primary-note-card">
+        <p id="bg-primary-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container" style="max-width: 800px;">
+      <div id="bg-entries" class="card-grid"></div>
+    </div>
+  </section>
+
+  <script>
+    var emptyStateFallback = 'The guide for the next election is being confirmed. Check back soon, or see Key Dates on Voter Resources for registration and early voting deadlines in the meantime.';
+
+    function bgEntryHTML(entry) {
+      var details = entry.details ? '<p>' + entry.details + '</p>' : '';
+      var link = entry.moreInfoUrl
+        ? '<a class="btn btn-secondary" href="' + entry.moreInfoUrl + '" target="_blank" rel="noopener">Learn More</a>'
+        : '';
+      return '<div class="card">' +
+        '<span class="ballot-type-label">' + entry.type + '</span>' +
+        '<h3>' + entry.title + '</h3>' +
+        '<p>' + entry.summary + '</p>' +
+        details + link +
+        '</div>';
+    }
+
+    fetch('_data/ballot-guide.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var entries = (data.entries || []).filter(function (e) { return e.published !== false; });
+        var container = document.getElementById('bg-entries');
+        if (!entries.length) {
+          container.innerHTML = '<div class="card"><p id="bg-empty-state">' + emptyStateFallback + '</p></div>';
+          return;
+        }
+        container.innerHTML = entries.map(bgEntryHTML).join('');
+      })
+      .catch(function () {
+        document.getElementById('bg-entries').innerHTML = '<div class="card"><p id="bg-empty-state">' + emptyStateFallback + '</p></div>';
+      });
+  </script>
+
+  <!-- CTA -->
+  <section class="hero">
+    <div class="container">
+      <h2 id="bg-cta-heading" class="heading-accent">Questions About What You're Voting On?</h2>
+      <p id="bg-cta-body">Reach out to PCYD and we will help point you to a reliable source.</p>
+      <a href="contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+  </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/ballot-guide-page.json', function (content) {
+      applyText('bg-hero-heading', content.heroHeading);
+      applyText('bg-hero-body', content.heroBody);
+      applyText('bg-cta-heading', content.ctaHeading);
+      applyText('bg-cta-body', content.ctaBody);
+      var noteCard = document.getElementById('bg-primary-note-card');
+      if (content.primaryNote) {
+        applyText('bg-primary-note', content.primaryNote);
+      } else if (noteCard) {
+        noteCard.style.display = 'none';
+      }
+      if (content.emptyStateBody) {
+        emptyStateFallback = content.emptyStateBody;
+        var existingEmpty = document.getElementById('bg-empty-state');
+        if (existingEmpty) { existingEmpty.textContent = content.emptyStateBody; }
+      }
+    });
+  </script>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
+  </footer>
+
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

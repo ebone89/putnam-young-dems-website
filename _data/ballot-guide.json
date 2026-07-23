@@ -1,0 +1,100 @@
+{
+  "entries": [
+    {
+      "type": "Candidate Race",
+      "title": "U.S. Senate (Special Election)",
+      "summary": "Filling the remainder of Marco Rubio's term after his resignation to become U.S. Secretary of State. Governor DeSantis appointed Ashley Moody to the seat; this election decides who holds it for the rest of the term.",
+      "details": "Republican primary: Ashley Moody (incumbent), Chris Gleason, Neelam Taneja Perry, Ernest \"Ernie\" Rivera. Democratic primary: State Rep. Angie Nixon (Jacksonville) and Alex Vindman (retired Army lieutenant colonel, former National Security Council director).",
+      "moreInfoUrl": "https://ballotpedia.org/United_States_Senate_special_election_in_Florida,_2026",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "U.S. House, District 6",
+      "summary": "Putnam County's congressional seat. Redrawn district boundaries favor the Republican nominee heading into November, which makes the primary the more competitive contest.",
+      "details": "Republican primary: Rep. Randy Fine (incumbent), Dan Bilzerian, Charles Gambaro (Palm Coast City Council), Aaron Baker. Democratic primary: Robert David Cooper II, Steve Morgan, Ronnie \"Ron\" Murchinson-Rivera, Eric Yonce.",
+      "moreInfoUrl": "https://ballotpedia.org/Florida%27s_6th_congressional_district",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Florida State Senate, District 8",
+      "summary": "Open seat; term-limited Sen. Tommy Wright is not running. Only one candidate qualified per party, so there is no primary in this race, it goes straight to the November ballot.",
+      "details": "General election: Rep. Jake Johansson (Republican), Judy Ngying (Democrat), Gabriel Jude Wozniak (Libertarian).",
+      "moreInfoUrl": "https://ballotpedia.org/Florida_State_Senate_District_8",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Florida House, District 20",
+      "summary": "Putnam County's state House seat. The incumbent and his challenger each ran unopposed within their own party, so there is no primary, it goes straight to the November ballot.",
+      "details": "General election: Rep. Judson Sapp (Republican, incumbent) vs. Lee Butler (Democrat).",
+      "moreInfoUrl": "https://ballotpedia.org/Judson_Sapp",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Putnam County Commission, District 4",
+      "summary": "The most closely watched local primary this cycle: a Republican incumbent focused on grants and regional partnerships against a challenger running on a spending and animal-control accountability platform.",
+      "details": "Republican primary: Larry Harvey (incumbent) vs. Joseph \"Joey\" Agner. Also on the November ballot: Joshua Florence (Democrat, firefighter running on expanding healthcare access) and Ronald Burckhard (No Party Affiliation).",
+      "moreInfoUrl": "https://ballotpedia.org/Joseph_Agner_(Putnam_County_Board_of_County_Commissioners_District_4,_Florida,_candidate_2026)",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Palatka Mayor-Commissioner",
+      "summary": "Nonpartisan race for the top elected office in the county seat. If no candidate wins a simple majority in the August primary, the top two finishers head to a runoff in November.",
+      "details": "Candidates: Robbi Correa (incumbent), Karl N. Flagg (former mayor), Tatyiana Henry Daniel, Constance Daniels.",
+      "moreInfoUrl": "https://ballotpedia.org/Robbi_Correa_(Palatka_City_Commission_At-large_(Mayor),_Florida,_candidate_2026)",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Palatka City Commissioner, Group 2",
+      "summary": "Nonpartisan race for one of Palatka's city commission seats.",
+      "details": "Candidates: James Norwood (former commissioner) vs. Jamaad C. Batts, Sr.",
+      "moreInfoUrl": "https://www.voteputnamflorida.gov/candidates_committees/2026_candidate_contact_list.php",
+      "published": true
+    },
+    {
+      "type": "Candidate Race",
+      "title": "Seventh Judicial Circuit Court, Group 26",
+      "summary": "Nonpartisan judicial race covering Flagler, Putnam, St. Johns, and Volusia counties. All registered voters, regardless of party, can vote in this race in the August primary. If a candidate wins a majority outright in August, the race is decided and will not appear on the November ballot.",
+      "details": "Candidates: Carleen Leffler vs. Jeanne Stratis.",
+      "moreInfoUrl": "https://ballotpedia.org/Carleen_Leffler_(Florida_7th_Circuit_Court_Group_26,_Florida,_candidate_2026)",
+      "published": true
+    },
+    {
+      "type": "Ballot Measure",
+      "title": "Amendment 1: Changes to the Budget Stabilization Fund",
+      "summary": "Raises the cap on Florida's \"rainy day fund\" from 10% to 25% of general revenue, and requires an annual transfer into it (up to $750 million a year) unless the legislature votes to suspend it. Needs 60% approval to pass.",
+      "details": "Supporters say bigger reserves protect the state during recessions and disasters and can lower the state's borrowing costs. Opponents say locking up more general revenue leaves less available in a given year for schools, healthcare, and infrastructure.",
+      "moreInfoUrl": "https://ballotpedia.org/Florida_Changes_to_Budget_Stabilization_Fund_Amendment_(2026)",
+      "published": true
+    },
+    {
+      "type": "Ballot Measure",
+      "title": "Amendment 2: Agriculture and Agritourism Property Tax Exemption",
+      "summary": "Exempts tangible personal property used in farming or agritourism, like tractors and harvest equipment, from property taxes. Needs 60% approval to pass.",
+      "details": "Intended to lower operating costs for Florida's agricultural sector. In Putnam County, where agriculture is a significant part of the local economy, this could mean real relief for farm operations, offset by a small reduction in the county's taxable property base.",
+      "moreInfoUrl": "https://ballotpedia.org/Florida_2026_ballot_measures",
+      "published": true
+    },
+    {
+      "type": "Ballot Measure",
+      "title": "Amendment 3: Homestead Tax Exemptions, Property Assessments, and Spending Restrictions",
+      "summary": "The largest of the three amendments. Raises the non-school homestead exemption from $25,000 to $150,000 in 2027 and $250,000 in 2028 (then indexes it to inflation), caps annual assessment increases on non-homestead property at 5% instead of 10%, and restricts how local governments can spend remaining property tax revenue. Needs 60% approval to pass.",
+      "details": "New Florida residents (establishing residency after Dec. 31, 2026) get a smaller $50,000 exemption until they have lived in the state five years. State economists estimate the amendment would cut local government revenue statewide by close to $12 billion a year by 2031. For a county where median household income and home values both run well below the state average, a $250,000 exemption could remove a large share of residential property from the local tax base, which may push county and city governments toward new fees or reduced services to make up the difference.",
+      "moreInfoUrl": "https://ballotpedia.org/Florida_Amendment_3,_Homestead_Tax_Exemptions,_Property_Assessments,_and_Spending_Restrictions_Amendment_(2026)",
+      "published": true
+    },
+    {
+      "type": "Informational",
+      "title": "Already Decided: Uncontested Local Races",
+      "summary": "These offices drew no qualified opposition and will not appear on your primary ballot. They have already been elected or advanced automatically.",
+      "details": "County Commission District 2: Leota Wilkinson (R). School Board District 1: Holly Pickens. School Board District 4: Linda Wagner. School Board District 5: Phil Leary. Soil & Water Conservation District 1: Doug Doran. Soil & Water Conservation District 3: Christy Revels Largacci. Soil & Water Conservation District 4: Jody Counts. Soil & Water Conservation District 5: Chance Clay.",
+      "moreInfoUrl": "https://www.voteputnamflorida.gov/election_information/offices_up_for_election.php",
+      "published": true
+    }
+  ]
+}

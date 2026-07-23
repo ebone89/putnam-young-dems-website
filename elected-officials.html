@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Elected Officials - Putnam County Young Democrats</title>
+  <meta name="description" content="Find out who represents Putnam County, Florida at the federal, state, county, city, and judicial level, with contact information for each office.">
+  <link rel="canonical" href="https://putnamyoungdemsfl.org/elected-officials.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Your Elected Officials - Putnam County Young Democrats">
+  <meta property="og:description" content="Find out who represents Putnam County, Florida at the federal, state, county, city, and judicial level, with contact information for each office.">
+  <meta property="og:url" content="https://putnamyoungdemsfl.org/elected-officials.html">
+  <meta property="og:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Your Elected Officials - Putnam County Young Democrats">
+  <meta name="twitter:description" content="Find out who represents Putnam County, Florida at the federal, state, county, city, and judicial level, with contact information for each office.">
+  <meta name="twitter:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
+  <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved theme (dark by default) before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Scoped to this page: the section picker is the one navigation-like
+       control here, so it gets the pink accent border to stand out. */
+    #eo-section-select { border: 2px solid var(--azalea-pink); }
+  </style>
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html" class="active">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
+        <li><a href="gallery.html">Photos</a></li>
+        <li><a href="documents.html">Documents</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content">
+  <!-- Page Header — text loaded from _data/elected-officials-page.json (managed via Decap CMS admin) -->
+  <section class="hero" style="padding: 3.5rem 2rem;">
+    <div class="container">
+      <h1 id="eo-hero-heading" class="heading-accent">Your Elected Officials</h1>
+      <p id="eo-hero-body">Find out who represents Putnam County right now, from Washington to the county courthouse.</p>
+      <!-- Top Photo — image field managed via Decap CMS admin; defaults to the Florida State Capitol -->
+      <img id="eo-hero-photo" src="assets/images/florida_capital.jpg" alt="Florida State Capitol building in Tallahassee" class="page-photo">
+    </div>
+  </section>
+
+  <!-- Section picker — shows one panel below at a time so the whole
+       directory isn't dumped on the page at once -->
+  <section class="section-light" style="padding-bottom: 0;">
+    <div class="container" style="max-width: 500px;">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label for="eo-section-select">Jump to a section</label>
+        <select id="eo-section-select">
+          <option value="panel-all">All Officials</option>
+          <option value="panel-federal">Federal Officials</option>
+          <option value="panel-state">State Officials</option>
+          <option value="panel-county">County Officials</option>
+          <option value="panel-city">City &amp; Municipal Officials</option>
+          <option value="panel-judicial">Judicial Officials</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Federal / State / County / City / Judicial Officials -->
+  <section class="section-gray section-panel active" id="panel-federal">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="eo-federal-heading">Federal Officials</h2>
+        <p id="eo-federal-intro">Federal offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-federal"></div>
+    </div>
+  </section>
+
+  <section class="section-gray section-panel active" id="panel-state">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="eo-state-heading">State Officials</h2>
+        <p id="eo-state-intro">State offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-state"></div>
+    </div>
+  </section>
+
+  <section class="section-gray section-panel active" id="panel-county">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="eo-county-heading">County Officials</h2>
+        <p id="eo-county-intro">County offices that represent Putnam County.</p>
+      </div>
+      <div id="officials-county"></div>
+    </div>
+  </section>
+
+  <section class="section-gray section-panel active" id="panel-city">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="eo-city-heading">City &amp; Municipal Officials</h2>
+        <p id="eo-city-intro">Town and municipal offices within Putnam County.</p>
+      </div>
+      <div id="officials-city"></div>
+    </div>
+  </section>
+
+  <section class="section-gray section-panel active" id="panel-judicial">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="eo-judicial-heading">Judicial Officials</h2>
+        <p id="eo-judicial-intro">State and county judges and justices who serve Putnam County.</p>
+      </div>
+      <div id="officials-judicial"></div>
+    </div>
+  </section>
+
+  <script>
+    // Section picker — "All Officials" shows every panel at once; picking a
+    // specific level narrows it down to just that one.
+    var panels = document.querySelectorAll('.section-panel');
+    var sectionSelect = document.getElementById('eo-section-select');
+
+    function showPanel(id) {
+      panels.forEach(function (panel) {
+        panel.classList.toggle('active', id === 'panel-all' || panel.id === id);
+      });
+    }
+
+    sectionSelect.addEventListener('change', function () {
+      showPanel(sectionSelect.value);
+      var target = document.getElementById(sectionSelect.value);
+      if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  </script>
+
+  <script>
+    var LEVELS = [
+      { key: 'Federal', containerId: 'officials-federal' },
+      { key: 'State', containerId: 'officials-state' },
+      { key: 'County', containerId: 'officials-county' },
+      { key: 'City', containerId: 'officials-city' },
+      { key: 'Judicial', containerId: 'officials-judicial' }
+    ];
+
+    function officialCardHTML(official) {
+      var lines = [];
+      if (official.district) { lines.push(official.district); }
+      if (official.address) { lines.push(official.address); }
+      if (official.phone) { lines.push('<a href="tel:' + official.phone.replace(/[^0-9+]/g, '') + '">' + official.phone + '</a>'); }
+      if (official.email) { lines.push('<a href="mailto:' + official.email + '">' + official.email + '</a>'); }
+      if (official.website) { lines.push('<a href="' + official.website + '" target="_blank" rel="noopener">Official Website</a>'); }
+
+      var photoHTML = official.photo
+        ? '<img src="' + official.photo + '" alt="' + official.name + '" class="official-photo">'
+        : '';
+
+      var html = photoHTML + '<h3>' + official.name + '</h3>' +
+        '<p class="event-details">' + official.office + (official.party ? ' &middot; ' + official.party : '') + '</p>';
+      if (lines.length) { html += '<p>' + lines.join('<br>') + '</p>'; }
+      if (official.notes) { html += '<p>' + official.notes + '</p>'; }
+      return html;
+    }
+
+    // Groups a level's officials by category, in the order each category
+    // first appears, so related offices (e.g. all of County Commission)
+    // sit together under their own subheading instead of one long grid.
+    function renderLevel(container, officials) {
+      var order = [];
+      var byCategory = {};
+
+      officials.forEach(function (official) {
+        var key = official.category || '';
+        if (!byCategory[key]) {
+          byCategory[key] = [];
+          order.push(key);
+        }
+        byCategory[key].push(official);
+      });
+
+      container.innerHTML = order.map(function (category) {
+        var cards = byCategory[category].map(function (official) {
+          return '<div class="card official-card">' + officialCardHTML(official) + '</div>';
+        }).join('');
+
+        var label = category ? '<div class="category-label">' + category + '</div>' : '';
+        return label + '<div class="card-grid">' + cards + '</div>';
+      }).join('');
+    }
+
+    fetch('_data/officials.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var officials = (data.officials || []).filter(function (o) { return o.published !== false; });
+
+        LEVELS.forEach(function (level) {
+          var container = document.getElementById(level.containerId);
+          var matches = officials.filter(function (o) { return o.level === level.key; });
+
+          if (!matches.length) {
+            container.innerHTML = '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
+            return;
+          }
+
+          renderLevel(container, matches);
+        });
+      })
+      .catch(function () {
+        LEVELS.forEach(function (level) {
+          document.getElementById(level.containerId).innerHTML =
+            '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
+        });
+      });
+  </script>
+
+  <!-- CTA -->
+  <section class="hero">
+    <div class="container">
+      <h2 id="eo-cta-heading" class="heading-accent">Not Sure Who to Contact?</h2>
+      <p id="eo-cta-body">Reach out to PCYD and we will help point you to the right office.</p>
+      <a href="contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+  </section>
+
+  <script src="assets/js/page-content.js"></script>
+  <script>
+    loadPageContent('_data/elected-officials-page.json', function (content) {
+      applyText('eo-hero-heading', content.heroHeading);
+      applyText('eo-hero-body', content.heroBody);
+      applyImage('eo-hero-photo', content.heroPhoto);
+      applyText('eo-federal-heading', content.federalHeading);
+      applyText('eo-federal-intro', content.federalIntro);
+      applyText('eo-state-heading', content.stateHeading);
+      applyText('eo-state-intro', content.stateIntro);
+      applyText('eo-county-heading', content.countyHeading);
+      applyText('eo-county-intro', content.countyIntro);
+      applyText('eo-city-heading', content.cityHeading);
+      applyText('eo-city-intro', content.cityIntro);
+      applyText('eo-judicial-heading', content.judicialHeading);
+      applyText('eo-judicial-intro', content.judicialIntro);
+      applyText('eo-cta-heading', content.ctaHeading);
+      applyText('eo-cta-body', content.ctaBody);
+    });
+  </script>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="voter-resources.html">Voter Resources</a></li>
+      <li><a href="gallery.html">Photos</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
+  </footer>
+
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>
