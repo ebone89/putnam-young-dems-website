@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Putnam Watch: Elected Official Promise and Vote Tracker</title>
+  <meta name="description" content="Look up every elected official who represents Putnam County and see whether they kept their campaign promises.">
+  <link rel="canonical" href="https://putnamyoungdemsfl.org/putnam-watch/">
+  <link rel="icon" type="image/png" href="/assets/images/pcyd-logo-square.png">
+  <script>
+    // Set the saved or system color theme before first paint so the page
+    // never flashes the wrong background. nav.js wires the toggle that
+    // flips this and remembers the choice.
+    (function () {
+      try {
+        var saved = localStorage.getItem('pcyd-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation — same as every other page on the site, so there's always
+       a way back out of Putnam Watch. -->
+  <nav class="site-nav">
+    <div class="container">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <a href="/index.html" class="nav-brand"><img src="/assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/events.html">Events</a></li>
+        <li><a href="/get-involved.html">Get Involved</a></li>
+        <li><a href="/voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="/elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="/ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/" class="active">Putnam Watch</a></li>
+        <li><a href="/gallery.html">Photos</a></li>
+        <li><a href="/documents.html">Documents</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content">
+  <!-- HERO -->
+  <section class="hero" style="padding: 3.5rem 2rem;">
+    <div class="container">
+      <div class="tag">Putnam County, Florida</div>
+      <h1 class="heading-accent">Know who represents you, and what they have actually done.</h1>
+      <p>A running record of campaign promises from every elected official who represents Putnam County, from the county commission up through Congress.</p>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CONTROLS -->
+    <section class="controls" aria-label="Search and filter the officials roster">
+      <div class="control-group">
+        <label for="search-input">Search by name or office</label>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="e.g. Sapp, County Commission, Senate&hellip;"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="control-group">
+        <label for="level-filter">Level of government</label>
+        <select id="level-filter">
+          <option value="all">All levels</option>
+          <option value="federal">Federal</option>
+          <option value="state">State</option>
+          <option value="county">County</option>
+          <option value="municipal">Municipal</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="status-filter">Promise status</label>
+        <select id="status-filter">
+          <option value="all">Any status</option>
+          <option value="kept">Kept</option>
+          <option value="in-progress">In progress</option>
+          <option value="broken">Broken</option>
+          <option value="unclear">No significant progress made</option>
+          <option value="no-promise-on-file">No promise on file</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- RESULT COUNT (announced to screen readers when it changes) -->
+    <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
+
+    <!-- ROSTER -->
+    <section id="roster" class="card-grid" aria-label="Elected officials roster">
+      <!-- Official cards are rendered here by script.js -->
+    </section>
+
+    <!-- NO RESULTS MESSAGE (hidden unless a search/filter returns nothing) -->
+    <p id="no-results" class="no-results" hidden>
+      No officials match that search. Try a different name, office, or filter.
+    </p>
+
+  </div>
+
+  <!-- OFFICIAL DETAIL DIALOG. One dialog, reused for whichever official was
+       clicked - script.js fills in the fields below right before opening it.
+       The h2 below starts with placeholder text instead of being empty,
+       since an empty heading in the markup fails accessibility checks
+       (WAVE flags it) even though this dialog is hidden until opened and a
+       real visitor never sees that placeholder - script.js overwrites it
+       the instant a card's detail button is clicked, before the dialog is
+       ever shown. -->
+  <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-name">
+    <button type="button" class="detail-close" id="detail-close" aria-label="Close official detail">&times;</button>
+    <p class="detail-level" id="detail-level"></p>
+    <h2 id="detail-name">Selected official</h2>
+    <p class="detail-office" id="detail-office"></p>
+    <ul class="detail-promise-list" id="detail-promise-list"></ul>
+  </dialog>
+
+  <!-- About Putnam Watch -->
+  <section class="section-gray text-center">
+    <div class="container" style="max-width: 600px;">
+      <h2 class="heading-accent">About Putnam Watch</h2>
+      <p>Built to run alongside Solidarity Tech and VoteBuilder, not replace them. Solidarity Tech and VoteBuilder track voters and volunteers. Putnam Watch tracks what officeholders actually did once elected.</p>
+    </div>
+  </section>
+  </main>
+
+  <!-- Footer — same as every other page -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/events.html">Events</a></li>
+      <li><a href="/get-involved.html">Get Involved</a></li>
+      <li><a href="/voter-resources.html">Voter Resources</a></li>
+      <li><a href="/gallery.html">Photos</a></li>
+      <li><a href="/documents.html">Documents</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <p>&copy; 2026 Putnam County Young Democrats. Palatka, Florida.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Forming; pre-charter as of April 2, 2026.</p>
+  </footer>
+
+  <script src="/assets/js/nav.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
