@@ -7,16 +7,16 @@
   <meta name="description" content="Join the Putnam County Young Democrats. Learn how to become a founding member, volunteer, or support PCYD's civic mission in Putnam County, Florida.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
-    // Set the saved or system color theme before first paint so the page
+    // Set the saved theme (dark by default) before first paint so the page
     // never flashes the wrong background. nav.js wires the toggle that
     // flips this and remembers the choice.
     (function () {
       try {
         var saved = localStorage.getItem('pcyd-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = saved || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
@@ -29,11 +29,11 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
       </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -44,6 +44,9 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html" class="active">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
         <li><a href="gallery.html">Photos</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -57,14 +60,16 @@
     <div class="container">
       <h1 id="gi-hero-heading" class="heading-accent">Get Involved</h1>
       <p id="gi-hero-body">There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
+      <!-- Photo — image field managed via Decap CMS admin; falls back to a placeholder until set -->
+      <img id="gi-photo" src="assets/images/photo-placeholder.svg" alt="Get involved with PCYD" class="page-photo">
     </div>
   </section>
 
   <!-- Ways to Participate -->
-  <section class="section-light">
+  <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header">
-        <h2 id="gi-ways-heading">Ways to Participate</h2>
+        <h2 id="gi-ways-heading" class="heading-accent">Ways to Participate</h2>
       </div>
       <div class="card-grid" id="gi-ways-cards">
         <div class="card">
@@ -94,7 +99,7 @@
   <!-- Who Can Join -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2 id="gi-who-heading">Who Can Join?</h2>
+      <h2 id="gi-who-heading" class="heading-accent">Who Can Join?</h2>
       <div id="gi-who-body">
         <p>Florida Young Democrats publicly describes its chapters as serving Democrats and left-leaning residents ages 14 through 39. PCYD uses that public age range for recruitment and outreach. You do not need to be a registered Democrat to attend events or volunteer, but formal membership and officer eligibility will follow charter requirements and adopted bylaws.</p>
         <p>If you are interested but unsure whether you qualify, reach out. We would rather answer your question than lose a potential member.</p>
@@ -105,7 +110,7 @@
   <!-- What to Expect -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2 id="gi-expect-heading">What to Expect</h2>
+      <h2 id="gi-expect-heading" class="heading-accent">What to Expect</h2>
       <div id="gi-expect-body">
         <p>PCYD is still in its founding phase. That means the people who get involved now will have a direct hand in shaping the organization's structure, priorities, and culture. Early participants should expect regular meetings, a collaborative atmosphere, and real responsibility.</p>
         <p>This is not a social club. PCYD is building toward concrete goals: filling precinct seats, running voter engagement operations, and creating a pipeline of trained local Democratic leaders. If that appeals to you, you are in the right place.</p>
@@ -117,7 +122,7 @@
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header">
-        <h2>Sign Up to Volunteer</h2>
+        <h2 class="heading-accent">Sign Up to Volunteer</h2>
         <p>Tell us what you're interested in and we'll follow up with next steps.</p>
       </div>
       <form class="contact-form" id="volunteer-form">
@@ -176,10 +181,10 @@
   </script>
 
   <!-- CTA -->
-  <section class="section-light text-center">
+  <section class="hero">
     <div class="container">
       <h2 id="gi-cta-heading" class="heading-accent">Ready to Join?</h2>
-      <p id="gi-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">The best first step is to come to our next monthly meeting or reach out directly.</p>
+      <p id="gi-cta-body">The best first step is to come to our next monthly meeting or reach out directly.</p>
       <nav class="hero-actions" aria-label="Primary actions">
         <a href="events.html" class="btn btn-primary">See Events</a>
         <a href="contact.html" class="btn btn-primary">Contact Us</a>
@@ -192,6 +197,7 @@
     loadPageContent('_data/get-involved-page.json', function (content) {
       applyText('gi-hero-heading', content.heroHeading);
       applyText('gi-hero-body', content.heroBody);
+      applyImage('gi-photo', content.photo);
       applyText('gi-ways-heading', content.waysHeading);
       applyCards('gi-ways-cards', content.waysCards);
       applyText('gi-who-heading', content.whoHeading);

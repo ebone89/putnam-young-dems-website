@@ -7,16 +7,16 @@
   <meta name="description" content="The Putnam County Young Democrats (PCYD) is building a new generation of Democratic leaders in Putnam County, Florida through civic engagement, voter outreach, and leadership development.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
-    // Set the saved or system color theme before first paint so the page
+    // Set the saved theme (dark by default) before first paint so the page
     // never flashes the wrong background. nav.js wires the toggle that
     // flips this and remembers the choice.
     (function () {
       try {
         var saved = localStorage.getItem('pcyd-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = saved || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
@@ -29,11 +29,11 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
       </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -44,6 +44,9 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
         <li><a href="gallery.html">Photos</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -53,7 +56,7 @@
 
   <main id="content">
   <!-- Intro / branding — text loaded from _data/home.json (managed via Decap CMS admin) -->
-  <section class="section-light text-center">
+  <section class="hero">
     <div class="container">
       <img src="assets/images/pcyd-logo-blue.png" alt="Putnam County Young Democrats" class="home-intro-logo home-intro-logo-light">
       <img src="assets/images/pcyd-logo-transparent.png" alt="Putnam County Young Democrats" class="home-intro-logo home-intro-logo-dark">
@@ -127,15 +130,6 @@ Rooted in Putnam County</h1>
     });
   </script>
 
-  <!-- CTA -->
-  <section class="section-gray text-center">
-    <div class="container">
-      <h2 id="home-cta-heading" class="heading-accent">Ready to Get Started?</h2>
-      <p id="home-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem;">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
-      <a href="get-involved.html" class="btn btn-primary">Join PCYD</a>
-    </div>
-  </section>
-
   <!-- Featured Event — loaded from _data/events.json (managed via Decap CMS admin) -->
   <section class="section-light">
     <div class="container">
@@ -156,6 +150,15 @@ Rooted in Putnam County</h1>
         '<a href="events.html" class="btn btn-secondary mt-2">Event Details</a>';
     });
   </script>
+
+  <!-- CTA -->
+  <section class="hero">
+    <div class="container">
+      <h2 id="home-cta-heading" class="heading-accent">Ready to Get Started?</h2>
+      <p id="home-cta-body">Whether you want to run for a precinct seat, help with voter outreach, or just show up and learn, there is a place for you here.</p>
+      <a href="get-involved.html" class="btn btn-primary">Join PCYD</a>
+    </div>
+  </section>
   </main>
 
   <!-- Footer -->

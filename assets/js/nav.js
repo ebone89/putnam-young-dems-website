@@ -19,22 +19,30 @@
       toggle.focus();
     }
   });
+
+  // Closes the menu on any click outside it (or the toggle button itself),
+  // same pattern as clicking off a native dropdown.
+  document.addEventListener('click', function (e) {
+    if (!menu.classList.contains('open')) { return; }
+    if (menu.contains(e.target) || toggle.contains(e.target)) { return; }
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
 })();
 
 /**
- * Color theme toggle. The saved choice lives in localStorage and is applied
- * before paint by the inline script in each page <head>; this just flips it
- * on click, keeps the button's pressed state honest for screen readers, and
- * keeps following the OS setting until the visitor makes an explicit choice.
+ * Color theme toggle. Dark is the default (set before paint by the inline
+ * script in each page <head>); this just flips it on click, saves the
+ * explicit choice to localStorage so it sticks across pages and visits,
+ * and keeps the button's pressed state honest for screen readers.
  */
 (function () {
   var btn = document.querySelector('.theme-toggle');
   if (!btn) { return; }
   var root = document.documentElement;
-  var media = window.matchMedia('(prefers-color-scheme: dark)');
 
   function currentTheme() {
-    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
   }
 
   function syncButton() {
@@ -49,14 +57,6 @@
     var next = currentTheme() === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('pcyd-theme', next); } catch (e) {}
-    syncButton();
-  });
-
-  media.addEventListener('change', function (e) {
-    var saved = null;
-    try { saved = localStorage.getItem('pcyd-theme'); } catch (err) {}
-    if (saved) { return; }   // an explicit choice wins over the OS setting
-    root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
     syncButton();
   });
 })();

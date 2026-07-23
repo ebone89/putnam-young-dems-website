@@ -9,6 +9,12 @@ function applyText(id, value) {
   if (el) { el.textContent = value; }
 }
 
+function applyImage(id, value) {
+  if (value == null || value === '') { return; }
+  var el = document.getElementById(id);
+  if (el) { el.src = value; }
+}
+
 function applyParagraphs(id, value) {
   if (value == null) { return; }
   var el = document.getElementById(id);

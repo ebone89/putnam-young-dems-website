@@ -7,16 +7,16 @@
   <meta name="description" content="Learn about the mission, community context, and organizational structure of the Putnam County Young Democrats (PCYD) in Palatka, Florida.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
-    // Set the saved or system color theme before first paint so the page
+    // Set the saved theme (dark by default) before first paint so the page
     // never flashes the wrong background. nav.js wires the toggle that
     // flips this and remembers the choice.
     (function () {
       try {
         var saved = localStorage.getItem('pcyd-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = saved || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
@@ -29,11 +29,11 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
       </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -44,6 +44,9 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
         <li><a href="gallery.html">Photos</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -57,13 +60,15 @@
     <div class="container">
       <h1 id="about-hero-heading" class="heading-accent">About PCYD</h1>
       <p id="about-hero-body">Who we are, why we exist, and what we are building in Putnam County.</p>
+      <!-- Group Photo — image field managed via Decap CMS admin; falls back to a placeholder until set -->
+      <img id="about-group-photo" src="assets/images/photo-placeholder.svg" alt="PCYD members and volunteers" class="page-photo">
     </div>
   </section>
 
   <!-- Mission -->
-  <section class="section-light">
+  <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2 id="about-mission-heading">Our Mission</h2>
+      <h2 id="about-mission-heading" class="heading-accent">Our Mission</h2>
       <div id="about-mission-body">
         <p>The mission of the Putnam County Young Democrats is to build durable Democratic leadership in Putnam County through civic engagement, member training, voter outreach, and service within the local party structure.</p>
         <p>PCYD exists to identify local talent, prepare members for responsibility, and create an organized pathway from first-time participation to sustained political and civic leadership.</p>
@@ -74,7 +79,7 @@
   <!-- Community Context — text loaded from _data/content.json (managed via Decap CMS admin) -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2 id="about-community-heading">Our Community</h2>
+      <h2 id="about-community-heading" class="heading-accent">Our Community</h2>
       <div id="about-community-body">
         <p>Putnam County is river towns, small farms, and neighborhoods that have looked out for each other for generations. We're proud to call it home. We're also honest that it isn't an easy place to get by: median household income sits around $47,900, and roughly one in five residents live below the poverty line, numbers that shape daily life for a lot of the families PCYD wants to serve.</p>
         <p>PCYD exists because of that reality, not around it. We're building a practical way for young people and working families to get involved in Democratic politics close to home, from knocking doors to filling precinct seats, so the people most affected by these challenges have a real voice in solving them.</p>
@@ -104,7 +109,7 @@
   <!-- Membership -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <h2 id="about-membership-heading">Membership</h2>
+      <h2 id="about-membership-heading" class="heading-accent">Membership</h2>
       <p id="about-membership-intro">Official members must be Putnam County Residents aged 18 -  40 or students 14 - 18 with parent or guardian permission. Over 40? No problem! We welcome you as a supporting member, event volunteer, or an operational supporter.</p>
 
       <div class="card-grid mt-3" id="about-membership-tiers" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
@@ -127,10 +132,10 @@
   </section>
 
   <!-- CTA -->
-  <section class="section-light text-center">
+  <section class="hero">
     <div class="container">
       <h2 id="about-cta-heading" class="heading-accent">Want to Help Build PCYD?</h2>
-      <p id="about-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">We are looking for founding members who want to be part of building something new for Putnam County.</p>
+      <p id="about-cta-body">We are looking for founding members who want to be part of building something new for Putnam County.</p>
       <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
     </div>
   </section>
@@ -140,6 +145,7 @@
     loadPageContent('_data/about-page.json', function (content) {
       applyText('about-hero-heading', content.heroHeading);
       applyText('about-hero-body', content.heroBody);
+      applyImage('about-group-photo', content.groupPhoto);
       applyText('about-mission-heading', content.missionHeading);
       applyParagraphs('about-mission-body', content.missionBody);
       applyText('about-membership-heading', content.membershipHeading);

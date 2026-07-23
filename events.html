@@ -7,16 +7,16 @@
   <meta name="description" content="Upcoming events and community gatherings hosted by the Putnam County Young Democrats in Palatka, Florida.">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
-    // Set the saved or system color theme before first paint so the page
+    // Set the saved theme (dark by default) before first paint so the page
     // never flashes the wrong background. nav.js wires the toggle that
     // flips this and remembers the choice.
     (function () {
       try {
         var saved = localStorage.getItem('pcyd-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = saved || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
@@ -29,11 +29,11 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
       </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -44,6 +44,9 @@
         <li><a href="events.html" class="active">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
         <li><a href="gallery.html">Photos</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -64,7 +67,7 @@
   <!-- Calendar — same data as the list below, just laid out by day -->
   <section class="section-light" style="padding-bottom: 0;">
     <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
+      <div class="section-header">
         <h2 id="events-calendar-heading">Calendar</h2>
       </div>
       <div class="calendar" id="event-calendar">
@@ -95,7 +98,7 @@
   <!-- RSVP -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
+      <div class="section-header">
         <h2 id="events-rsvp-heading">RSVP</h2>
         <p id="events-rsvp-intro">Let us know you're coming so we can plan for you.</p>
       </div>
@@ -125,7 +128,7 @@
   <!-- Upcoming Events — loaded from _data/events.json (managed via Decap CMS admin) -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
+      <div class="section-header">
         <h2 id="events-upcoming-heading">Upcoming Events</h2>
       </div>
 
@@ -237,10 +240,10 @@
 
 
   <!-- Stay Updated CTA -->
-  <section class="section-light text-center">
+  <section class="hero">
     <div class="container">
       <h2 id="events-cta-heading" class="heading-accent">Stay in the Loop</h2>
-      <p id="events-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Follow us on social media or reach out directly to get notified about upcoming events and meetings.</p>
+      <p id="events-cta-body">Follow us on social media or reach out directly to get notified about upcoming events and meetings.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
   </section>
