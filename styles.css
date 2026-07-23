@@ -600,17 +600,20 @@ section {
   color: var(--dark-river);
 }
 
-/* Cards sit on --surface, a medium blue close in tone to --river-blue, so
-   btn-secondary uses the lighter accent blue instead to read as a
-   distinct button rather than blending into the card behind it. */
+/* Same treatment as .btn-primary, so every button on the site reads as
+   one consistent style rather than one-off variants. Kept as its own
+   class (instead of just reusing .btn-primary in the markup) in case a
+   real secondary/lower-emphasis style is needed later. */
 .btn-secondary {
-  background: var(--link);
-  color: var(--dark-river);
+  background: var(--azalea-pink);
+  color: var(--clean-white);
+  box-shadow: 0 2px 8px rgba(214, 68, 142, 0.3);
 }
 
 .btn-secondary:hover {
-  background: var(--clean-white);
-  color: var(--dark-river);
+  background: #c13a7d;
+  color: var(--clean-white);
+  box-shadow: 0 4px 14px rgba(214, 68, 142, 0.4);
 }
 
 /* --- Content Sections --- */
