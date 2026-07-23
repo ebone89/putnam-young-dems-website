@@ -4,23 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voter Resources - Putnam County Young Democrats</title>
-  <meta name="description" content="Register to vote in Putnam County, Florida, and find out who represents you at the federal, state, and county level.">
+  <meta name="description" content="Register to vote in Putnam County, Florida, check key election dates, and find where to look up your ballot and your representatives.">
+  <link rel="canonical" href="https://putnamyoungdemsfl.org/voter-resources.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Voter Resources - Putnam County Young Democrats">
+  <meta property="og:description" content="Register to vote in Putnam County, Florida, check key election dates, and find where to look up your ballot and your representatives.">
+  <meta property="og:url" content="https://putnamyoungdemsfl.org/voter-resources.html">
+  <meta property="og:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Voter Resources - Putnam County Young Democrats">
+  <meta name="twitter:description" content="Register to vote in Putnam County, Florida, check key election dates, and find where to look up your ballot and your representatives.">
+  <meta name="twitter:image" content="https://putnamyoungdemsfl.org/assets/images/pcyd-logo-square.png">
   <link rel="icon" type="image/png" href="assets/images/pcyd-logo-square.png">
   <script>
-    // Set the saved or system color theme before first paint so the page
+    // Set the saved theme (dark by default) before first paint so the page
     // never flashes the wrong background. nav.js wires the toggle that
     // flips this and remembers the choice.
     (function () {
       try {
         var saved = localStorage.getItem('pcyd-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = saved || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Scoped to this page: the key-dates chart doesn't have a shared
+       component elsewhere on the site yet, so it's styled locally rather
+       than adding table rules to the global stylesheet. */
+    .dates-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .dates-table caption { text-align: left; font-family: var(--font-headline); font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .dates-table th, .dates-table td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    .dates-table th { font-family: var(--font-headline); }
+    .dates-group { margin-bottom: 2rem; }
+  </style>
 </head>
 <body>
 
@@ -29,11 +49,11 @@
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="container">
-      <a href="index.html" class="nav-brand"><img src="assets/images/pcyd-logo-mark.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">Menu</span>
       </button>
+      <a href="index.html" class="nav-brand"><img src="assets/images/White_Just_Letters_PCYDLogo_PCYDWhite_Just_Letters_PCYDLogo_PCYD@4x.png" alt="PCYD" class="nav-logo"><span class="nav-brand-text">Putnam County <span>Young Democrats</span></span></a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -44,6 +64,9 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="voter-resources.html" class="active">Voter Resources</a></li>
+        <li class="nav-sublink"><a href="elected-officials.html">Your Elected Officials</a></li>
+        <li class="nav-sublink"><a href="ballot-guide.html">Ballot Guide</a></li>
+        <li class="nav-sublink"><a href="/putnam-watch/">Putnam Watch</a></li>
         <li><a href="gallery.html">Photos</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -56,31 +79,15 @@
   <section class="hero" style="padding: 3.5rem 2rem;">
     <div class="container">
       <h1 id="vrp-hero-heading" class="heading-accent">Voter Resources</h1>
-      <p id="vrp-hero-body">Register to vote, and find out who represents Putnam County right now, from Washington to the county courthouse.</p>
-    </div>
-  </section>
-
-  <!-- Section picker — shows one panel below at a time so the whole
-       directory isn't dumped on the page at once -->
-  <section class="section-light" style="padding-bottom: 0;">
-    <div class="container" style="max-width: 500px;">
-      <div class="form-group" style="margin-bottom: 0;">
-        <label for="vr-section-select">Jump to a section</label>
-        <select id="vr-section-select">
-          <option value="panel-register">Register to Vote</option>
-          <option value="panel-federal">Federal Officials</option>
-          <option value="panel-state">State Officials</option>
-          <option value="panel-county">County &amp; Local Officials</option>
-        </select>
-      </div>
+      <p id="vrp-hero-body">Register to vote, check key dates, and know before you go, from Washington to the county courthouse.</p>
     </div>
   </section>
 
   <!-- Register to Vote — text loaded from _data/voter-registration.json (managed via Decap CMS admin) -->
-  <section class="section-gray vr-panel active" id="panel-register">
+  <section class="section-light">
     <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
-        <h2 id="vr-heading">Register to Vote</h2>
+      <div class="section-header">
+        <h2 id="vr-heading" class="heading-accent">Register to Vote</h2>
         <p id="vr-intro">Florida voter registration and updates (name, address, or party changes) go through your county Supervisor of Elections. You can also check your current registration status at any time.</p>
       </div>
       <div class="card">
@@ -111,136 +118,139 @@
       });
   </script>
 
-  <!-- Federal / State / County Officials -->
-  <section class="section-gray vr-panel" id="panel-federal">
+  <!-- Key Dates — text loaded from _data/election-dates.json (managed via Decap CMS admin) -->
+  <section class="section-gray">
     <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
-        <h2 id="vrp-federal-heading">Federal Officials</h2>
-        <p id="vrp-federal-intro">Federal offices that represent Putnam County.</p>
+      <div class="section-header">
+        <h2 id="ed-heading" class="heading-accent">Key Dates for the 2026 Elections</h2>
       </div>
-      <div id="officials-federal"></div>
-    </div>
-  </section>
-
-  <section class="section-gray vr-panel" id="panel-state">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
-        <h2 id="vrp-state-heading">State Officials</h2>
-        <p id="vrp-state-intro">State offices that represent Putnam County.</p>
-      </div>
-      <div id="officials-state"></div>
-    </div>
-  </section>
-
-  <section class="section-gray vr-panel" id="panel-county">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left;">
-        <h2 id="vrp-county-heading">County &amp; Local Officials</h2>
-        <p id="vrp-county-intro">County and municipal offices that represent Putnam County.</p>
-      </div>
-      <div id="officials-county"></div>
+      <div id="ed-groups"></div>
     </div>
   </section>
 
   <script>
-    // Section picker — only the selected panel is visible at a time
-    var panels = document.querySelectorAll('.vr-panel');
-    var sectionSelect = document.getElementById('vr-section-select');
+    var ED_MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
 
-    function showPanel(id) {
-      panels.forEach(function (panel) {
-        panel.classList.toggle('active', panel.id === id);
-      });
+    // Same manual parsing approach as assets/js/events.js: reading
+    // "YYYY-MM-DD" with `new Date(str)` treats it as UTC and can display a
+    // day off depending on the visitor's timezone.
+    function edParseISODate(isoDate) {
+      var parts = isoDate.split('-');
+      return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
     }
 
-    sectionSelect.addEventListener('change', function () {
-      showPanel(sectionSelect.value);
-      document.getElementById(sectionSelect.value).scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  </script>
-
-  <script>
-    var LEVELS = [
-      { key: 'Federal', containerId: 'officials-federal' },
-      { key: 'State', containerId: 'officials-state' },
-      { key: 'County', containerId: 'officials-county' }
-    ];
-
-    function officialCardHTML(official) {
-      var lines = [];
-      if (official.district) { lines.push(official.district); }
-      if (official.address) { lines.push(official.address); }
-      if (official.phone) { lines.push('<a href="tel:' + official.phone.replace(/[^0-9+]/g, '') + '">' + official.phone + '</a>'); }
-      if (official.email) { lines.push('<a href="mailto:' + official.email + '">' + official.email + '</a>'); }
-      if (official.website) { lines.push('<a href="' + official.website + '" target="_blank" rel="noopener">Official Website</a>'); }
-
-      var photoHTML = official.photo
-        ? '<img src="' + official.photo + '" alt="' + official.name + '" class="official-photo">'
-        : '';
-
-      var html = photoHTML + '<h3>' + official.name + '</h3>' +
-        '<p class="event-details">' + official.office + (official.party ? ' &middot; ' + official.party : '') + '</p>';
-      if (lines.length) { html += '<p>' + lines.join('<br>') + '</p>'; }
-      if (official.notes) { html += '<p>' + official.notes + '</p>'; }
-      return html;
+    function edFormatDate(isoDate) {
+      var d = edParseISODate(isoDate);
+      return ED_MONTH_NAMES[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
     }
 
-    // Groups a level's officials by category, in the order each category
-    // first appears, so related offices (e.g. all of County Commission)
-    // sit together under their own subheading instead of one long grid.
-    function renderLevel(container, officials) {
-      var order = [];
-      var byCategory = {};
-
-      officials.forEach(function (official) {
-        var key = official.category || '';
-        if (!byCategory[key]) {
-          byCategory[key] = [];
-          order.push(key);
-        }
-        byCategory[key].push(official);
-      });
-
-      container.innerHTML = order.map(function (category) {
-        var cards = byCategory[category].map(function (official) {
-          return '<div class="card official-card">' + officialCardHTML(official) + '</div>';
-        }).join('');
-
-        var label = category ? '<div class="category-label">' + category + '</div>' : '';
-        return label + '<div class="card-grid">' + cards + '</div>';
-      }).join('');
+    function edFormatRow(row) {
+      if (row.dateEnd) {
+        var start = edParseISODate(row.date);
+        var end = edParseISODate(row.dateEnd);
+        var sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+        return sameMonth
+          ? ED_MONTH_NAMES[start.getMonth()] + ' ' + start.getDate() + ' – ' + end.getDate() + ', ' + end.getFullYear()
+          : edFormatDate(row.date) + ' – ' + edFormatDate(row.dateEnd);
+      }
+      return edFormatDate(row.date);
     }
 
-    fetch('_data/officials.json')
+    fetch('_data/election-dates.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        var officials = (data.officials || []).filter(function (o) { return o.published !== false; });
+        if (data.heading) { document.getElementById('ed-heading').textContent = data.heading; }
 
-        LEVELS.forEach(function (level) {
-          var container = document.getElementById(level.containerId);
-          var matches = officials.filter(function (o) { return o.level === level.key; });
-
-          if (!matches.length) {
-            container.innerHTML = '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
-            return;
-          }
-
-          renderLevel(container, matches);
+        var rows = (data.dates || []).filter(function (row) { return row.published !== false; });
+        var order = [];
+        var byElection = {};
+        rows.forEach(function (row) {
+          if (!byElection[row.election]) { byElection[row.election] = []; order.push(row.election); }
+          byElection[row.election].push(row);
         });
+
+        var container = document.getElementById('ed-groups');
+        if (!order.length) {
+          container.innerHTML = '<div class="card"><p>Dates for the next election are being confirmed. Check back soon.</p></div>';
+          return;
+        }
+
+        container.innerHTML = order.map(function (election) {
+          var rowsHTML = byElection[election].map(function (row) {
+            return '<tr><td>' + row.label + '</td><td>' + edFormatRow(row) + '</td></tr>';
+          }).join('');
+          return '<div class="dates-group"><table class="dates-table"><caption>' + election + '</caption>' +
+            '<thead><tr><th scope="col">What</th><th scope="col">When</th></tr></thead>' +
+            '<tbody>' + rowsHTML + '</tbody></table></div>';
+        }).join('');
       })
       .catch(function () {
-        LEVELS.forEach(function (level) {
-          document.getElementById(level.containerId).innerHTML =
-            '<div class="card"><p>Directory coming soon. We are still confirming contact information for this level of office.</p></div>';
-        });
+        document.getElementById('ed-groups').innerHTML =
+          '<div class="card"><p>Dates for the next election are being confirmed. Check back soon.</p></div>';
       });
   </script>
 
+  <!-- Learn More / official lookup tools -->
+  <section class="section-light">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2 id="vrp-links-heading" class="heading-accent">Check Your Status or Look Up Your Ballot</h2>
+        <p id="vrp-links-intro">These are the official Florida and Putnam County tools; PCYD does not run voter registration or ballot lookups.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Putnam County Supervisor of Elections</h3>
+          <p>Register, update your registration, check your status, and find your polling place.</p>
+          <a class="btn btn-primary" href="https://www.voteputnamflorida.gov/" target="_blank" rel="noopener">voteputnamflorida.gov</a>
+        </div>
+        <div class="card">
+          <h3>VOTE411</h3>
+          <p>League of Women Voters ballot lookup: see your personalized sample ballot before election day.</p>
+          <a class="btn btn-primary" href="https://www.vote411.org/" target="_blank" rel="noopener">vote411.org</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your Elected Officials callout -->
+  <section class="section-gray">
+    <div class="container" style="max-width: 800px;">
+      <div class="card">
+        <h3 id="vrp-officials-heading">Who Represents You</h3>
+        <p id="vrp-officials-body">Contact information and basic background for every federal, state, county, city, and judicial official who represents Putnam County.</p>
+        <a class="btn btn-primary" href="elected-officials.html">See Your Elected Officials</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Putnam Watch callout — soft-launch: linked here only, not in main nav yet -->
+  <section class="section-light">
+    <div class="container" style="max-width: 800px;">
+      <div class="card">
+        <h3 id="vrp-pw-heading">Did They Keep Their Promises?</h3>
+        <p id="vrp-pw-body">Putnam Watch is PCYD's accountability tracker: see whether each official has kept their campaign promises.</p>
+        <a class="btn btn-primary" href="/putnam-watch/">Visit Putnam Watch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ballot Guide callout -->
+  <section class="section-gray">
+    <div class="container" style="max-width: 800px;">
+      <div class="card">
+        <h3 id="vrp-bg-heading">What's on the Ballot</h3>
+        <p id="vrp-bg-body">A plain-language explainer of the candidates and measures on the upcoming primary and general election ballot.</p>
+        <a class="btn btn-primary" href="ballot-guide.html">See the Ballot Guide</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="section-light text-center">
+  <section class="hero">
     <div class="container">
-      <h2 id="vrp-cta-heading" class="heading-accent">Not Sure Who to Contact?</h2>
-      <p id="vrp-cta-body" style="max-width: 550px; margin: 0.5rem auto 1.5rem; opacity: 0.92;">Reach out to PCYD and we will help point you to the right office.</p>
+      <h2 id="vrp-cta-heading" class="heading-accent">Not Sure Where to Start?</h2>
+      <p id="vrp-cta-body">Reach out to PCYD and we will help point you to the right resource.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
   </section>
@@ -250,12 +260,14 @@
     loadPageContent('_data/voter-resources-page.json', function (content) {
       applyText('vrp-hero-heading', content.heroHeading);
       applyText('vrp-hero-body', content.heroBody);
-      applyText('vrp-federal-heading', content.federalHeading);
-      applyText('vrp-federal-intro', content.federalIntro);
-      applyText('vrp-state-heading', content.stateHeading);
-      applyText('vrp-state-intro', content.stateIntro);
-      applyText('vrp-county-heading', content.countyHeading);
-      applyText('vrp-county-intro', content.countyIntro);
+      applyText('vrp-links-heading', content.linksHeading);
+      applyText('vrp-links-intro', content.linksIntro);
+      applyText('vrp-officials-heading', content.officialsHeading);
+      applyText('vrp-officials-body', content.officialsBody);
+      applyText('vrp-pw-heading', content.putnamWatchHeading);
+      applyText('vrp-pw-body', content.putnamWatchBody);
+      applyText('vrp-bg-heading', content.ballotGuideHeading);
+      applyText('vrp-bg-body', content.ballotGuideBody);
       applyText('vrp-cta-heading', content.ctaHeading);
       applyText('vrp-cta-body', content.ctaBody);
     });

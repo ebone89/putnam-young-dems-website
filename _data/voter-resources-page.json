@@ -1,12 +1,14 @@
 {
   "heroHeading": "Voter Resources",
-  "heroBody": "Register to vote, and find out who represents Putnam County right now, from Washington to the county courthouse.",
-  "federalHeading": "Federal Officials",
-  "federalIntro": "Federal offices that represent Putnam County.",
-  "stateHeading": "State Officials",
-  "stateIntro": "State offices that represent Putnam County.",
-  "countyHeading": "County & Local Officials",
-  "countyIntro": "County and municipal offices that represent Putnam County.",
-  "ctaHeading": "Not Sure Who to Contact?",
-  "ctaBody": "Reach out to PCYD and we will help point you to the right office."
+  "heroBody": "Register to vote, check key dates, and know before you go, from Washington to the county courthouse.",
+  "linksHeading": "Check Your Status or Look Up Your Ballot",
+  "linksIntro": "These are the official Florida and Putnam County tools; PCYD does not run voter registration or ballot lookups.",
+  "officialsHeading": "Who Represents You",
+  "officialsBody": "Contact information and basic background for every federal, state, county, city, and judicial official who represents Putnam County.",
+  "putnamWatchHeading": "Did They Keep Their Promises?",
+  "putnamWatchBody": "Putnam Watch is PCYD's accountability tracker: see whether each official has kept their campaign promises.",
+  "ballotGuideHeading": "What's on the Ballot",
+  "ballotGuideBody": "A plain-language explainer of the candidates and measures on the upcoming primary and general election ballot.",
+  "ctaHeading": "Not Sure Where to Start?",
+  "ctaBody": "Reach out to PCYD and we will help point you to the right resource."
 }
