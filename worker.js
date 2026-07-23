@@ -12,27 +12,81 @@
  *   ADMIN_TOKEN           — shared secret for viewing sign-ups at /admin/signups.html
  *
  * Required bindings (see wrangler.jsonc):
- *   DB — D1 database, schema in schema.sql
+ *   DB            — D1 database, schema in schema.sql
+ *   SIGNUP_LIMITER — Rate limiting binding guarding POST /api/signup
  */
+
+// Response headers applied to every request, static assets included.
+// The CSP allows exactly the external hosts this site actually depends on:
+// unpkg.com (Decap CMS bundle), api.github.com/github.com (Decap's GitHub
+// backend + OAuth), and Google Fonts (Putnam Watch). If you add a new CDN
+// or embed anywhere, this is the first place to update, and /admin/ is the
+// first place to smoke-test after any change here, since a too-strict CSP
+// fails silent (the CMS just won't load) rather than throwing an error you'd
+// notice right away.
+const BASE_SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'X-Frame-Options': 'DENY',
+  'Permissions-Policy': 'geolocation=(), camera=(), microphone=(), payment=()',
+};
+
+// Decap CMS (loaded at /admin/) evaluates its YAML config with `eval`,
+// which the base policy's script-src doesn't allow. Scoping the looser
+// policy to /admin/* only, rather than adding unsafe-eval site-wide, keeps
+// every public page under the stricter policy.
+const CSP_DEFAULT = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://unpkg.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://api.github.com https://github.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
+const CSP_ADMIN = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://api.github.com https://github.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
+function withSecurityHeaders(response, url) {
+  const headers = new Headers(response.headers);
+  for (const [name, value] of Object.entries(BASE_SECURITY_HEADERS)) {
+    headers.set(name, value);
+  }
+  const isAdmin = url && url.pathname.startsWith('/admin');
+  headers.set('Content-Security-Policy', isAdmin ? CSP_ADMIN : CSP_DEFAULT);
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     if (url.pathname.startsWith('/api/auth')) {
-      return handleGitHubOAuth(request, env, url);
+      return withSecurityHeaders(await handleGitHubOAuth(request, env, url), url);
     }
 
     if (url.pathname === '/api/signup' && request.method === 'POST') {
-      return handleSignup(request, env);
+      return withSecurityHeaders(await handleSignup(request, env), url);
     }
 
     if (url.pathname === '/api/signups' && request.method === 'GET') {
-      return handleListSignups(request, env, url);
+      return withSecurityHeaders(await handleListSignups(request, env, url), url);
     }
 
     // Everything else: serve static site files
-    return env.ASSETS.fetch(request);
+    return withSecurityHeaders(await env.ASSETS.fetch(request), url);
   },
 };
 
@@ -46,6 +100,18 @@ function jsonResponse(body, status) {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function handleSignup(request, env) {
+  // Rate limit by IP before touching the body at all: 5 submissions per
+  // 60 seconds is generous for a real person filling out one form, but
+  // shuts down a scripted flood fast. Fails open (allows the request) if
+  // the binding isn't configured, so local dev without it still works.
+  if (env.SIGNUP_LIMITER) {
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const { success } = await env.SIGNUP_LIMITER.limit({ key: ip });
+    if (!success) {
+      return jsonResponse({ ok: false, error: 'Too many submissions. Please try again in a minute.' }, 429);
+    }
+  }
+
   let body;
   try {
     body = await request.json();

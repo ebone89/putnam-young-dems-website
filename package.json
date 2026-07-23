@@ -1,0 +1,7 @@
+{
+  "name": "putnam-young-dems-website",
+  "private": true,
+  "devDependencies": {
+    "wrangler": "4.112.0"
+  }
+}

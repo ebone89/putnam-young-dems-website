@@ -109,13 +109,23 @@
       loadSignups().catch(function (err) { gateError.textContent = err.message; });
     });
 
+    // Prefix a leading =, +, -, or @ with an apostrophe before quoting.
+    // Those characters make Excel/Sheets treat the cell as a formula on
+    // open, so without this a submitted name or note starting with one
+    // (accidental or deliberate) could execute when an admin opens the
+    // exported file. The apostrophe forces plain-text interpretation.
+    function csvSafeCell(value) {
+      var str = (value || '').toString();
+      if (/^[=+\-@]/.test(str)) { str = "'" + str; }
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+
     document.getElementById('export-btn').addEventListener('click', function () {
       var header = ['created_at', 'type', 'name', 'email', 'phone', 'event_title', 'interest_areas', 'notes'];
       var lines = [header.join(',')];
       currentRows.forEach(function (row) {
         lines.push(header.map(function (key) {
-          var value = (row[key] || '').toString().replace(/"/g, '""');
-          return '"' + value + '"';
+          return csvSafeCell(row[key]);
         }).join(','));
       });
 

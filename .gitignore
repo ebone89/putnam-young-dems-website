@@ -18,5 +18,8 @@ pcyd-website-preview.html
 .env*
 !.env.example
 
+# npm
+node_modules/
+
 # Claude Code local tooling
 .claude/
