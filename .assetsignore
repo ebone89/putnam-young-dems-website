@@ -1,7 +1,10 @@
 .wrangler
 .git
 .claude
+.idea
 schema.sql
 node_modules
 package.json
 package-lock.json
+wrangler.jsonc
+*.md

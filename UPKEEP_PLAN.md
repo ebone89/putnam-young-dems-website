@@ -22,7 +22,7 @@ Working reference for maintaining and growing putnamyoungdemsfl.org. Based on a 
 ## Improvement ideas, roughly in priority order
 
 1. **npm audit fixes** — the 3 flagged high-severity vulnerabilities are the most concrete, actionable item on this list and should happen before any of the items below.
-2. **Internal one-page content guide** — a short doc for whoever handles content (how to log in, add an event, swap a photo). Closes the biggest practical gap for a site like this: what happens when the original builder isn't around to make edits.
+2. ~~**Internal one-page content guide**~~ — done, see `CONTENT_GUIDE.md`.
 3. **Cloudflare Web Analytics** — free, privacy-respecting, fits the existing stack. Gives whoever maintains content visibility into what pages actually get traffic.
 4. **More prominent "get involved" pathway** — volunteer roles, committee openings, precinct captain sign-ups, surfaced more visibly than the current Get Involved page. Routes visitor enthusiasm into structure instead of a one-time form fill.
 5. **ActBlue donation integration** — a real fundraising embed/button. Standard across nearly all Democratic sites; worth confirming it isn't already planned or intentionally deferred before treating this as a gap.
@@ -33,3 +33,4 @@ Working reference for maintaining and growing putnamyoungdemsfl.org. Based on a 
 
 - This file is an internal planning doc, not site copy — `CONTENT_STYLE.md` doesn't govern it.
 - The Solidarity Tech migration (see `CLAUDE.md`) is a separate, already-planned initiative and would likely absorb or replace items 4 and 6 above once scoped — don't start build-out on those in parallel without checking that overlap first.
+- **2026-07-30:** found and fixed a real exposure gap while writing `CONTENT_GUIDE.md` — `.assetsignore` didn't exclude `.md` files or `wrangler.jsonc`, and since the Worker's assets binding serves the entire repo root, every internal doc (including this one and `CLAUDE.md`) was publicly readable at its own URL (e.g. `putnamyoungdemsfl.org/CLAUDE.md`) with no link to it anywhere on the site, just guessable. Nothing in those files was a secret (OAuth credentials live in `.dev.vars`, gitignored, never committed), but it's still unnecessary exposure of internal project details. Fixed by adding `*.md` and `wrangler.jsonc` to `.assetsignore` — confirm this is gone from the live site after the next deploy to `main`.
