@@ -339,6 +339,37 @@ collections:
                 default: true
                 hint: "Uncheck to hide this photo without deleting it."
 
+  # ── Get Involved Photos ──────────────────────────────────────────────────────
+  # Manages _data/get-involved-photos.json — the slideshow shown under the
+  # page intro on get-involved.html. Kept as its own small collection (like
+  # Photo Gallery above) rather than a field nested inside the "Get Involved
+  # Page" entry under Page Content — Decap's editor hangs indefinitely when a
+  # list-of-images field is added alongside that entry's other list field
+  # ("Ways to Participate" Cards); a standalone list-only collection avoids it.
+  - name: get_involved_photos
+    label: Get Involved Photos
+    files:
+      - label: Get Involved Photos
+        name: photos
+        file: _data/get-involved-photos.json
+        format: json
+        fields:
+          - label: Photos
+            name: photos
+            widget: list
+            label_singular: Photo
+            hint: "Shown under the page intro on Get Involved as a slideshow. Leave empty to show a placeholder. Add as many as you like — visitors can step through them, and they auto-advance every few seconds. Best size: about 1200x675px (16:9), landscape, under 1MB each."
+            fields:
+              - label: Photo
+                name: photo
+                widget: image
+
+              - label: Caption
+                name: caption
+                widget: string
+                required: false
+                hint: "Optional. Used as the photo's alt text, and shown as a caption on the slide."
+
   # ── Documents ────────────────────────────────────────────────────────────────
   # Manages _data/documents.json — the file list shown on documents.html.
   # Bylaws, charter paperwork, and other official PCYD records.
@@ -486,21 +517,6 @@ collections:
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
           - { label: Page Intro, name: heroBody, widget: text }
-          - label: Photos
-            name: photos
-            widget: list
-            label_singular: Photo
-            required: false
-            hint: "Shown under the page intro as a slideshow. Leave empty to show a placeholder. Add as many as you like — visitors can step through them, and they auto-advance every few seconds. Best size: about 1200x675px (16:9), landscape, under 1MB each."
-            fields:
-              - label: Photo
-                name: photo
-                widget: image
-              - label: Caption
-                name: caption
-                widget: string
-                required: false
-                hint: "Optional. Used as the photo's alt text, and shown as a caption on the slide."
           - { label: "\"Ways to Participate\" Heading", name: waysHeading, widget: string }
           - label: "\"Ways to Participate\" Cards"
             name: waysCards

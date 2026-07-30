@@ -60,7 +60,7 @@
     <div class="container">
       <h1 id="gi-hero-heading" class="heading-accent">Get Involved</h1>
       <p id="gi-hero-body">There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
-      <!-- Photo slideshow — list of images managed via Decap CMS admin (get-involved-page.json's
+      <!-- Photo slideshow — list of images managed via Decap CMS admin (get-involved-photos.json's
            "photos" list). Falls back to a single placeholder slide until photos are added. -->
       <div class="photo-slideshow" id="gi-slideshow" role="region" aria-roledescription="carousel" aria-label="Photos of PCYD members and events">
         <div class="photo-slideshow-frame" id="gi-slideshow-frame">
@@ -222,13 +222,22 @@
       applyParagraphs('gi-expect-body', content.expectBody);
       applyText('gi-cta-heading', content.ctaHeading);
       applyText('gi-cta-body', content.ctaBody);
-      setUpSlideshow(content.photos);
     });
+
+    fetch('_data/get-involved-photos.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) { setUpSlideshow(data.photos); })
+      .catch(function () {
+        // Keep the single placeholder slide already in the markup
+      });
   </script>
 
-  <!-- Photo slideshow — built from get-involved-page.json's "photos" list.
-       If it's empty or the fetch fails, the single placeholder slide already
-       in the markup stays put and no controls are shown. -->
+  <!-- Photo slideshow — built from get-involved-photos.json's "photos" list
+       (its own small file/collection, kept separate from get-involved-page.json
+       since Decap's editor hangs when a list-of-images field is added inside
+       that larger multi-field entry). If it's empty or the fetch fails, the
+       single placeholder slide already in the markup stays put and no
+       controls are shown. -->
   <script>
     function setUpSlideshow(photos) {
       var list = (photos || []).filter(function (p) { return p && p.photo; });
