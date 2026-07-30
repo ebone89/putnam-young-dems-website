@@ -7,6 +7,100 @@
 </head>
 <body>
   <!--
+    Auto-resize photos on upload. Editors upload straight-off-the-phone
+    photos (e.g. 4000x3000, several MB) with no reason to know they should
+    downsize first, and the wrong aspect ratio looks badly cropped in the
+    site's photo frames. This intercepts every file input Decap creates
+    (the media library's upload button and each image field's own picker),
+    downscales anything over 1600px on its longest side, re-encodes at a
+    reasonable JPEG quality, and corrects for camera EXIF rotation — all
+    before Decap ever sees the file, so it uploads/commits a small, already-
+    correctly-oriented image instead of the original. Runs client-side only
+    (Canvas/File APIs); doesn't touch the GitHub upload path we already
+    fixed, so it can't reintroduce the CSP issues from that CSP_ADMIN work.
+    Small files (already-optimized images, logos, etc.) pass through
+    untouched. If anything about resizing fails, the original file is used
+    unmodified rather than blocking the upload.
+  -->
+  <script>
+    (function () {
+      var MAX_DIMENSION = 1600;
+      var JPEG_QUALITY = 0.82;
+      var SKIP_BELOW_BYTES = 400 * 1024;
+
+      function shouldConsider(file) {
+        return !!file && /^image\/(jpeg|png|webp)$/.test(file.type);
+      }
+
+      function resizeFile(file) {
+        return createImageBitmap(file, { imageOrientation: 'from-image' })
+          .catch(function () { return null; })
+          .then(function (bitmap) {
+            if (!bitmap) { return file; }
+
+            var scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+            if (scale === 1 && file.size <= SKIP_BELOW_BYTES) {
+              bitmap.close();
+              return file;
+            }
+
+            var targetWidth = Math.max(1, Math.round(bitmap.width * scale));
+            var targetHeight = Math.max(1, Math.round(bitmap.height * scale));
+            var canvas = document.createElement('canvas');
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(bitmap, 0, 0, targetWidth, targetHeight);
+            bitmap.close();
+
+            var outType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            var quality = outType === 'image/jpeg' ? JPEG_QUALITY : undefined;
+
+            return new Promise(function (resolve) {
+              canvas.toBlob(function (blob) {
+                if (!blob) { resolve(file); return; }
+                var name = file.name.replace(/\.(png|jpe?g|webp)$/i, outType === 'image/png' ? '.png' : '.jpg');
+                resolve(new File([blob], name, { type: outType, lastModified: Date.now() }));
+              }, outType, quality);
+            });
+          })
+          .catch(function () { return file; });
+      }
+
+      function interceptInput(input) {
+        if (input.dataset.pcydResizeHooked) { return; }
+        input.dataset.pcydResizeHooked = 'true';
+
+        input.addEventListener('change', function (event) {
+          var files = input.files;
+          if (!files || !files.length) { return; }
+          var file = files[0];
+          if (file.pcydResized || !shouldConsider(file)) { return; }
+
+          event.stopImmediatePropagation();
+          event.preventDefault();
+
+          resizeFile(file).then(function (finalFile) {
+            try { finalFile.pcydResized = true; } catch (e) { /* ignore */ }
+            var dt = new DataTransfer();
+            dt.items.add(finalFile);
+            input.files = dt.files;
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+        }, true);
+      }
+
+      if (window.createImageBitmap && window.DataTransfer) {
+        document.addEventListener('DOMContentLoaded', function () {
+          new MutationObserver(function () {
+            document.querySelectorAll('input[type="file"]').forEach(interceptInput);
+          }).observe(document.documentElement, { childList: true, subtree: true });
+        });
+      }
+    })();
+  </script>
+
+  <!--
     Decap CMS admin panel — loaded from CDN, no npm install needed.
     Access this at: https://putnamyoungdemsfl.org/admin/
     Config is read from admin/config.yml in the same folder.
