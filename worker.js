@@ -59,7 +59,15 @@ const CSP_ADMIN = [
   // media picker (existing files and freshly uploaded ones) loads the
   // binary successfully but is silently blocked from rendering.
   "img-src 'self' data: blob: https:",
-  "connect-src 'self' https://api.github.com https://github.com",
+  // blob: is also required in connect-src, separately from img-src above:
+  // when publishing an entry with a new/changed image, Decap reads the
+  // file's bytes via fetch(blobUrl) to base64-encode it for the GitHub API
+  // (see decap's uploadBlob/toBase64). Without blob: here, that fetch is
+  // blocked and every publish involving an image fails with "Failed to
+  // persist entry: TypeError: Failed to fetch" — this was the actual cause
+  // of that error, not the img-src gap above (which only affected preview
+  // thumbnails, a separate code path).
+  "connect-src 'self' https://api.github.com https://github.com blob:",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
