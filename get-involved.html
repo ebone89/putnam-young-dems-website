@@ -60,8 +60,25 @@
     <div class="container">
       <h1 id="gi-hero-heading" class="heading-accent">Get Involved</h1>
       <p id="gi-hero-body">There are several ways to participate, whether you want to lead, volunteer, or simply stay connected.</p>
-      <!-- Photo — image field managed via Decap CMS admin; falls back to a placeholder until set -->
-      <img id="gi-photo" src="assets/images/photo-placeholder.svg" alt="Get involved with PCYD" class="page-photo">
+      <!-- Photo slideshow — list of images managed via Decap CMS admin (get-involved-page.json's
+           "photos" list). Falls back to a single placeholder slide until photos are added. -->
+      <div class="photo-slideshow" id="gi-slideshow" role="region" aria-roledescription="carousel" aria-label="Photos of PCYD members and events">
+        <div class="photo-slideshow-frame" id="gi-slideshow-frame">
+          <ul class="photo-slideshow-track" id="gi-slideshow-track">
+            <li class="photo-slideshow-slide is-active">
+              <img src="assets/images/photo-placeholder.svg" alt="Get involved with PCYD">
+            </li>
+          </ul>
+          <button type="button" class="photo-slideshow-arrow photo-slideshow-prev" id="gi-slide-prev" aria-label="Previous photo" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+          </button>
+          <button type="button" class="photo-slideshow-arrow photo-slideshow-next" id="gi-slide-next" aria-label="Next photo" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+        </div>
+        <div class="photo-slideshow-dots" id="gi-slideshow-dots" hidden></div>
+        <p class="sr-only" role="status" aria-live="polite" id="gi-slideshow-status"></p>
+      </div>
     </div>
   </section>
 
@@ -197,7 +214,6 @@
     loadPageContent('_data/get-involved-page.json', function (content) {
       applyText('gi-hero-heading', content.heroHeading);
       applyText('gi-hero-body', content.heroBody);
-      applyImage('gi-photo', content.photo);
       applyText('gi-ways-heading', content.waysHeading);
       applyCards('gi-ways-cards', content.waysCards);
       applyText('gi-who-heading', content.whoHeading);
@@ -206,7 +222,104 @@
       applyParagraphs('gi-expect-body', content.expectBody);
       applyText('gi-cta-heading', content.ctaHeading);
       applyText('gi-cta-body', content.ctaBody);
+      setUpSlideshow(content.photos);
     });
+  </script>
+
+  <!-- Photo slideshow — built from get-involved-page.json's "photos" list.
+       If it's empty or the fetch fails, the single placeholder slide already
+       in the markup stays put and no controls are shown. -->
+  <script>
+    function setUpSlideshow(photos) {
+      var list = (photos || []).filter(function (p) { return p && p.photo; });
+      if (!list.length) { return; }
+
+      var root = document.getElementById('gi-slideshow');
+      var track = document.getElementById('gi-slideshow-track');
+      var prevBtn = document.getElementById('gi-slide-prev');
+      var nextBtn = document.getElementById('gi-slide-next');
+      var dotsWrap = document.getElementById('gi-slideshow-dots');
+      var status = document.getElementById('gi-slideshow-status');
+      var index = 0;
+      var timer = null;
+      var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      track.innerHTML = '';
+      var slides = list.map(function (photo, i) {
+        var li = document.createElement('li');
+        li.className = 'photo-slideshow-slide' + (i === 0 ? ' is-active' : '');
+        var img = document.createElement('img');
+        img.src = photo.photo;
+        img.alt = photo.caption || 'Get involved with PCYD';
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        li.appendChild(img);
+        if (photo.caption) {
+          var caption = document.createElement('span');
+          caption.className = 'photo-slideshow-caption';
+          caption.textContent = photo.caption;
+          li.appendChild(caption);
+        }
+        track.appendChild(li);
+        return li;
+      });
+
+      var dots = list.map(function (photo, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'photo-slideshow-dot' + (i === 0 ? ' is-active' : '');
+        dot.setAttribute('aria-label', 'Show photo ' + (i + 1) + ' of ' + list.length);
+        dot.addEventListener('click', function () { goTo(i); });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      function goTo(newIndex) {
+        index = (newIndex + list.length) % list.length;
+        slides.forEach(function (slide, i) { slide.classList.toggle('is-active', i === index); });
+        dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
+        var caption = list[index].caption;
+        status.textContent = 'Photo ' + (index + 1) + ' of ' + list.length + (caption ? ': ' + caption : '');
+      }
+
+      function stopAutoplay() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      function startAutoplay() {
+        if (timer || list.length < 2 || reducedMotion) { return; }
+        timer = setInterval(function () { goTo(index + 1); }, 6000);
+      }
+
+      if (list.length > 1) {
+        prevBtn.hidden = false;
+        nextBtn.hidden = false;
+        dotsWrap.hidden = false;
+        prevBtn.addEventListener('click', function () { stopAutoplay(); goTo(index - 1); });
+        nextBtn.addEventListener('click', function () { stopAutoplay(); goTo(index + 1); });
+        root.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft') { stopAutoplay(); goTo(index - 1); e.preventDefault(); }
+          if (e.key === 'ArrowRight') { stopAutoplay(); goTo(index + 1); e.preventDefault(); }
+        });
+
+        var touchStartX = null;
+        var frame = document.getElementById('gi-slideshow-frame');
+        frame.addEventListener('touchstart', function (e) { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+        frame.addEventListener('touchend', function (e) {
+          if (touchStartX == null) { return; }
+          var delta = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(delta) > 40) { stopAutoplay(); goTo(delta > 0 ? index - 1 : index + 1); }
+          touchStartX = null;
+        }, { passive: true });
+
+        root.addEventListener('mouseenter', stopAutoplay);
+        root.addEventListener('mouseleave', startAutoplay);
+        root.addEventListener('focusin', stopAutoplay);
+        root.addEventListener('focusout', function (e) {
+          if (!root.contains(e.relatedTarget)) { startAutoplay(); }
+        });
+        startAutoplay();
+      }
+    }
   </script>
   </main>
 

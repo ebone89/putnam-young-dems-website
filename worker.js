@@ -52,7 +52,13 @@ const CSP_ADMIN = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https:",
+  // blob: is required here (and only here): Decap's GitHub media library
+  // fetches each image's binary content via the GitHub API, then renders
+  // the thumbnail from a local URL.createObjectURL() blob rather than
+  // hotlinking GitHub. Without blob: in img-src, every thumbnail in the
+  // media picker (existing files and freshly uploaded ones) loads the
+  // binary successfully but is silently blocked from rendering.
+  "img-src 'self' data: blob: https:",
   "connect-src 'self' https://api.github.com https://github.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",

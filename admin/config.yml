@@ -486,11 +486,21 @@ collections:
         fields:
           - { label: Page Headline, name: heroHeading, widget: string }
           - { label: Page Intro, name: heroBody, widget: text }
-          - label: Photo
-            name: photo
-            widget: image
+          - label: Photos
+            name: photos
+            widget: list
+            label_singular: Photo
             required: false
-            hint: "Shown under the page intro. Leave blank to show a placeholder. Best size: about 1200x675px (16:9), landscape, under 1MB."
+            hint: "Shown under the page intro as a slideshow. Leave empty to show a placeholder. Add as many as you like — visitors can step through them, and they auto-advance every few seconds. Best size: about 1200x675px (16:9), landscape, under 1MB each."
+            fields:
+              - label: Photo
+                name: photo
+                widget: image
+              - label: Caption
+                name: caption
+                widget: string
+                required: false
+                hint: "Optional. Used as the photo's alt text, and shown as a caption on the slide."
           - { label: "\"Ways to Participate\" Heading", name: waysHeading, widget: string }
           - label: "\"Ways to Participate\" Cards"
             name: waysCards

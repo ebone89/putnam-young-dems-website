@@ -558,6 +558,131 @@ section {
   box-shadow: 0 0 0 6px var(--azalea-pink), 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
+/* --- Page-top photo slideshow (Get Involved) --- */
+/* Same pink-ring frame as .page-photo, but the frame stays put while
+   slides cross-fade behind it — the site's "photo in a frame" motif,
+   just holding more than one print. */
+.photo-slideshow {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.photo-slideshow-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 6px var(--azalea-pink), 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.photo-slideshow-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-slideshow-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.photo-slideshow-slide.is-active {
+  opacity: 1;
+}
+
+.photo-slideshow-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-slideshow-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.75rem 1rem 0.65rem;
+  font-size: 0.85rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.photo-slideshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.photo-slideshow-arrow:hover,
+.photo-slideshow-arrow:focus-visible {
+  background: var(--azalea-pink);
+}
+
+.photo-slideshow-prev { left: 0.75rem; }
+.photo-slideshow-next { right: 0.75rem; }
+
+/* Higher specificity than the bare .photo-slideshow-arrow rule above, so a
+   single photo (hidden via the HTML "hidden" attribute) actually hides the
+   arrows instead of the class's display: flex winning on source order. */
+.photo-slideshow-arrow[hidden] {
+  display: none;
+}
+
+.photo-slideshow-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.photo-slideshow-dots[hidden] {
+  display: none;
+}
+
+.photo-slideshow-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--azalea-pink);
+  background: transparent;
+  cursor: pointer;
+}
+
+.photo-slideshow-dot.is-active {
+  background: var(--azalea-pink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-slideshow-slide {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-slideshow-arrow {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+}
+
 /* --- Buttons --- */
 .btn {
   display: inline-block;
