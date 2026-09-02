@@ -1,3 +1,9 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "published": true,
+      "photo": "/assets/images/20260816_141059.jpg",
+      "caption": "Canvassing in Putnam County"
+    }
+  ]
 }
