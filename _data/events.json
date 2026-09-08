@@ -10,6 +10,16 @@
       "location": "Crescent City Women's Civic Assoc",
       "title": "Crescent City Voter Registration Drive and Community BBQ",
       "description": "Voter Registration Drive and community BBQ at the Crescent City Women's Civic Association."
+    },
+    {
+      "published": true,
+      "title": "People Power Canvassing",
+      "startDate": "2026-09-10",
+      "timeLabel": "9:30 a.m.",
+      "location": "Putnam County Democratic Headquarters",
+      "address": "914 St. Johns Ave.",
+      "cityState": "Palatka, FL 32177",
+      "description": "Come Canvass with us every thursday until midterms for our local candidate for county commissioner Joshua Florence, congressional candidate Eric Yonce, senatorial candidate Angie Nixon, and gubernatorial candidate David Jolly.\n\n<iframe data-st-embed src=\"https://putnam-dec.solidarity.tech/young-dem-canvassing-for-florence-yonce-nixon-and-jolly/embed\" allow=\"payment *\" style=\"width:100%;border:none;min-height:500px;\" title=\"Young Dem Canvassing for Florence, Yonce, Nixon, and Jolly\"></iframe>\n<script src=\"https://putnam-dec.solidarity.tech/embed/v1.js\" async></script>"
     }
   ]
 }
