@@ -561,11 +561,10 @@ collections:
             hint: "The small line under the page intro, e.g. primary/general election dates. Update each election cycle."
           - { label: Calendar Heading, name: calendarHeading, widget: string }
           - { label: RSVP Heading, name: rsvpHeading, widget: string }
-          - { label: RSVP Intro, name: rsvpIntro, widget: text }
-          - label: RSVP Embed HTML
-            name: rsvpEmbedHtml
+          - label: RSVP Intro
+            name: rsvpIntro
             widget: text
-            hint: "Replaces the RSVP form. Paste the Solidarity Tech embed's <iframe> tag only, not its loader <script> tag — that's already included once on the page."
+            hint: "Shown under the RSVP heading. There's no sign-up form here — each event's own Sign Up button (set per-event under Events, or below for the monthly meeting) is what people actually click, so this is just pointing them to it."
           - label: Monthly Meeting Sign-Up Link
             name: monthlyMeetingSignupUrl
             widget: string
