@@ -46,6 +46,19 @@
 
 .result-count { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 0.5rem; }
 
+/* WORK-IN-PROGRESS BANNER: reuses the amber "in progress" status tone
+   already defined above, so the flag reads as the same kind of "not
+   finished yet" signal as an in-progress promise tag, not a new color
+   the page hasn't established meaning for. */
+.wip-banner {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  background: var(--amber-50); border: 1px solid var(--amber-100);
+  border-radius: 4px; padding: 1rem 1.25rem; margin-top: 2rem;
+}
+.wip-banner-icon { flex-shrink: 0; width: 20px; height: 20px; margin-top: 0.15rem; color: var(--amber-600); }
+.wip-banner p { font-size: 0.9rem; line-height: 1.55; color: var(--text); }
+.wip-banner strong { color: var(--amber-600); }
+
 /* ROSTER CARD GRID */
 .card-grid {
   display: grid;
