@@ -41,8 +41,11 @@ var PCYDEvents = (function () {
   }
 
   // Returns the monthly meeting in the same shape as a CMS event so both
-  // can be sorted, filtered, and rendered through one code path.
-  function getMonthlyMeeting() {
+  // can be sorted, filtered, and rendered through one code path. signupUrl
+  // is optional since the monthly meeting isn't itself a CMS entry — events.html
+  // fetches it separately from events-page.json (Decap CMS: Page Content >
+  // Events Page > Monthly Meeting Sign-Up Link) and threads it through.
+  function getMonthlyMeeting(signupUrl) {
     var d = getNextFirstThursday();
     return {
       title: 'Monthly Meeting',
@@ -53,7 +56,8 @@ var PCYDEvents = (function () {
       address: '914 St. Johns Ave., Suite 2',
       cityState: 'Palatka, FL 32177',
       description: 'PCYD monthly member meeting. All members and prospective members are welcome.',
-      recurring: true
+      recurring: true,
+      signupUrl: signupUrl || null
     };
   }
 
@@ -85,9 +89,10 @@ var PCYDEvents = (function () {
   }
 
   // Combines the monthly meeting with CMS events and sorts by date so the
-  // list and calendar always agree on ordering.
-  function getUpcomingEvents(cmsEvents) {
-    var all = [getMonthlyMeeting()].concat(cmsEvents);
+  // list and calendar always agree on ordering. monthlyMeetingSignupUrl is
+  // optional, see getMonthlyMeeting() above.
+  function getUpcomingEvents(cmsEvents, monthlyMeetingSignupUrl) {
+    var all = [getMonthlyMeeting(monthlyMeetingSignupUrl)].concat(cmsEvents);
     var todayISO = toISODate(new Date());
     return all
       .filter(function (ev) { return ev.startDate >= todayISO; })
@@ -95,10 +100,13 @@ var PCYDEvents = (function () {
   }
 
   function eventCardHTML(ev) {
+    var signupButton = ev.signupUrl
+      ? '<a class="btn btn-primary mt-2" href="' + ev.signupUrl + '" target="_blank" rel="noopener">Sign Up &rarr;</a>'
+      : '';
     return '<div class="event-date">' + formatEventHeading(ev) + '</div>' +
       '<h3>' + ev.title + '</h3>' +
       '<p class="event-details">' + ev.location + '<br>' + ev.address + ', ' + ev.cityState + '</p>' +
-      '<p>' + ev.description + '</p>';
+      '<p>' + ev.description + '</p>' + signupButton;
   }
 
   return {

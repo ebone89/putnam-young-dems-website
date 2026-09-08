@@ -80,6 +80,12 @@ collections:
                 widget: text
                 hint: "One or two sentences shown on the site."
 
+              - label: Solidarity Tech Sign-Up Link
+                name: signupUrl
+                widget: string
+                required: false
+                hint: "Paste the link to this event's Solidarity Tech sign-up page. Adds a Sign Up button to the event card that opens it in a new tab. Leave blank if this event doesn't have one."
+
               - label: Published
                 name: published
                 widget: boolean
@@ -560,6 +566,11 @@ collections:
             name: rsvpEmbedHtml
             widget: text
             hint: "Replaces the RSVP form. Paste the Solidarity Tech embed's <iframe> tag only, not its loader <script> tag — that's already included once on the page."
+          - label: Monthly Meeting Sign-Up Link
+            name: monthlyMeetingSignupUrl
+            widget: string
+            required: false
+            hint: "Solidarity Tech sign-up link for the recurring monthly meeting. Adds a Sign Up button to its card, same as the per-event link under Events. Leave blank to hide the button."
           - { label: "\"Upcoming Events\" Heading", name: upcomingHeading, widget: string }
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }

@@ -191,13 +191,21 @@
 
       // Upcoming events list, sorted by date, monthly meeting included
       var container = document.getElementById('upcoming-events-container');
-      var rsvpSelect = document.getElementById('r-event');
 
-      PCYDEvents.fetchEvents().then(function (data) {
-        cmsEvents = data;
+      // The monthly meeting's Sign Up button needs its link from
+      // events-page.json (Decap CMS: Page Content > Events Page > Monthly
+      // Meeting Sign-Up Link), fetched here alongside the CMS events list
+      // rather than through the loadPageContent() call further down, since
+      // that call's result isn't available until after this callback runs.
+      Promise.all([
+        PCYDEvents.fetchEvents(),
+        fetch('_data/events-page.json').then(function (r) { return r.json(); }).catch(function () { return {}; })
+      ]).then(function (results) {
+        cmsEvents = results[0];
+        var monthlyMeetingSignupUrl = results[1].monthlyMeetingSignupUrl;
         renderCalendar();
 
-        var upcoming = PCYDEvents.getUpcomingEvents(cmsEvents);
+        var upcoming = PCYDEvents.getUpcomingEvents(cmsEvents, monthlyMeetingSignupUrl);
 
         upcoming.forEach(function (ev) {
           var card = document.createElement('div');
@@ -205,10 +213,6 @@
           card.innerHTML = PCYDEvents.eventCardHTML(ev);
           container.appendChild(card);
         });
-
-        rsvpSelect.innerHTML = upcoming.map(function (ev) {
-          return '<option value="' + ev.title + '">' + ev.title + ' — ' + PCYDEvents.formatDateRange(ev.startDate, ev.endDate) + '</option>';
-        }).join('');
       });
     })();
   </script>
