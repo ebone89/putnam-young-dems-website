@@ -3,16 +3,16 @@
     {
       "type": "Candidate Race",
       "title": "U.S. Senate (Special Election)",
-      "summary": "Filling the remainder of Marco Rubio's term after his resignation to become U.S. Secretary of State. Governor DeSantis appointed Ashley Moody to the seat; this election decides who holds it for the rest of the term.",
-      "details": "Republican primary: Ashley Moody (incumbent), Chris Gleason, Neelam Taneja Perry, Ernest \"Ernie\" Rivera. Democratic primary: State Rep. Angie Nixon (Jacksonville) and Alex Vindman (retired Army lieutenant colonel, former National Security Council director).",
+      "summary": "Filling the remainder of Marco Rubio's term after his resignation to become U.S. Secretary of State. Governor DeSantis appointed Ashley Moody to hold the seat in the interim; the winner of the November special election serves the remaining two years of the term.",
+      "details": "Ashley Moody won the Republican nomination with 80% of the vote, ahead of Chris Gleason (14%), Ernest Rivera (5%), and Neelam Perry (2%). Angie Nixon won the Democratic nomination with 56%, defeating Alex Vindman (44%). Moody and Nixon face off in November, along with one independent candidate.",
       "moreInfoUrl": "https://ballotpedia.org/United_States_Senate_special_election_in_Florida,_2026",
       "published": true
     },
     {
       "type": "Candidate Race",
       "title": "U.S. House, District 6",
-      "summary": "Putnam County's congressional seat. Redrawn district boundaries favor the Republican nominee heading into November, which makes the primary the more competitive contest.",
-      "details": "Republican primary: Rep. Randy Fine (incumbent), Dan Bilzerian, Charles Gambaro (Palm Coast City Council), Aaron Baker. Democratic primary: Robert David Cooper II, Steve Morgan, Ronnie \"Ron\" Murchinson-Rivera, Eric Yonce.",
+      "summary": "Putnam County's congressional seat. Redrawn district boundaries favor the Republican nominee heading into November. Incumbent Randy Fine and Democratic nominee Eric Yonce face off for the seat.",
+      "details": "Randy Fine won the Republican nomination with 57%, ahead of Dan Bilzerian (19%), Aaron Baker (13%), Charles Gambaro (10%), and Manuel Asensio (1%). Eric Yonce won a close four-way Democratic primary with 32%, ahead of Ronnie Murchinson-Rivera (27%), Steve Morgan (23%), and Robert Cooper II (18%). Fine and Yonce meet on the November ballot.",
       "moreInfoUrl": "https://ballotpedia.org/Florida%27s_6th_congressional_district",
       "published": true
     },
@@ -35,16 +35,16 @@
     {
       "type": "Candidate Race",
       "title": "Putnam County Commission, District 4",
-      "summary": "The most closely watched local primary this cycle: a Republican incumbent focused on grants and regional partnerships against a challenger running on a spending and animal-control accountability platform.",
-      "details": "Republican primary: Larry Harvey (incumbent) vs. Joseph \"Joey\" Agner. Also on the November ballot: Joshua Florence (Democrat, firefighter running on expanding healthcare access) and Ronald Burckhard (No Party Affiliation).",
+      "summary": "Putnam's most closely watched local primary. Incumbent Larry Harvey held off a challenger running on spending and animal-control accountability.",
+      "details": "Larry Harvey won the Republican nomination with 60%, defeating Joseph \"Joey\" Agner (40%). Harvey faces Joshua Florence (Democrat, firefighter running on expanding healthcare access) and Ronald Burckhard (No Party Affiliation) on the November ballot.",
       "moreInfoUrl": "https://ballotpedia.org/Joseph_Agner_(Putnam_County_Board_of_County_Commissioners_District_4,_Florida,_candidate_2026)",
       "published": true
     },
     {
       "type": "Candidate Race",
       "title": "Palatka Mayor-Commissioner",
-      "summary": "Nonpartisan race for the top elected office in the county seat. If no candidate wins a simple majority in the August primary, the top two finishers head to a runoff in November.",
-      "details": "Candidates: Robbi Correa (incumbent), Karl N. Flagg (former mayor), Tatyiana Henry Daniel, Constance Daniels.",
+      "summary": "Nonpartisan race for the top elected office in the county seat. Karl Flagg, a former Palatka mayor, won an outright majority in the August primary, unseating incumbent Robbi Correa.",
+      "details": "Karl Flagg won with 58% of the vote, defeating incumbent Robbi Correa (23%), Constance Daniels (17%), and Tatyiana Henry Daniel (3%). Because Flagg cleared a majority outright, the race is decided and will not appear on the November ballot (pending confirmation that Palatka's charter doesn't require a runoff regardless).",
       "moreInfoUrl": "https://ballotpedia.org/Robbi_Correa_(Palatka_City_Commission_At-large_(Mayor),_Florida,_candidate_2026)",
       "published": true
     },
@@ -59,8 +59,8 @@
     {
       "type": "Candidate Race",
       "title": "Seventh Judicial Circuit Court, Group 26",
-      "summary": "Nonpartisan judicial race covering Flagler, Putnam, St. Johns, and Volusia counties. All registered voters, regardless of party, can vote in this race in the August primary. If a candidate wins a majority outright in August, the race is decided and will not appear on the November ballot.",
-      "details": "Candidates: Carleen Leffler vs. Jeanne Stratis.",
+      "summary": "Nonpartisan judicial race covering Flagler, Putnam, St. Johns, and Volusia counties. All registered voters, regardless of party, could vote in this race. Jeanne Stratis won a majority outright in August, so the race is decided and will not appear on the November ballot.",
+      "details": "Jeanne Stratis won with 61% of the vote, defeating Carleen Leffler (39%).",
       "moreInfoUrl": "https://ballotpedia.org/Carleen_Leffler_(Florida_7th_Circuit_Court_Group_26,_Florida,_candidate_2026)",
       "published": true
     },
@@ -91,7 +91,7 @@
     {
       "type": "Informational",
       "title": "Already Decided: Uncontested Local Races",
-      "summary": "These offices drew no qualified opposition and will not appear on your primary ballot. They have already been elected or advanced automatically.",
+      "summary": "These offices drew no qualified opposition and did not appear on the primary ballot. They were already elected or advanced automatically.",
       "details": "County Commission District 2: Leota Wilkinson (R). School Board District 1: Holly Pickens. School Board District 4: Linda Wagner. School Board District 5: Phil Leary. Soil & Water Conservation District 1: Doug Doran. Soil & Water Conservation District 3: Christy Revels Largacci. Soil & Water Conservation District 4: Jody Counts. Soil & Water Conservation District 5: Chance Clay.",
       "moreInfoUrl": "https://www.voteputnamflorida.gov/election_information/offices_up_for_election.php",
       "published": true
