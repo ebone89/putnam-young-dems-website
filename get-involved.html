@@ -135,67 +135,27 @@
     </div>
   </section>
 
-  <!-- Volunteer Interest Form -->
+  <!-- Volunteer Sign-Up — embedded Solidarity Tech form, replacing the old
+       D1-backed volunteer interest form. The iframe below is the static
+       fallback baked into the page; loadPageContent() further down overlays
+       whatever HTML is set in _data/get-involved-page.json's
+       volunteerEmbedHtml field (edit via Decap CMS: Page Content > Get
+       Involved Page) if it differs. Solidarity Tech's loader script (which
+       finds and initializes any data-st-embed iframe on the page) is
+       included once, right after this section. -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header">
         <h2 class="heading-accent">Sign Up to Volunteer</h2>
         <p>Tell us what you're interested in and we'll follow up with next steps.</p>
       </div>
-      <form class="contact-form" id="volunteer-form">
-        <input type="text" name="_hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-        <div class="form-group">
-          <label for="v-name">Name</label>
-          <input type="text" id="v-name" name="name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="v-email">Email</label>
-          <input type="email" id="v-email" name="email" required placeholder="you@example.com">
-        </div>
-        <div class="form-group">
-          <label for="v-phone">Phone (optional)</label>
-          <input type="tel" id="v-phone" name="phone" placeholder="(386) 555-0100">
-        </div>
-        <div class="form-group">
-          <label id="v-interest-label">What are you interested in?</label>
-          <div role="group" aria-labelledby="v-interest-label" class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" name="interest" value="Event logistics"> Event logistics</label>
-            <label class="checkbox-label"><input type="checkbox" name="interest" value="Voter registration and outreach"> Voter registration and outreach</label>
-            <label class="checkbox-label"><input type="checkbox" name="interest" value="Communications and social media"> Communications and social media</label>
-            <label class="checkbox-label"><input type="checkbox" name="interest" value="Precinct or leadership track"> Precinct or leadership track</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="v-notes">Availability or notes (optional)</label>
-          <textarea id="v-notes" name="notes" placeholder="Anything that helps us match you to the right role"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-        <p class="form-status" id="volunteer-form-status" role="status"></p>
-      </form>
+      <div id="gi-volunteer-embed">
+        <iframe data-st-embed src="https://putnam-dec.solidarity.tech/pcyd-sign-up-form/embed" allow="payment *" style="width:100%;border:none;min-height:500px;" title="PCYD Sign Up Form"></iframe>
+      </div>
     </div>
   </section>
 
-  <script src="assets/js/signup.js"></script>
-  <script>
-    document.getElementById('volunteer-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var form = e.target;
-      var interests = Array.prototype.slice.call(form.querySelectorAll('input[name="interest"]:checked'))
-        .map(function (cb) { return cb.value; })
-        .join(', ');
-
-      submitSignup({
-        type: 'volunteer',
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        interestAreas: interests,
-        notes: form.notes.value,
-        _hp: form._hp.value
-      }, document.getElementById('volunteer-form-status'), form);
-    });
-  </script>
+  <script src="https://putnam-dec.solidarity.tech/embed/v1.js" async></script>
 
   <!-- CTA -->
   <section class="hero">
@@ -220,6 +180,7 @@
       applyParagraphs('gi-who-body', content.whoBody);
       applyText('gi-expect-heading', content.expectHeading);
       applyParagraphs('gi-expect-body', content.expectBody);
+      applyHTML('gi-volunteer-embed', content.volunteerEmbedHtml);
       applyText('gi-cta-heading', content.ctaHeading);
       applyText('gi-cta-body', content.ctaBody);
     });

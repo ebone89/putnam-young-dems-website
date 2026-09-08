@@ -535,6 +535,10 @@ collections:
             name: expectBody
             widget: text
             hint: "Leave a blank line between paragraphs."
+          - label: Volunteer Sign-Up Embed HTML
+            name: volunteerEmbedHtml
+            widget: text
+            hint: "Replaces the volunteer sign-up form. Paste the Solidarity Tech embed's <iframe> tag only, not its loader <script> tag — that's already included once on the page."
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }
 
@@ -552,6 +556,10 @@ collections:
           - { label: Calendar Heading, name: calendarHeading, widget: string }
           - { label: RSVP Heading, name: rsvpHeading, widget: string }
           - { label: RSVP Intro, name: rsvpIntro, widget: text }
+          - label: RSVP Embed HTML
+            name: rsvpEmbedHtml
+            widget: text
+            hint: "Replaces the RSVP form. Paste the Solidarity Tech embed's <iframe> tag only, not its loader <script> tag — that's already included once on the page."
           - { label: "\"Upcoming Events\" Heading", name: upcomingHeading, widget: string }
           - { label: Closing Heading, name: ctaHeading, widget: string }
           - { label: Closing Text, name: ctaBody, widget: text }

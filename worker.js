@@ -19,16 +19,21 @@
 // Response headers applied to every request, static assets included.
 // The CSP allows exactly the external hosts this site actually depends on:
 // unpkg.com (Decap CMS bundle), api.github.com/github.com (Decap's GitHub
-// backend + OAuth), and Google Fonts (Putnam Watch). If you add a new CDN
-// or embed anywhere, this is the first place to update, and /admin/ is the
-// first place to smoke-test after any change here, since a too-strict CSP
-// fails silent (the CMS just won't load) rather than throwing an error you'd
-// notice right away.
+// backend + OAuth), Google Fonts (Putnam Watch), and putnam-dec.solidarity.tech
+// (the Solidarity Tech sign-up form embedded on Events and Get Involved). If
+// you add a new CDN or embed anywhere, this is the first place to update, and
+// /admin/ is the first place to smoke-test after any change here, since a
+// too-strict CSP fails silent (the CMS just won't load) rather than throwing
+// an error you'd notice right away.
 const BASE_SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'X-Frame-Options': 'DENY',
-  'Permissions-Policy': 'geolocation=(), camera=(), microphone=(), payment=()',
+  // payment is scoped to the Solidarity Tech origin (not left wide open)
+  // because its embedded sign-up form requests it via allow="payment *" on
+  // its <iframe> — without this delegation, that iframe can't use the
+  // Payment Request API even though the iframe tag itself grants it.
+  'Permissions-Policy': 'geolocation=(), camera=(), microphone=(), payment=(self "https://putnam-dec.solidarity.tech")',
 };
 
 // Decap CMS (loaded at /admin/) evaluates its YAML config with `eval`,
@@ -37,11 +42,14 @@ const BASE_SECURITY_HEADERS = {
 // every public page under the stricter policy.
 const CSP_DEFAULT = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://unpkg.com",
+  "script-src 'self' 'unsafe-inline' https://unpkg.com https://putnam-dec.solidarity.tech",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
-  "connect-src 'self' https://api.github.com https://github.com",
+  "connect-src 'self' https://api.github.com https://github.com https://putnam-dec.solidarity.tech",
+  // Without this, default-src's 'self' blocks the Solidarity Tech sign-up
+  // form's <iframe> outright (the browser never even requests it).
+  "frame-src 'self' https://putnam-dec.solidarity.tech",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

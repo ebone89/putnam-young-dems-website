@@ -5,6 +5,7 @@
   "calendarHeading": "Calendar",
   "rsvpHeading": "RSVP",
   "rsvpIntro": "Let us know you're coming so we can plan for you.",
+  "rsvpEmbedHtml": "<iframe data-st-embed src=\"https://putnam-dec.solidarity.tech/pcyd-sign-up-form/embed\" allow=\"payment *\" style=\"width:100%;border:none;min-height:500px;\" title=\"PCYD Sign Up Form\"></iframe>",
   "upcomingHeading": "Upcoming Events",
   "ctaHeading": "Stay in the Loop",
   "ctaBody": "Follow us on social media or reach out directly to get notified about upcoming events and meetings."

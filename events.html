@@ -95,35 +95,26 @@
     </div>
   </section>
 
-  <!-- RSVP -->
+  <!-- RSVP — embedded Solidarity Tech sign-up form, replacing the old D1-backed
+       RSVP form. The iframe below is the static fallback baked into the page;
+       loadPageContent() further down overlays whatever HTML is set in
+       _data/events-page.json's rsvpEmbedHtml field (edit via Decap CMS:
+       Page Content > Events Page) if it differs. Solidarity Tech's loader
+       script (which finds and initializes any data-st-embed iframe on the
+       page) is included once, right after this section. -->
   <section class="section-gray">
     <div class="container" style="max-width: 800px;">
       <div class="section-header">
         <h2 id="events-rsvp-heading">RSVP</h2>
         <p id="events-rsvp-intro">Let us know you're coming so we can plan for you.</p>
       </div>
-      <form class="contact-form" id="rsvp-form">
-        <input type="text" name="_hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-        <div class="form-group">
-          <label for="r-event">Which event?</label>
-          <select id="r-event" name="event" required>
-            <option value="">Loading events…</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="r-name">Name</label>
-          <input type="text" id="r-name" name="name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="r-email">Email</label>
-          <input type="email" id="r-email" name="email" required placeholder="you@example.com">
-        </div>
-        <button type="submit" class="btn btn-primary">RSVP</button>
-        <p class="form-status" id="rsvp-form-status" role="status"></p>
-      </form>
+      <div id="events-rsvp-embed">
+        <iframe data-st-embed src="https://putnam-dec.solidarity.tech/pcyd-sign-up-form/embed" allow="payment *" style="width:100%;border:none;min-height:500px;" title="PCYD Sign Up Form"></iframe>
+      </div>
     </div>
   </section>
+
+  <script src="https://putnam-dec.solidarity.tech/embed/v1.js" async></script>
 
   <!-- Upcoming Events — loaded from _data/events.json (managed via Decap CMS admin) -->
   <section class="section-gray">
@@ -222,23 +213,6 @@
     })();
   </script>
 
-  <script src="assets/js/signup.js"></script>
-  <script>
-    document.getElementById('rsvp-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var form = e.target;
-
-      submitSignup({
-        type: 'rsvp',
-        name: form.name.value,
-        email: form.email.value,
-        eventTitle: form.event.value,
-        _hp: form._hp.value
-      }, document.getElementById('rsvp-form-status'), form);
-    });
-  </script>
-
-
   <!-- Stay Updated CTA -->
   <section class="hero">
     <div class="container">
@@ -257,6 +231,7 @@
       applyText('events-calendar-heading', content.calendarHeading);
       applyText('events-rsvp-heading', content.rsvpHeading);
       applyText('events-rsvp-intro', content.rsvpIntro);
+      applyHTML('events-rsvp-embed', content.rsvpEmbedHtml);
       applyText('events-upcoming-heading', content.upcomingHeading);
       applyText('events-cta-heading', content.ctaHeading);
       applyText('events-cta-body', content.ctaBody);

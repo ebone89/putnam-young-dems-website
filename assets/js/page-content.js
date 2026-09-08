@@ -15,6 +15,16 @@ function applyImage(id, value) {
   if (el) { el.src = value; }
 }
 
+// Overlays a raw HTML snippet (e.g. a third-party embed like Solidarity
+// Tech) into a container. Trusts the value the way applyParagraphs/applyCards
+// already do: it comes from Decap CMS, editable only by admins with GitHub
+// OAuth access, not from an untrusted visitor input.
+function applyHTML(id, value) {
+  if (value == null) { return; }
+  var el = document.getElementById(id);
+  if (el) { el.innerHTML = value; }
+}
+
 function applyParagraphs(id, value) {
   if (value == null) { return; }
   var el = document.getElementById(id);
