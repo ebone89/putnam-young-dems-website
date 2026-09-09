@@ -842,26 +842,6 @@ section {
   margin-bottom: 0.75rem;
 }
 
-/* Decorative badge holding each card's line icon. Purely visual, so the
-   markup carries aria-hidden and the icon inherits the azalea accent. */
-.card-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  background: rgba(214, 68, 142, 0.12);
-  color: var(--azalea-pink);
-}
-
-.card-icon svg {
-  width: 22px;
-  height: 22px;
-  display: block;
-}
-
 /* --- Event Card --- */
 .event-card {
   background: var(--surface);
