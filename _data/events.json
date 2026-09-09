@@ -14,13 +14,24 @@
     },
     {
       "cityState": "Palatka, FL 32177",
-      "timeLabel": "9:30 a.m. - 1:00 p.m.",
+      "timeLabel": "9:45 a.m. - 2:00 p.m.",
       "published": true,
       "startDate": "2026-09-10",
       "address": "914 St. Johns Ave.",
       "location": "Putnam County Democratic Headquarters",
       "signupUrl": "https://putnam-dec.solidarity.tech/young-dem-canvassing-for-florence-yonce-nixon-and-jolly",
       "title": "People Power Canvassing - Thursday Edition",
+      "description": "Weekly Canvassing with the Putnam County Dems for the Joshua Florence, Eric Yonce, Angie Nixon, and David Jolly campaigns - Thursday Edition"
+    },
+    {
+      "cityState": "Palatka, FL 32177",
+      "timeLabel": "9:45 - 2:00 p.m.",
+      "published": true,
+      "startDate": "2026-09-12",
+      "address": "914 St. Johns Ave.",
+      "location": "Putnam County Democratic Headquarters",
+      "signupUrl": "https://putnam-dec.solidarity.tech/saturday-canvassing",
+      "title": "People Power Canvassing - Saturday Edition",
       "description": "Weekly Canvassing with the Putnam County Dems for the Joshua Florence, Eric Yonce, Angie Nixon, and David Jolly campaigns - Thursday Edition"
     }
   ]
