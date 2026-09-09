@@ -1,13 +1,14 @@
 {
   "events": [
     {
-      "published": true,
-      "title": "People Power Canvassing",
-      "startDate": "2026-09-10",
-      "timeLabel": "9:30 a.m.",
-      "location": "Putnam County Democratic Headquarters",
-      "address": "914 St. Johns Ave.",
       "cityState": "Palatka, FL 32177",
+      "timeLabel": "9:30 a.m.",
+      "published": true,
+      "startDate": "2026-09-10",
+      "address": "914 St. Johns Ave.",
+      "location": "Putnam County Democratic Headquarters",
+      "signupUrl": "https://putnam-dec.solidarity.tech/young-dem-canvassing-for-florence-yonce-nixon-and-jolly",
+      "title": "People Power Canvassing",
       "description": "Come Canvass with us every thursday until midterms for our local candidate for county commissioner Joshua Florence, congressional candidate Eric Yonce, senatorial candidate Angie Nixon, and gubernatorial candidate David Jolly."
     }
   ]
