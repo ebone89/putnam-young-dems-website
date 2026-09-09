@@ -1,12 +1,12 @@
 {
-  "heroHeading": "Events",
-  "heroBody": "Community gatherings, member meetings, and public events in Putnam County.",
-  "electionNote": "Mark your calendar: the 2026 general election is November 3.",
   "calendarHeading": "Calendar",
-  "rsvpHeading": "RSVP",
-  "rsvpIntro": "RSVP by clicking Sign Up on the event you plan to attend, in the list below.",
-  "monthlyMeetingSignupUrl": "",
   "upcomingHeading": "Upcoming Events",
+  "rsvpHeading": "RSVP",
+  "heroHeading": "Events",
+  "monthlyMeetingSignupUrl": "https://putnam-dec.solidarity.tech/young-dem-monthly-meeting",
+  "electionNote": "Mark your calendar: the 2026 general election is November 3.",
+  "rsvpIntro": "RSVP by clicking Sign Up on the event you plan to attend, in the list below.",
   "ctaHeading": "Stay in the Loop",
-  "ctaBody": "Follow us on social media or reach out directly to get notified about upcoming events and meetings."
+  "ctaBody": "Follow us on social media or reach out directly to get notified about upcoming events and meetings.",
+  "heroBody": "Community gatherings, member meetings, and public events in Putnam County."
 }
