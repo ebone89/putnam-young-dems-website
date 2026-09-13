@@ -1,6 +1,10 @@
 {
   "photos": [
     {
+      "photo": "/assets/images/20260905_133147.jpg",
+      "caption": "Canvassing Team"
+    },
+    {
       "photo": "/assets/images/20260718_083834-0-.jpg",
       "caption": "Leadership Blue 2026, Orlando Florida"
     },
@@ -13,8 +17,8 @@
       "caption": "Epic Cure Weekly Food Drive, Palatka Florida"
     },
     {
-      "photo": "/assets/images/20260905_133147.jpg",
-      "caption": "Canvassing Team"
+      "photo": "/assets/images/20260816_141059.jpg",
+      "caption": "Knocking Doors"
     }
   ]
 }
