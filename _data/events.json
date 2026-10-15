@@ -3,7 +3,7 @@
     {
       "cityState": "Palatka, FL 32177",
       "timeLabel": "2:00 p.m.- 5:00 p.m.",
-      "endDate": "",
+      "endDate": "2026-11-03",
       "published": true,
       "startDate": "2026-09-14",
       "address": "914 St. Johns Ave",
@@ -15,6 +15,7 @@
     {
       "cityState": "Palatka, FL 32177",
       "timeLabel": "9:45 a.m. - 2:00 p.m.",
+      "endDate": "2026-11-03",
       "published": true,
       "startDate": "2026-09-10",
       "address": "914 St. Johns Ave.",
@@ -26,6 +27,7 @@
     {
       "cityState": "Palatka, FL 32177",
       "timeLabel": "9:45 - 2:00 p.m.",
+      "endDate": "2026-11-03",
       "published": true,
       "startDate": "2026-09-12",
       "address": "914 St. Johns Ave.",
